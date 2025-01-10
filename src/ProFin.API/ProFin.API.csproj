@@ -27,6 +27,8 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\ProFin.Core\ProFin.Core.csproj" />
+	  <ProjectReference Include="..\ProFin.Data\ProFin.Data.csproj" />
+	  <ProjectReference Include="..\ProFin.Identity\ProFin.Identity.csproj" />
 	</ItemGroup>
 
 

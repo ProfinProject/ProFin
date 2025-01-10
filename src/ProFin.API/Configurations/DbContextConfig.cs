@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using Microsoft.EntityFrameworkCore;
 using ProFin.Core.Data.Context;
 
 namespace ProFin.API.Configurations

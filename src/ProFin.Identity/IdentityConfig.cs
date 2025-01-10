@@ -11,12 +11,12 @@ namespace ProFin.Identity
     {
         public static WebApplicationBuilder AddIdentity(this WebApplicationBuilder builder)
         {
-            builder.Services.AddDbContext<IdentityDbContext>(options =>
+            builder.Services.AddDbContext<ProFinIdentityDbContext>(options =>
               options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddDefaultIdentity<IdentityUser>()
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<IdentityDbContext>()
+                .AddEntityFrameworkStores<ProFinIdentityDbContext>()
                 .AddSignInManager()
                 .AddRoleManager<RoleManager<IdentityRole>>()
                 .AddDefaultTokenProviders();

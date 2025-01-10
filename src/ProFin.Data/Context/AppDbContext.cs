@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ProFin.Core.Business.Models;
+using ProFin.Core.Models;
 
 namespace ProFin.Core.Data.Context
 {

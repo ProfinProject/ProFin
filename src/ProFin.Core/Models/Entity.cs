@@ -1,4 +1,4 @@
-﻿namespace ProFin.Core.Business.Models
+﻿namespace ProFin.Core.Models
 {
     public abstract class Entity
     {

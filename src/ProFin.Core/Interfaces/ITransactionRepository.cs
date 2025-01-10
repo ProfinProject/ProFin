@@ -1,6 +1,6 @@
-﻿using ProFin.Core.Business.Models;
+﻿using ProFin.Core.Models;
 
-namespace ProFin.Core.Business.Interfaces
+namespace ProFin.Core.Interfaces
 {
     public interface ITransactionRepository
     {

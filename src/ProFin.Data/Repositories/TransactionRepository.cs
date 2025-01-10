@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProFin.Core.Business.Interfaces;
-using ProFin.Core.Business.Models;
 using ProFin.Core.Data.Context;
+using ProFin.Core.Interfaces;
+using ProFin.Core.Models;
 
 namespace ProFin.Core.Data.Repositories
 {

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ProFin.Core.Models;
 
-namespace ProFin.Core.Data.Context
+namespace ProFin.Data.Context
 {
     public class AppDbContext : DbContext
     {

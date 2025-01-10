@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProFin.Core.Data.Context;
+using ProFin.Data.Context;
 using ProFin.Core.Interfaces;
 using ProFin.Core.Models;
 
-namespace ProFin.Core.Data.Repositories
+namespace ProFin.Data.Repositories
 {
     public class TransactionRepository(AppDbContext db) : ITransactionRepository
     {

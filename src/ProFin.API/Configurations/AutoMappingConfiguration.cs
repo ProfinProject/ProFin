@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Hosting;
-using ProFin.API.DTOs;
+using ProFin.API.ViewModels;
 using ProFin.Core.Business.Models;
 
 namespace ProFin.API.Configurations
@@ -9,8 +8,8 @@ namespace ProFin.API.Configurations
     {
         public AutoMappingConfiguration()
         {
-            CreateMap<TransactionDTO, Transaction>();
-            CreateMap<Transaction, TransactionDTO>();
+            CreateMap<TransactionViewModel, Transaction>();
+            CreateMap<Transaction, TransactionViewModel>();
         }
     }
 }

@@ -1,0 +1,8 @@
+<mat-form-field class="example-full-width me-3 w-50">
+    <mat-label>Choose a date</mat-label>
+    <input matInput [matDatepicker]="picker">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <button mat-flat-button color="primary" (click)="picker.open()">Open</button>
+  

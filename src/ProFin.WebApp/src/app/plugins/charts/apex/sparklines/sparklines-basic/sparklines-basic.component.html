@@ -1,0 +1,167 @@
+<div>
+    <div class="row">
+      <div class="col-md-4">
+        <div id="chart-spark1">
+          <apx-chart
+            #chartspark1
+            [series]="series1"
+            [chart]="chart_1"
+            [stroke]="stroke_1"
+            [yaxis]="yaxis_1"
+            [fill]="fill_1"
+            [colors]="colors1"
+            [title]="title1"
+            [subtitle]="subtitle1"
+          ></apx-chart>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div id="chart-spark2">
+          <apx-chart
+            #chartspark2
+            [series]="series2"
+            [chart]="chart_1"
+            [stroke]="stroke_1"
+            [yaxis]="yaxis_1"
+            [fill]="fill_1"
+            [colors]="colors2"
+            [title]="title2"
+            [subtitle]="subtitle2"
+          ></apx-chart>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div id="chart-spark3">
+          <apx-chart
+            #chartspark3
+            [series]="series3"
+            [chart]="chart_1"
+            [stroke]="stroke_1"
+            [yaxis]="yaxis_1"
+            [colors]="colors"
+            [fill]="fill_1"
+            [title]="title3"
+            [subtitle]="subtitle3"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-12 mt-4">
+          <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <th>Total Value</th>
+                  <th>% of Portfolio</th>
+                  <th>Last 10 days</th>
+                  <th>Volume</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>$32,554</td>
+                    <td>15%</td>
+                    <td>
+                      <div id="chart-1">
+                        <apx-chart
+                          [series]="series4"
+                          [chart]="chart_2"
+                          [colors]="colors"
+                          [tooltip]="tooltip_2"
+                        ></apx-chart>
+                      </div>
+                    </td>
+                    <td>
+                      <div id="chart-5">
+                        <apx-chart
+                          [series]="series5"
+                          [chart]="chart_3"
+                          [colors]="colors"
+                          [plotOptions]="plotOptions_3"
+                          [tooltip]="tooltip_3"
+                        ></apx-chart>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>$23,533</td>
+                    <td>7%</td>
+                    <td>
+                      <div id="chart-2">
+                        <apx-chart
+                          [series]="series6"
+                          [chart]="chart_2"
+                          [colors]="colors"
+                          [tooltip]="tooltip_2"
+                        ></apx-chart>
+                      </div>
+                    </td>
+                    <td>
+                      <div id="chart-6">
+                        <apx-chart
+                          [series]="series7"
+                          [chart]="chart_3"
+                          [colors]="colors"
+                          [plotOptions]="plotOptions_3"
+                          [tooltip]="tooltip_3"
+                        ></apx-chart>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>$54,276</td>
+                    <td>9%</td>
+                    <td>
+                      <div id="chart-3">
+                        <apx-chart
+                          [series]="series8"
+                          [chart]="chart_2" 
+                          [colors]="colors"
+                          [tooltip]="tooltip_2"
+                        ></apx-chart>
+                      </div>
+                    </td>
+                    <td>
+                      <div id="chart-7">
+                        <apx-chart
+                          [series]="series9"
+                          [chart]="chart_3"
+                          [colors]="colors"
+                          [plotOptions]="plotOptions_3"
+                          [tooltip]="tooltip_3"
+                        ></apx-chart>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>$11,533</td>
+                    <td>2%</td>
+                    <td>
+                      <div id="chart-4">
+                        <apx-chart
+                          [series]="series10"
+                          [chart]="chart_2"
+                          [colors]="colors"
+                          [tooltip]="tooltip_2"
+                        ></apx-chart>
+                      </div>
+                    </td>
+                    <td>
+                      <div id="chart-8">
+                        <apx-chart
+                          [series]="series11"
+                          [chart]="chart_3"
+                          [colors]="colors"
+                          [plotOptions]="plotOptions_3"
+                          [tooltip]="tooltip_3"
+                        ></apx-chart>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,14 @@
+<div class="basic-form">
+    <form>
+        <div class="mb-3">
+            <label class="form-label">Select list (select one):</label>
+
+            <app-select2 [items]="selectData1"></app-select2>
+
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Mutiple select list (hold shift to select more than one):</label>
+            <app-select2 [items]="selectData1" class=" wide mt-3"></app-select2>
+        </div>
+    </form>
+</div>

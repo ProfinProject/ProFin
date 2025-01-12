@@ -1,0 +1,36 @@
+<div class="content-body">
+    <div class="container-fluid">
+        
+        <div class="page-titles">
+
+            <app-breadcrumb [breadcrumb]="breadcrumbList"> </app-breadcrumb>
+            
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="profile card card-body px-3 pt-3 pb-0">
+                   
+                    <app-profile-card [profileDetail]="profileDetailArray"></app-profile-card>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-4">
+                
+                <app-profile-sid-menu></app-profile-sid-menu>
+
+            </div>
+            <div class="col-xl-8">
+                <div class="card h-auto">
+                    <div class="card-body">
+
+                        <app-profile-tab></app-profile-tab>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

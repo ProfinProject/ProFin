@@ -1,0 +1,51 @@
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="page-titles">
+            <app-breadcrumb [breadcrumb]="breadcrumbList"> </app-breadcrumb>
+        </div>
+        <div class="row">
+            <div class="col-xl-6 col-xxl-12">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Basic</h4>
+                    </div>
+                    <div class="card-body">
+                        
+                        <app-treemap-basic class="custom-chart"></app-treemap-basic>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-xxl-12">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Treemap Multiple Series</h4>
+                    </div>
+                    <div class="card-body">
+                        <app-treemap-multiple-series class="custom-chart"></app-treemap-multiple-series>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-xxl-12">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Color Range</h4>
+                    </div>
+                    <div class="card-body">
+                        <app-treemap-color-range class="custom-chart"></app-treemap-color-range>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-xxl-12">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Distributed</h4>
+                    </div>
+                    <div class="card-body">
+                        <app-treemap-distributed class="custom-chart"></app-treemap-distributed>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<nav mat-tab-nav-bar [backgroundColor]="background" [tabPanel]="tabPanel">
+    @for (link of links; track link) {
+    <a mat-tab-link (click)="activeLink = link" [active]="activeLink == link"> {{link}} </a>
+    }
+    <a mat-tab-link disabled>Disabled Link</a>
+</nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+
+<button mat-raised-button color="primary" class="example-action-button me-3 mt-3" (click)="toggleBackground()">
+    Toggle background
+</button>
+<button mat-raised-button class="example-action-button mt-3" (click)="addLink()">
+    Add link
+</button>

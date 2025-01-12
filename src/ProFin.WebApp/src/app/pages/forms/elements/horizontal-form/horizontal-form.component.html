@@ -1,0 +1,50 @@
+<div class="basic-form">
+    <form>
+        <div class="row">
+            <div class="mb-3 col-md-6">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" placeholder="First Name">
+            </div>
+            <div class="mb-3 col-md-6">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" placeholder="Email">
+            </div>
+            <div class="mb-3 col-md-6">
+                <label class="form-label">Password</label>
+                <div class="">
+                    <div class="position-relative">
+                        <input type="password" id="dz-password" class="form-control" value="Password" [type]="hide ? 'text' : 'password'">
+                        <span class="show-pass eye" [ngClass]="{'active': hide}" (click)="show_pass()">
+                            <i class="fa fa-eye-slash"></i>
+                            <i class="fa fa-eye"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 col-md-6">
+                <label class="form-label">City</label>
+                <input type="text" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div class="mb-3 col-md-6">
+                <label class="form-label">State</label>
+                
+                <app-select2 [items]="select2Data"></app-select2>
+            </div>
+            <div class="mb-3 col-md-3">
+                <label class="form-label">Zip</label>
+                <input type="text" class="form-control">
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox">
+                <label class="form-check-label">
+                    Check me out
+                </label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign in</button>
+    </form>
+</div>

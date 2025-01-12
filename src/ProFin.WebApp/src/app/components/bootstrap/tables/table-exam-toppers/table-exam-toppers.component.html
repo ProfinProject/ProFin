@@ -1,0 +1,77 @@
+<table class="table table-responsive-md">
+    <thead>
+        <tr>
+            <th>
+                <div class="form-check custom-checkbox checkbox-primary check-lg me-3">
+                    <input type="checkbox" class="form-check-input" id="checkAll" (click)="checkAll()">
+                    <label class="form-check-label" for="checkAll"></label>
+                </div>
+            </th>
+            <th>ROLL NO.</th>
+            <th>NAME</th>
+            <th>Email</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <div class="form-check custom-checkbox checkbox-primary check-lg me-3">
+                    <input type="checkbox" class="form-check-input" id="customCheckBox2" [checked]="boxActive">
+                    <label class="form-check-label" for="customCheckBox2"></label>
+                </div>
+            </td>
+            <td><strong>542</strong></td>
+            <td><div class="d-flex align-items-center"><img src="assets/images/avatar/1.jpg" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">Dr. Jackson</span></div></td>
+            <td>example&#x40;example.com	</td>
+            <td>01 August 2024</td>
+            <td><div class="d-flex align-items-center"><i class="fa fa-circle text-success me-1"></i> Successful</div></td>
+            <td>
+                <div>
+                    <a href="#" class="btn btn-primary shadow btn-xs sharp me-1 mb-1"><i class="fa fa-pencil"></i></a>
+                    <a href="#" class="btn btn-danger shadow btn-xs sharp mb-1"><i class="fa fa-trash"></i></a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="form-check custom-checkbox checkbox-primary check-lg me-3">
+                    <input type="checkbox" class="form-check-input" id="customCheckBox3" [checked]="boxActive">
+                    <label class="form-check-label" for="customCheckBox3"></label>
+                </div>
+            </td>
+            <td><strong>542</strong></td>
+            <td><div class="d-flex align-items-center"><img src="assets/images/avatar/2.jpg" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">Dr. Jackson</span></div></td>
+            <td>example&#x40;example.com	</td>
+            <td>01 August 2024</td>
+            <td><div class="d-flex align-items-center"><i class="fa fa-circle text-danger me-1"></i> Canceled</div></td>
+            <td>
+                <div>
+                    <a href="#" class="btn btn-primary shadow btn-xs sharp me-1 mb-1"><i class="fa fa-pencil"></i></a>
+                    <a href="#" class="btn btn-danger shadow btn-xs sharp mb-1"><i class="fa fa-trash"></i></a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="form-check custom-checkbox checkbox-primary check-lg me-3">
+                    <input type="checkbox" class="form-check-input" id="customCheckBox4" [checked]="boxActive">
+                    <label class="form-check-label" for="customCheckBox4"></label>
+                </div>
+            </td>
+            <td><strong>542</strong></td>
+            <td><div class="d-flex align-items-center"><img src="assets/images/avatar/3.jpg" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">Dr. Jackson</span></div></td>
+            <td>example&#x40;example.com	</td>
+            <td>01 August 2024</td>
+            <td><div class="d-flex align-items-center"><i class="fa fa-circle text-warning me-1"></i> Pending</div></td>
+            <td>
+                <div >
+                    <a href="#" class="btn btn-primary shadow btn-xs sharp me-1 mb-1"><i class="fa fa-pencil"></i></a>
+                    <a href="#" class="btn btn-danger shadow btn-xs sharp mb-1"><i class="fa fa-trash"></i></a>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { TreeWithPartiallyLoadedDataComponent } from './tree-with-partially-loaded-data.component';
+
+describe('TreeWithPartiallyLoadedDataComponent', () => {
+  let component: TreeWithPartiallyLoadedDataComponent;
+  let fixture: ComponentFixture<TreeWithPartiallyLoadedDataComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [TreeWithPartiallyLoadedDataComponent]
+    })
+    .compileComponents();
+    
+    fixture = TestBed.createComponent(TreeWithPartiallyLoadedDataComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

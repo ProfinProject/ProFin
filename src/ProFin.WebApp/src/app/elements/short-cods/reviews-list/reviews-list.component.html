@@ -1,0 +1,70 @@
+<table mat-table matSort style="min-width: 845px" class="mat-sort table mb-4 dataTablesCard card-table p-0 review-table fs-14 dataTable no-footer"
+  (matSortChange)="sortData($event)">
+  <thead>
+    <tr>
+      <th class="sorting_1  pe-0 text-center bg-none no-data-img">
+        <div class="form-check checkbox-primary">
+          <input class="form-check-input" type="checkbox" (click)="checkUncheckAll('allList')" id="checkAll">
+          <label class="form-check-label" for="checkAll">
+          </label>
+        </div>
+      </th>
+      <th mat-sort-header="user" style="width:250px;">Customer</th>
+      <th mat-sort-header="event_name" class="d-none d-lg-table-cell">Event NAME</th>
+      <th>Stars Review</th>
+      <th class="text-center">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(item of allData.data; track item; let i = $index){
+    <tr>
+      <td class="sorting_1  pe-0 text-center bg-none no-data-img">
+        <div class="form-check checkbox-primary">
+          <input class="form-check-input" type="checkbox" [checked]="boxActive" id="flexCheckDefault1">
+          <label class="form-check-label" for="flexCheckDefault1">
+          </label>
+        </div>
+      </td>
+      <td>
+        <div class="media align-items-center tbl-img">
+          <img class="img-fluid  me-3 d-none d-xl-inline-block" width="70" src="{{ item.image }}" alt="DexignZone">
+          <div class="media-body">
+            <h4 class="font-w600 mb-1 ">{{ item.user }}</h4>
+            <span>{{ item.date }}</span>
+          </div>
+        </div>
+      </td>
+      <td class="d-none d-lg-table-cell">{{ item.event_name }}</td>
+      <td>
+        <span class="star-review d-inline-block mb-2 fs-16">
+          @for(starRow of [].constructor(5); track starRow; let i = $index){
+          @if(item.rating > i){
+          <i class="fa fa-star fs-16 text-orange" [ngClass]="[i == 4 ? 'me-0':'me-1']"></i>
+          } @else {
+          <i class="fa fa-star fs-16 text-gray" [ngClass]="[i == 4 ? 'me-0':'me-1']"></i>
+          }
+          }
+        </span>
+        <p class="mb-0 d-none d-xl-inline-block">{{ item.description}}</p>
+      </td>
+      <td>
+        <div class="d-flex">
+          <a href="javascript:void(0);" class="btn btn-primary btn-rounded text-white btn-sm px-4">Publish</a>
+          <a href="javascript:void(0);" class="btn btn-outline-danger btn-rounded btn-sm ms-2 px-4">Delete</a>
+        </div>
+      </td>
+    </tr>
+    } @empty {
+    <tr>
+      <td class="text-center text-danger" colspan="11">NO RECORD FOUND</td>
+    </tr>
+    }
+  </tbody>
+</table>
+<div class="dataTables_wrapper">
+  <div class="dataTables_info" id="example_info" role="status" aria-live="polite">Showing {{page}} to
+    {{ allData.data.length }} of {{ allData.total }} entries</div>
+  <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+    <app-pagination [totalPage]="totalPage" [page]="page" (newPage)="pageChange($event)"></app-pagination>
+  </div>
+</div>

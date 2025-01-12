@@ -1,0 +1,65 @@
+
+
+.ticket-file{
+    border-radius: $radius;
+    overflow: hidden;
+
+	.dropzone{	
+		border: 0.0625rem dashed $border;
+		background: $l-bg;
+		min-height: 11.125rem;
+		position: relative;
+		@at-root [data-theme-version="dark"] & {
+			background: $d-bg;
+			border-color:$d-border;
+		}
+		.dz-message {
+			text-align:center;
+			margin: 5em 0;
+			.dz-button {
+				background: none;
+				color: inherit;
+				border: none;
+				padding: 0;
+				font: inherit;
+				cursor: pointer;
+				outline: inherit;
+			}
+		}
+	}
+}
+
+.ticket-table{
+	table.dataTable thead th{
+		padding:10px 5px
+	}
+	table.dataTable tbody td{
+		padding:10px 5px;
+	}
+	.dataTablesCard{
+		box-shadow:unset;
+	}
+}
+.dataTables_wrapper{
+	.sorting_asc{
+		&:after{
+			content:"";
+			display:none;
+		}
+	}
+	.sorting_desc{
+		&:after{
+			content:"";
+			display:none;
+		}
+	}
+}
+.custom-ekeditor.ct-ticket{
+	
+	.ck.ck-editor.ck-content{ 
+		border-radius: $radius;
+	}
+	.ck.ck-editor .ck.ck-editor__main{
+		border-radius:$radius;
+	}
+}

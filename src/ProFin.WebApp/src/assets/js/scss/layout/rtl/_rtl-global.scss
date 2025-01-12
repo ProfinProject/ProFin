@@ -1,0 +1,20 @@
+// html[dir="rtl"] {
+
+//content body
+[direction="rtl"] {
+	
+	.bootstrap-select .dropdown-toggle .filter-option{
+		text-align: right;
+	}
+	.noUi-vertical .noUi-pips-vertical {
+		left: -20px;
+	}
+	table.dataTable > thead > tr > th, table.dataTable > thead > tr > td,
+	table.dataTable > tfoot > tr > th, table.dataTable > tfoot > tr > td{
+	border-color: var(--border);
+	padding-right:15px!important;
+}
+	
+	
+}
+

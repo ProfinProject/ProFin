@@ -1,0 +1,184 @@
+        
+ <div class="content-body">
+    <!-- container starts -->
+    <div class="container-fluid">
+        <div class="page-titles">
+
+            <app-breadcrumb [breadcrumb]="breadcrumbList"> </app-breadcrumb>
+
+        </div>
+        <!-- row -->
+        <!-- Row starts -->
+        <div class="row">
+            <!-- Column starts -->
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Default Accordion</h4>
+                        <p class="m-0 subtitle">Default accordion. Add <code>accordion</code> class in root</p>
+                    </div>
+                    <div class="card-body">
+                        <app-custom-accordion [theme]="accordion[0].defaultAccordion"></app-custom-accordion>
+                    </div>
+                </div>
+            </div>
+            <!-- Column ends -->
+            <!-- Column starts -->
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Accordion bordered</h4>
+                        <p class="m-0 subtitle">Accordion with border. Add class <code>accordion-bordered</code> with
+                            the class <code> accordion</code></p>
+                    </div>
+                    <div class="card-body">
+                        <app-custom-accordion [theme]="accordion[1].borderedAccordion"></app-custom-accordion>
+                    </div>
+                </div>
+            </div>
+            <!-- Column ends -->
+            <!-- Column starts -->
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Accordion without space</h4>
+                        <p class="m-0 subtitle">Add <code>accordion-no-gutter</code> class with <code>accordion</code>
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <app-custom-accordion [theme]="accordion[2].withoutspaceAccordion"></app-custom-accordion>
+                    </div>
+                </div>
+            </div>
+            <!-- Column ends -->
+            <!-- Column starts -->
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Accordion without space with border</h4>
+                        <p class="m-0 subtitle">Add <code>accordion-no-gutter accordion-bordered</code> class with
+                            <code>accordion</code></p>
+                    </div>
+                    <div class="card-body">
+                        <app-custom-accordion [theme]="accordion[3].withoutSpaceBorderAccordion"></app-custom-accordion>
+                    </div>
+                </div>
+            </div>
+            <!-- Column ends -->
+            <!-- Column starts -->
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Accordion indicator in left position</h4>
+                        <p class="m-0 subtitle">Add <code>accordion-left-indicator</code> class with
+                            <code>accordion</code></p>
+                    </div>
+                    <div class="card-body">
+                        <app-custom-accordion [theme]="accordion[4].leftPositionAccordion"></app-custom-accordion>
+                    </div>
+                </div>
+            </div>
+            <!-- Column ends -->
+            <!-- Column starts -->
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Accordion with icon</h4>
+                        <p class="m-0 subtitle">Add <code>accordion-with-icon</code> class with <code>accordion</code>
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <app-custom-accordion [theme]="accordion[5].withIconAccordion"></app-custom-accordion>
+                    </div>
+                </div>
+            </div>
+            <!-- Column ends -->
+            <!-- Column starts -->
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Accordion header background</h4>
+                        <p class="m-0 subtitle">Add <code>accordion-header-bg</code> class with <code>accrodion</code>
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <app-custom-accordion [theme]="accordion[6].headerBgAccordion"></app-custom-accordion>
+                    </div>
+                </div>
+            </div>
+            <!-- Column ends -->
+            <!-- Column starts -->
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Accordion solid background</h4>
+                        <p class="m-0 subtitle">Add class <code>accordion-solid-bg</code> with <code>accordion</code>
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <app-custom-accordion [theme]="accordion[7].solidBgAccordion"></app-custom-accordion>
+                    </div>
+                </div>
+            </div>
+            <!-- Column ends -->
+            <!-- Column starts -->
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Accordion active background</h4>
+                        <p class="m-0 subtitle">Add class <code>accordion-active-header</code> with
+                            <code>accordion</code></p>
+                    </div>
+                    <div class="card-body">
+                        <app-custom-accordion [theme]="accordion[8].activeBgAccordion"></app-custom-accordion>
+                    </div>
+                </div>
+            </div>
+            <!-- Column ends -->
+            <!-- Column starts -->
+            <div class="col-xl-6">
+                <div class="card transparent-card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Accordion header shadow</h4>
+                        <p class="m-0 subtitle">Add <code>accordion-header-shadow</code> and
+                            <code>accordion-rounded</code> class with <code>accordion</code></p>
+                    </div>
+                    <div class="card-body">
+                        <app-custom-accordion [theme]="accordion[9].herderShadowAccordion"></app-custom-accordion>
+                    </div>
+                </div>
+            </div>
+            <!-- Column ends -->
+            <!-- Column starts -->
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Accordion rounded stylish</h4>
+                        <p class="m-0 subtitle">Add <code>accordion-rounded-stylish</code> class with
+                            <code>accordion</code></p>
+                    </div>
+                    <div class="card-body">
+                        <app-custom-accordion [theme]="accordion[10].roundedStylishAccordion"></app-custom-accordion>
+                    </div>
+                </div>
+            </div>
+            <!-- Column ends -->
+            <!-- Column starts -->
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Accordion gradient</h4>
+                        <p class="m-0 subtitle">Add <code>accordion-gradient</code> class with <code>accordion</code>
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <app-custom-accordion [theme]="accordion[11].gradientAccordion"></app-custom-accordion>
+                    </div>
+                </div>
+            </div>
+            <!-- Column ends -->
+        </div>
+        <!-- Row ends -->
+    </div>
+    <!-- container ends -->
+</div>

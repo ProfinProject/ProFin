@@ -1,0 +1,15 @@
+
+  
+  @if ((asyncTabs | async) === null) {
+    Loading tabs...
+  }
+  
+  <mat-tab-group>
+    @for (tab of asyncTabs | async; track tab) {
+      <mat-tab>
+        <ng-template mat-tab-label>{{tab.label}}</ng-template>
+        <div class="py-3">{{tab.content}}</div> 
+      </mat-tab>
+    }
+  </mat-tab-group>
+  

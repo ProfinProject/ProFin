@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-xl-4 col-lg-6 mb-3">
+        <div class="example ">
+            <label class="form-label d-block me-2">Simple mode</label>
+            <div class="input-group clockpicker" [(colorPicker)]="color1">
+                <input type="text" class="form-control" [value]="color1">
+                <span class="input-group-text color-bor" [style.background]="color1" ></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-6 mb-3">
+        <div class="example">
+            <label class="form-label d-block me-2">Complex mode</label>
+            <div class="input-group clockpicker" [(colorPicker)]="color2" [cpOutputFormat]="'hsla'">
+                <input type="text" class="form-control" [value]="color2">
+                <span class="input-group-text color-bor" [style.background]="color2" ></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-6 mb-3">
+        <div class="example">
+            <label class="form-label d-block me-2">Rgba mode</label>
+            <div class="input-group clockpicker" [cpOutputFormat]="'rgba'" [(colorPicker)]="color3">
+                <input type="text" class="form-control" [value]="color3">
+                <span class="input-group-text color-bor" [style.background]="color3"></span>
+            </div>
+        </div>
+    </div>
+</div>

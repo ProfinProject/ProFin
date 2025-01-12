@@ -1,0 +1,39 @@
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="page-titles">
+            
+            <app-breadcrumb [breadcrumb]="breadcrumbList"> </app-breadcrumb>
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Grid options</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>While Bootstrap u ses or for defining most sizes,are used for grid breakpoints and container widths. This is because the viewport width is in pixels and does not change with the font size. See how aspects of the Bootstrap
+                            grid system work across multiple devices with a handy table.</p>
+                        <div class="table-responsive">
+                            <app-grid-options></app-grid-options>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Grid Column</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- <p>Using a single set of grid classes, you can create a default grid system that starts out stacked on mobile devices and tablet devices (the extra small to small range) before becoming horizontal on desktop (medium) devices. Place grid columns in any</p> -->
+                        <app-grid-column></app-grid-column>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

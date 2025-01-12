@@ -1,0 +1,768 @@
+
+[data-theme-version="dark"]{
+	// --logo---
+	.brand-logo{
+		.logo-abbr{
+			path{
+				fill:$white;
+			}
+		}
+		.brand-title{
+			path{
+				fill:$white;
+			}
+		}
+	}
+	
+	
+	// --logo---
+	
+	input {
+	  color-scheme: dark;
+	}
+    .dropdown-menu {
+        background-color: $d-bg;
+		box-shadow: 0px 0px 0px 1px rgba(255, 255, 255,0.1);
+		
+		.dropdown-item {
+			&.selected,
+			&.selected.active,
+			&.active,
+			&:hover, 
+			&:focus {
+				background-color: $dark-card;
+				color: $body-color;
+			}
+		}
+    }
+	.btn-link g [fill]{
+		fill: #fff;
+	}
+	.btn-light:active, 
+	.btn-light:focus, 
+	.btn-light:hover{
+		color:#000;
+	}
+    .form-control {
+        background-color: $d-bg;
+        border-color: $d-border;
+      
+		&:focus{
+			border-color: $d-border!important;
+		}
+		
+    }
+	.search-area{
+		.input-group-text{
+			background-color: $d-bg;
+			border-color: $d-bg;
+		}
+	}
+    .card {
+        background-color: $dark-card;
+		box-shadow:none;
+    }
+	.btn-outline-dark:hover{
+		background-color: $d-bg;
+		border-color: $d-bg;
+	}
+	.tdl-holder input[type=text],
+	.tdl-holder li{
+	    background-color: $dark-card;
+		border-color:$d-border;
+	}
+	.tdl-holder input[type=text]{
+		&::placeholder {
+			color: $d-ctl;
+		}
+	}
+    .tdl-holder label:hover {
+		background-color: $d-border;
+		color: $white;
+	}
+	.text-muted {
+		color: $d-ctl !important;
+	}
+	.modal-content{
+		background:$dark-card;
+	}
+	.modal-footer,
+	.modal-header{
+		border-color: $d-border;
+	}
+	.close{
+	    font-weight: 400;
+		color: $white;
+		text-shadow: none;
+		
+		&:hover{
+			color: $white;
+		}
+	}
+	
+	.header-left .dashboard_bar,
+	.star-review span,
+	.table strong {
+		color: #fff;
+	}
+	.text-dark {
+		color: $d-ctl !important;
+	}
+	.star-rating .product-review,
+	.new-arrival-content .item{
+		color: $white;
+	}
+	.custom-dropdown .dropdown-menu{
+		border-color: $d-border;
+	}
+	.widget-stat .media > span{
+	    background: $d-border;
+	    border-color: $d-border;
+		color:$white;
+	}
+	.plus-minus-input .custom-btn{
+		background: $d-bg;
+	    border-color: $d-border;
+	}
+	.dropdown-divider,
+	.size-filter ul li{
+		border-color: $d-border;
+	}
+	.custom-select{
+	    border-color: $d-border;
+		color: $d-ctl;
+		background:$d-bg;
+	}
+	.nav-tabs{
+		border-color: $d-border;
+	}
+	.mail-list .list-group-item.active i {
+		color: $white;
+	}
+	hr{
+		border-color: $d-border;
+	}
+	.grid-col{
+		background:$d-bg;
+	}
+	
+	.noUi-target{
+		border-color:$d-border;
+		border-radius: 8px;
+		box-shadow: none;
+		
+		.noUi-connects{
+			background:$d-border;
+		}
+	}
+	.noUi-marker-large,
+	.noUi-marker{
+		background:$d-border;
+	}
+	.input-group-text{
+		background:$d-border;
+		color:$body-color;
+	}
+	.note-editor.note-frame{
+		border-color:$d-border;
+		.btn{
+			color:$white;
+		}
+		.note-editing-area .note-editable{
+			color:$white;
+		}
+	}
+	.widget-media .timeline .timeline-panel{
+		border-color:$d-border; 
+	}
+	.notification_dropdown .dropdown-menu-right .all-notification{
+		border-color:$d-border; 
+	}
+	.card-tabs .nav-tabs{
+		background:$d-bg;
+	}
+	.sidebar-right{
+		.card-tabs .nav-tabs{
+			background:$white;
+			.nav-item .nav-link:hover{
+				color:var(--primary)!important;
+			}
+		}
+	} 
+	.list-group-item-action{
+		color:$body-color;
+	}
+	.list-group-item-action:focus, 
+	.list-group-item-action:hover, 
+	.list-group-item-action:focus{
+		background-color:$d-bg; 
+		border-color:$d-bg; 
+	}
+	
+	.list-group-item.active{
+		color:$white;
+		border-color:var(--primary);
+		&:focus, 
+		&:hover, 
+		&:focus{
+			background-color:var(--primary); 
+			border-color:var(--primary); 
+			color:$white;
+		}
+	}
+	.swal2-popup{
+		background:$dark-card !important;
+		.swal2-html-container{
+			color:rgba(255, 255, 255, 0.7);
+		}
+	}	
+	.form-head .btn-outline-primary{
+		border-color:$d-border;
+	}
+	.form-head .btn-outline-primary:hover{
+		border-color:var(--primary);
+	}
+	.nav-pills.review-tab .nav-item .nav-link.active{
+		background:transparent;
+		color:$white;
+	}
+	.header-right .header-profile > a.nav-link .header-info span,
+	.review-table .media-body p,
+	.iconbox small,
+	.doctor-info-details .media-body p{
+		color:$white;
+	}
+	.iconbox p,
+	.doctor-info-details .media-body span{
+		color:rgba(255,255,255,0.7);
+	}
+	.best-doctor .timeline .timeline-panel{
+		background:$dark-card !important;
+	}
+	.doctor-list .accordion__header-line{
+		background:$d-border;
+	}
+	.review-table .disease,
+	.review-table,
+	.review-box{
+		border-color:$d-border;
+	}
+	.form-head .search-area{ 
+		.form-control{
+			border:1px solid $d-border;
+		}
+		.input-group-append .input-group-text{
+			background:$d-border;
+		}
+	}
+	.patient-activity tbody tr{
+	    box-shadow: 0 1px 0 0 $d-border;
+	}
+	.plus-box{
+	    background: rgba(255,255,255,0.05);
+		color: #fff;
+	}
+	.default-select{
+		&.style-1{
+			.btn{
+				color:$white!important;
+			}
+		}
+	}
+	.text-black{
+		color:$white!important;
+	}
+	.new-arrival-content {
+		 h4 {
+			a{
+				color:$white;
+			}
+		 }
+	}
+	.abilities-chart .ct-chart .ct-label{
+		fill:$white;
+	}
+	.apexcharts-legend-text{
+		color:$white!important;
+	}
+	.morris_chart_height text tspan{
+		fill:$white!important;
+	}
+	.toggle-switch.text-right .custom-control-label:before{
+		background-color:#ffffff29;
+	}
+	.toggle-switch .custom-control-input:checked ~ .custom-control-label:before{
+		background-color:$white;
+	}
+	.btn-link{
+		color:$white;
+	}
+	.amount-bx .form-control{
+		background-color:transparent;
+		color:$white;
+		&::placeholder{
+			color:$white;
+		}
+	}
+	.table{
+		&.bg-info-hover{
+			td{
+				color:#757878;
+			}
+		}
+		&.bg-primary-hover{
+			td{
+				color:#757878;
+			}
+		}
+		&.bg-warning-hover{
+			td{
+				color:#757878;
+			}
+		}
+		&.bg-secondary-hover{
+			td{
+				color:#757878;
+			}
+		}
+	}
+	.order-bg{
+		background:$d-bg;
+	}
+	.deznav .metismenu > li.mm-active > a:after{
+		border-color:var(--primary);
+	}
+	.detault-daterange .input-group-text{
+		background:$d-bg;
+		color:$white;
+	}
+	.form-wrapper{
+		.input-group{
+			background:$d-bg;
+			border:0;
+			.input-group-prepend .input-group-text{
+				color:$white;
+			}
+		}
+	}
+	.search-area-2{
+		.form-control{
+			background-color:$dark-card;
+		}
+		.input-group-append{
+			.input-group-text{
+				background-color:$dark-card;
+			}
+		}
+	}
+	.dataTablesCard{
+		background-color:$dark-card;
+	}
+
+	.compose-content .dropzone{
+		background:$d-bg!important;
+		border-color:$d-border;
+		.dz-message .dz-button{
+			color:$white;
+		}
+	}
+	.daterangepicker{
+		background:$d-bg;
+		border-color:var(--primary);
+		.calendar-table{
+			border-color:var(--primary);
+			background:$d-bg;
+			.table-condensed{
+				td{
+					&:hover{
+						background-color:var(--primary);
+						color:$white;
+					}
+				}
+			}
+		}
+        &:after{
+            border-bottom: 6px solid $d-bg;
+        }
+	}
+    
+    .daterangepicker select.hourselect
+    , .daterangepicker select.minuteselect
+    , .daterangepicker select.secondselect
+    , .daterangepicker select.ampmselect{
+            background: $d-bg;
+            border: 1px solid $d-border;
+            color:$white;
+    }
+    
+	.daterangepicker td.off, 
+	.daterangepicker td.off.in-range,
+	.daterangepicker td.off.start-date, 
+	.daterangepicker td.off.end-date{
+		background-color:$dark-card;
+		&:hover{
+			background-color:var(--primary);
+			color:$white;			
+		}
+	}
+	
+	.app-fullcalendar{
+		.fc-button{
+			background-color:$d-bg;
+			border-color:var(--primary);
+			color:$white;
+			text-shadow:none;
+			&:hover,&.fc-stat-hover{
+				background-color:var(--primary)!important;
+			}
+		}
+	}
+	.swal2-popup .swal2-styled:focus {
+		outline: 0;
+		box-shadow: 0 0 0 2px $d-border, 0 0 0 4px rgba(var(--primary),0.1);
+	}
+	.dd-handle{
+		border-color:$d-border;
+	}
+	.btn-card{
+		&.text-primary{
+			color:var(--primary)!important;
+		}
+		&.text-secondary{
+			color:var(--secondary)!important;
+		}
+		&.text-success{
+			color:$success!important;
+		}
+		&.text-danger{
+			color:$danger!important;
+		}
+		&.text-warning{
+			color:$warning!important;
+		}
+		&.text-info{
+			color:$info!important;
+		}
+	}
+	.header-right .notification_dropdown .nav-link{
+		border-color:$d-border;
+	}
+	.nav-tabs .nav-link{
+		&:hover,&.active{
+			border-color:$d-border;
+			background-color: $d-bg;
+			color:#fff;
+		}
+	}
+	
+	.clockpicker-popover .popover-content{
+		background-color:$dark-card;
+	}
+	.clockpicker-plate{
+		background-color:$d-bg;
+	}
+	.clockpicker-popover .popover-title{
+		background-color:$d-bg;
+		color:$white;
+	}
+	.form-wizard .nav-wizard li .nav-link span{
+		background-color:$d-bg;
+	}
+	.form-wizard .nav-wizard li .nav-link:after{
+		background:$d-bg!important;
+	}
+	.form-wizard .nav-wizard li .nav-link.active:after,.form-wizard .nav-wizard li .nav-link.done:after{
+		background:var(--primary)!important;
+	}
+	.form-wizard .nav-wizard li .nav-link.active span
+	,.form-wizard .nav-wizard li .nav-link.done span{
+		background:var(--primary)!important;
+		color:$white;
+	}
+    
+    .amount-bx{
+        border-top: 1px solid $d-border;
+        border-bottom: 1px solid $d-border;
+    }
+    
+    .bar-chart{
+        line{
+            stroke:$d-border;
+            stroke-dasharray: 6;
+        }
+    }
+    #lineChart{
+        line{
+            stroke:$d-border;
+            stroke-dasharray: 6;
+        }
+    }
+    .activity-icon{
+        border-color: #f0f0f063;
+    }
+    .check-switch .custom-control-label:after
+    , .check-switch .custom-control-label:before{
+        border-color:var(--primary);
+    }
+    .fc-unthemed .fc-today{
+        background:$d-bg!important;
+    }
+    .fc-unthemed .fc-divider, .fc-unthemed .fc-list-heading td, .fc-unthemed .fc-popover .fc-header{
+        background: $d-border;
+    }
+    .picker__box{
+        background:$d-bg;
+        .picker__button--clear
+        , .picker__button--close
+        , .picker__button--today{
+            background:$dark-card;
+            color:$white;
+            &:hover{
+                &:before{
+                    color:$white;
+                }
+            }
+        }
+    }
+    .picker{
+        color:#999;
+    }
+	.datepicker.datepicker-dropdown td.day, .datepicker.datepicker-dropdown th.next, .datepicker.datepicker-dropdown th.prev{
+		color:white;
+		&:hover{
+			color:var(--primary);
+		}
+	}
+	.datepicker.datepicker-dropdown th.dow{
+		color:$white;	
+	}
+	.datepicker.datepicker-dropdown th.datepicker-switch, .datepicker.datepicker-dropdown th.next, .datepicker.datepicker-dropdown th.prev{
+		color:$white;	
+		&:hover{
+			color:var(--primary);
+		}
+	}
+	.datepicker.datepicker-dropdown td.day.new{
+		color: rgba(255,255,255,0.8);
+	}
+	.new-scroll{
+		background-color:$d-bg;
+	}
+	.table-bordered > :not(caption) > *{
+		border-color: $d-border;
+	}
+	.btn-close{
+		color:$white!important;	
+	}
+    .dtp > .dtp-content{
+        background:$d-bg;
+    }
+    .dtp table.dtp-picker-days tr > td > a{
+       color: #68686a; 
+       &.selected{
+           color:$white;
+       }
+    }
+	.dz-crypto-scroll:before {
+		left: 0;
+		top: -10px;
+		background: linear-gradient(270deg, transparent 0, $d-bg);
+	}
+	.dz-crypto-scroll:after {
+		right: 0;
+		top: -10px;
+		background: linear-gradient(270deg, $d-bg 0, transparent);
+	}
+	.form-wrapper .input-group .form-control{
+		color:$white;
+	}
+	.event-sidebar{
+		background:$dark-card;
+		border-color:$dark-card;
+	}
+	.event-calender{
+		color:#bbb;
+		.bootstrap-datetimepicker-widget table td{
+			color: #585858;
+		}
+	} 
+	.welcome-card{
+		background:$dark-card;
+	}
+	
+	.event-list .date-bx:after{
+		border-color:$dark-card;
+	}
+	
+	#chart{
+		.apexcharts-series{
+			path{
+				stroke:$dark-card;
+			}
+		}
+	}
+	.btn-outline-primary{
+		color:$white;
+	}
+	.schedule-event-inner .event-btn{
+		svg path{
+			stroke:$white;
+		}
+	}
+	
+	.table thead th{
+		color:$white;
+	}
+	
+	.dataTables_wrapper .dataTables_paginate{
+		.paginate_button.previous,.paginate_button.next{
+			color:$white!important;
+			&.disabled{
+				color:$white!important;
+			}
+		}
+		span{
+			.paginate_button{
+				color:$white;
+			}
+		}
+	}
+	.counter{
+		color:$white;
+	}
+	.social-graph-wrapper {
+		.s-icon{
+			color:$white;
+		}
+	}
+	.profile-info h4.text-primary{
+		color:$white!important;
+	}
+	.light.btn-primary g [fill]{
+		fill:$white;
+	}
+	.profile-tab .nav-item .nav-link:hover,
+	.profile-tab .nav-item .nav-link.active{
+		color:$white;
+		border-color:var(--primary);
+	}
+	.pagination-primary .page-item .page-link{
+		color:$white;
+	}
+	.new-arrival-content .price{
+		color:$white;
+	}
+	.btn.tp-btn-light.btn-primary{
+		&:hover{
+			background:var(--rgba-primary-1);
+			border-color:var(--rgba-primary-1);
+		}
+		g [fill]{
+			fill:$white;
+		}
+	}
+	
+	.custom-tab-1 .nav-link:focus, 
+	.custom-tab-1 .nav-link:hover,
+	.custom-tab-1 .nav-link.active{
+		color:$white;
+	}
+	.nav-pills.light .nav-link.active, .nav-pills.light .show > .nav-link,
+	.default-tab .nav-link:focus, .default-tab .nav-link:hover, .default-tab .nav-link.active{
+		color:$white;
+	}
+	mark, .mark{
+		background-color:$d-bg;
+	}
+	table.dataTable thead th{
+		border-color:$d-border;
+	}
+	p, span{
+		color:rgba(255, 255, 255, 0.7);
+	}
+	.form-label{
+		color:$white;
+	}
+	.btn-link{
+		&:hover{
+			color:var(--primary)!important;
+		}
+	}
+	.form-head.style-1 .search-area{
+		.form-control{
+			border:0;
+		}
+		.input-group-text{
+			background-color: transparent;
+		}
+	}
+	.fc-daygrid-dot-event{
+		background-color: $d-bg;
+	}
+	.ct-grid {
+        stroke: rgba(255, 255, 255, 0.1);
+    }
+	.daterangepicker td.in-range{
+		background-color: $dark-card;
+		color:$white;
+	}
+	.daterangepicker .calendar-table th, .daterangepicker .calendar-table td{
+		color:$white;
+	}
+	.card-tabs .nav-tabs .nav-link.active{
+		background-color: var(--primary);
+	}
+	.card-tabs .nav-tabs .nav-link{
+		color:$white;
+	}
+	.select2-container--default .select2-selection--single,
+	.select2-container--open .select2-dropdown{
+
+		background:$d-bg;
+
+	}
+	.select2-container--default .select2-results__option--selected{
+		background-color: $dark-card;
+
+	}
+	.select2-container--default .select2-search--dropdown .select2-search__field{
+
+		background-color: $d-bg;
+	}
+	.select2-results__options li{
+		background-color: $dark-card;
+
+	}
+	.select2-container .select2-selection--multiple{
+
+		background-color: $d-bg;
+	}
+	.sidebar-right{
+		.bootstrap-select{
+			height:3rem;
+			border-radius: 0.375rem;
+			.btn{
+				padding:0.75rem 0.9375rem;
+				font-size:0.9375rem;
+				border-color:#d1d1d1!important;
+				border-radius: 0.375rem;
+			}
+			.dropdown-menu{
+				background-color: $white!important;
+				.dropdown-item {
+					span{
+						color:#585858;
+					}
+					&:hover{
+						background-color: #f5f5f5!important;
+					}
+					&.active{
+						background-color: var(--rgba-primary-1);
+						color:var(--primary);
+					}
+				}
+			}
+		}
+	} 
+	
+}

@@ -1,0 +1,56 @@
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="page-titles">
+
+            <app-breadcrumb [breadcrumb]="breadcrumbList"> </app-breadcrumb>
+
+        </div>
+        <div class="row">
+            <div class="col-xl-6 col-lg-6">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Pagination</h4>
+                        <p class="mb-0 subtitle">Default pagination style</p>
+                    </div>
+                    <div class="card-body">
+                        <app-pagination-default></app-pagination-default>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-6 col-lg-6">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Pagination Gutter</h4>
+                        <p class="mb-0 subtitle">add <code>.pagination-gutter</code> to change the style</p>
+                    </div>
+                    <div class="card-body">
+                        <app-pagination-gutter></app-pagination-gutter>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Pagination Color</h4>
+                        <p class="mb-0 subtitle">add <code>.pagination-gutter</code> to change the style</p>
+                    </div>
+                    <div class="card-body color-pagination">
+                         <app-pagination-color></app-pagination-color>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6">
+                <div class="card">
+                    <div class="card-header d-block">
+                        <h4 class="card-title">Pagination Circle</h4>
+                        <p class="mb-0 subtitle">add <code>.pagination-circle</code> to change the style</p>
+                    </div>
+                    <div class="card-body">
+                        <app-pagination-circle></app-pagination-circle>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

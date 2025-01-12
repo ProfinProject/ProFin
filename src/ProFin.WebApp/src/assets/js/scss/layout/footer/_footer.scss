@@ -1,0 +1,25 @@
+
+
+
+.footer {
+    padding-#{$dz-pos-left}: var(--dz-sidebar-width);
+    background-color: $body-bg;
+    @include custommq($min: 1200px, $max: 1600px) {
+        padding-#{$dz-pos-left}: 17rem;
+    }
+    .copyright {
+        padding: 0.9375rem;
+		font-size:13px;
+        p {
+            text-align: center;
+            margin: 0;
+			color: var(--text-gray);
+        }
+
+        a{
+            color: var(--primary);
+        }
+    }
+}
+
+

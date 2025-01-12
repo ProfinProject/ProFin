@@ -1,0 +1,48 @@
+<div class="card">
+    <div class="card-header border-0">
+        <h4 class="card-title">Sales Summary</h4>
+        
+        <app-dropdown [dropdown]="dropdownYear"></app-dropdown>
+
+    </div>
+    <div class="card-body pt-2">
+        <div class="border p-3 d-flex justify-content-between fs-14 rounded-lg mb-4">
+            <span class="text-black">Tuesday</span>
+            <span class="text-black">215,523 pcs</span>
+        </div>
+        
+        <div class="text-center">
+            <app-pie-chart-apex [chart_item]="chartOptions"></app-pie-chart-apex>
+        </div>
+        <div class="row mx-0">
+            <div class="col-6 px-0 d-flex align-items-center mb-3">
+                <div class="bg-primary rounded me-3 d-block" style="width:25px; height:25px;"></div>
+                <div>
+                    <h5 class="mb-1 text-black">VIP</h5>
+                    <span>30%</span>
+                </div>
+            </div>
+            <div class="col-6 px-0 d-flex align-items-center mb-3">
+                <div class="bg-success rounded me-3 d-block" style="width:25px; height:25px;"></div>
+                <div>
+                    <h5 class="mb-1 text-black">Exclusive</h5>
+                    <span>24%</span>
+                </div>
+            </div>
+            <div class="col-6 px-0 d-flex align-items-center">
+                <div class="bg-warning rounded me-3 d-block" style="width:25px; height:25px;"></div>
+                <div>
+                    <h5 class="mb-1 text-black">Reguler</h5>
+                    <span>30%</span>
+                </div>
+            </div>
+            <div class="col-6 px-0 d-flex align-items-center">
+                <div class="bg-secondary rounded me-3 d-block" style="width:25px; height:25px;"></div>
+                <div>
+                    <h5 class="mb-1 text-black">Economic</h5>
+                    <span>2%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,98 @@
+<div class="content-body">
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-3 col-md-6">
+                <app-report-employees></app-report-employees>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <app-report-customers></app-report-customers>
+            </div>
+            <div class="col-xl-6 col-md-6">
+                <app-report-tickets></app-report-tickets>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Employee Reports</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive ticket-table">
+
+                            <div id="example_wrapper" class="dataTables_wrapper no-footer d-flex align-items-center justify-content-between">
+                              <div class="dataTables_length" id="example_length">
+                                <label class="d-flex align-items-center">Show
+                                  <select2 ngDefaultControl [data]="data" [templates]="template" placeholder="{{limit}}" class="select2 mx-2" (update)="selectLimit($event)" >
+                                    <ng-template #template let-data="data" >{{data?.name}}</ng-template>
+                                  </select2>
+                                    entries
+                                </label>
+                              </div>
+                              <div class="dataTables_wrapper ">
+                                <div id="example_filter" class="dataTables_filter d-inline-block">
+                                    <label>Search:
+                                        <input type="search" [(ngModel)]="searchText" (ngModelChange)="searchKey($event)" class="" placeholder="Search.." aria-controls="example">
+                                    </label>
+                                </div>
+                              </div>
+                            </div>
+
+                            <table mat-table matSort style="min-width: 845px"
+                                class="mat-sort display mb-4 dataTablesCard dataTable no-footer mb-4"
+                                (matSortChange)="sortData($event)">
+                                <thead>
+                                    <tr>
+                                        <th mat-sort-header="sNo">S.No.</th>
+                                        <th mat-sort-header="employeeId">Employee ID</th>
+                                        <th mat-sort-header="customerName">Name</th>
+                                        <th >Rating</th>
+                                        <th mat-sort-header="replyCount">Reply Count</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for(row of allData.data; track row){
+                                    <tr class="selected odd">
+                                        <td class="sorting_1">0{{ row.sNo }}</td>
+                                        <td>Emp-{{row.employeeId}}</td>
+                                        <td>
+                                            <div>
+                                                <a href="javascript:void(0)" class="h6">{{row.customerName}}</a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <ul class="star-rating">
+                                              @for(starRow of [].constructor(5); track starRow; let i = $index){
+                                                @if(row.rating > i){
+                                                  <li><i class="fa fa-star" [ngClass]="[i == 4 ? 'me-0':'me-1']"></i></li>
+                                                } @else {
+                                                  <li><i class="far fa-star" [ngClass]="[i == 4 ? 'me-0':'me-1']"></i></li>
+                                                }
+                                              }
+                                            </ul>
+                                        </td>
+                                        <td><span class="badge light badge-success">{{row.replyCount}}</span></td>
+                                    </tr>
+                                    } @empty {
+                                      <tr>
+                                        <td class="text-center text-danger" colspan="11">NO RECORD FOUND</td>
+                                      </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="dataTables_wrapper">
+                                <div class="dataTables_info" id="example_info" role="status"
+                                    aria-live="polite">Showing {{page}} to
+                                    {{ allData.data.length }} of {{ allData.total }} entries</div>
+                                <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+                                    <app-pagination [totalPage]="totalPage" [page]="page" (newPage)="pageChange($event)"></app-pagination>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

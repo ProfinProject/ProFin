@@ -1,0 +1,20 @@
+<div class="custom-sidenav">
+    <mat-drawer-container class="example-container" autosize [dir]="direction">
+        <mat-drawer #drawer class="example-sidenav" mode="side">
+            <p>Auto-resizing sidenav</p>
+            @if(showFiller){
+            <p>Lorem, ipsum dolor sit amet consectetur.</p>
+            }
+            <button (click)="showFiller = !showFiller" class="rounded-2" mat-raised-button>
+                Toggle extra text
+            </button>
+        </mat-drawer>
+
+        <div class="example-sidenav-content">
+            <button type="button" class="rounded-2" mat-button (click)="drawer.toggle()">
+                Toggle sidenav
+            </button>
+        </div>
+
+    </mat-drawer-container>
+</div>

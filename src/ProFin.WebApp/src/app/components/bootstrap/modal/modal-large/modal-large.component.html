@@ -1,0 +1,15 @@
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Modal title </h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		Modal body text goes here.
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-danger light" (click)="modal.close('Save click')">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+    </div>
+</ng-template>
+
+<button class="btn btn-primary mb-2 me-2" (click)="open(content)">Large modal</button>

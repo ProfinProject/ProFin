@@ -1,0 +1,16 @@
+<button mat-raised-button color="primary" (click)="addColumn()" class="me-2 mb-2"> Add column </button>
+<button mat-raised-button color="warn" (click)="removeColumn()" class="me-2 mb-2"> Remove column </button>
+<button mat-raised-button (click)="shuffle()" class="mb-2"> Shuffle </button>
+
+<div class="mat-elevation-z8 table-responsive">
+    <table mat-table [dataSource]="data">
+        @for (column of displayedColumns; track column) {
+        <ng-container [matColumnDef]="column">
+            <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+            <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+        </ng-container>
+        }
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    </table>
+</div>

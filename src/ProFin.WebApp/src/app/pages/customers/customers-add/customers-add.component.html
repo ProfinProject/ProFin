@@ -1,0 +1,67 @@
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="page-titles">
+
+            <app-breadcrumb [breadcrumb]="breadcrumbList"> </app-breadcrumb>
+
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card  card-bx m-b30">
+                    <div class="card-header bg-primary">
+                        <h6 class="title text-white">Create Customer</h6>
+
+                    </div>
+                    <form class="profile-form">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6 mb-3">
+                                    <label class=" form-label required">First Name</label>
+                                    <input type="text" name="firstName" class="form-control"
+                                        placeholder="Enter First Name" required="">
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label class=" form-label required">Last Name</label>
+                                    <input type="text" name="lastName" class="form-control"
+                                        placeholder="Enter Last Name" required="">
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label class=" form-label required">Email Address</label>
+                                    <input type="email" class="form-control" placeholder="Enter Email Address" required>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <div class="form-group">
+                                        <label class=" form-label required">Password </label>
+                                        <div class="position-relative">
+                                            <input type="password" id="dz-password" class="form-control" value="123456"
+                                                [type]="hide_show ? 'text' : 'password'">
+                                            <span class="show-pass eye" (click)="passwordHide()"
+                                                [ngClass]="{'active':hide_show}">
+                                                <i class="fa fa-eye-slash"></i>
+                                                <i class="fa fa-eye"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label class=" form-label required">Gender</label>
+                                    <app-select2 [items]="selectGender"></app-select2>
+                                </div>
+
+                                <div class="col-sm-6 mb-3">
+                                    <label class=" form-label required">Mobile Number</label>
+                                    <input type="number" class="form-control" placeholder="212-999-0000" required>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="card-footer justify-content-end">
+                            <button class="btn btn-primary">Create Customer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

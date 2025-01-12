@@ -1,0 +1,13 @@
+<form class="example-form">
+    <input type="text"
+           placeholder="Search for a street"
+           [formControl]="control"
+           [matAutocomplete]="auto"
+           class="example-input">
+    <mat-autocomplete #auto="matAutocomplete">
+      @for (street of filteredStreets | async; track street) {
+        <mat-option [value]="street">{{street}}</mat-option>
+      }
+    </mat-autocomplete>
+  </form>
+  

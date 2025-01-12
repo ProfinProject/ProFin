@@ -1,0 +1,18 @@
+<ul class="timeline">
+    @for(item of timelineData; track item){
+        <li>
+            <div class="timeline-badge {{ item.status }}"></div>
+            <a class="timeline-panel text-muted" href="javascript:void(0);">
+                <span>{{ item.time }} minutes ago</span>
+                <h6 class="mb-0">{{ item.title }}
+                    @if(item.price){
+                        <strong class="text-{{item.status}}">{{ item.price }}</strong> 
+                    }.
+                </h6>
+                @if( item.desc ){
+                    <p class="mb-0">{{ item.desc }}</p>
+                }
+            </a>
+        </li>
+    }
+</ul>

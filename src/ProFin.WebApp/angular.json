@@ -3,19 +3,9 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ProFin.WebApp": {
+    "tixia": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "standalone": false
-        },
-        "@schematics/angular:directive": {
-          "standalone": false
-        },
-        "@schematics/angular:pipe": {
-          "standalone": false
-        }
-      },
+      "schematics": {},
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -23,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/pro-fin.web-app",
+            "outputPath": "dist/tixia",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -35,7 +25,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/styles.css",
+              "src/assets/css/custom.css",
+              "./node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },
@@ -44,13 +37,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "8mb",
+                  "maximumError": "8mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "40kb",
+                  "maximumError": "40kb"
                 }
               ],
               "outputHashing": "all"
@@ -67,21 +60,18 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ProFin.WebApp:build:production"
+              "buildTarget": "tixia:build:production"
             },
             "development": {
-              "buildTarget": "ProFin.WebApp:build:development"
+              "buildTarget": "tixia:build:development"
             }
           },
-          "defaultConfiguration": "development",
-          "options": {
-            "port": 50907
-          }
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "ProFin.WebApp:build"
+            "buildTarget": "tixia:build"
           }
         },
         "test": {
@@ -99,11 +89,13 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
-            "karmaConfig": "karma.conf.js"
+            "scripts": []
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

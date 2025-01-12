@@ -1,6 +1,6 @@
 {
-  "name": "tixia",
-  "version": "0.0.0",
+  "name": "profin",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

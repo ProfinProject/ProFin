@@ -1,0 +1,46 @@
+<div class="table-responsive recentOrderTable">
+    <table class="table verticle-middle table-responsive-md">
+        <thead>
+            <tr>
+                <th scope="col">Ward No.</th>
+                <th scope="col">Patient</th>
+                <th scope="col">Dr Name</th>
+                <th scope="col">Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Bills</th>
+                <th scope="col" class="text-end">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(item of paymentData; track item;){
+                <tr>
+                    <td>{{ item.ward_no }}</td>
+                    <td>{{ item.patient }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.date }}</td>
+                    <td>
+                        <span 
+                            [ngClass]="{'badge-success':item.status == 'Checkin',
+                            'badge-danger':item.status == 'Canceled',
+                            'badge-warning':item.status == 'Panding'}" 
+                            class="badge badge-rounded "
+                            >{{ item.status }}
+                        </span>
+                    </td>
+                    <td>{{ item.bills | currency:'USD'}}</td>
+                    <td class="text-end">
+                        <div class="dropdown custom-dropdown mb-0">
+                            <div class="btn sharp btn-primary tp-btn" data-bs-toggle="dropdown">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="12" cy="5" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="19" r="2"></circle></g></svg>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="javascript:void(0);">Details</a>
+                                <a class="dropdown-item text-danger" href="javascript:void(0);">Cancel</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

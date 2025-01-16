@@ -1,4 +1,8 @@
 using ProFin.API.Configurations;
+using ProFin.Core.Business.Interfaces;
+using ProFin.Data.Repositories;
+using ProFin.Identity;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,13 +10,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder
+    .AddIdentity()
     .AddDbContextConfig()
     .AddAutoMapperConfig()
     .AddDIConfig();
+  
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<ICategoryTransactionRepository, CategoryTransactionRepository>();
 
 var app = builder.Build();
 

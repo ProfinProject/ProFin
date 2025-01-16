@@ -1,0 +1,71 @@
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="page-titles">
+
+            <app-breadcrumb [breadcrumb]="breadcrumbList"> </app-breadcrumb>
+
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-xl-9">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Date Picker</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <app-date-picker></app-date-picker>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3">
+                <!-- Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Pick-Date picker</h4>
+                    </div>
+                    <div class="card-body data-picker-costem costem-set">
+                        <label class="form-label">Default picker</label>
+                        <input 
+                            (click)="d.toggle()"
+                            class="datepicker-default form-control"
+                            placeholder="yyyy-mm-dd"
+                            name="dp"
+                            [(ngModel)]="model"
+                            ngbDatepicker
+                            #d="ngbDatepicker"
+                            [navigation]="navigation"
+                            [outsideDays]="outsideDays"
+                        />
+                    </div>
+                </div>
+                <!-- Card -->
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Time picker</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <app-time-picker></app-time-picker>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Color Picker</h4>
+                    </div>
+                    <div class="card-body">
+                        
+                        <app-color-picker></app-color-picker>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,165 @@
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="page-titles">
+
+            <app-breadcrumb [breadcrumb]="breadcrumbList"> </app-breadcrumb>
+
+        </div>
+        <div class="row">
+            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Sweet Wrong</h4>
+                        <div class="card-content mt-3">
+                            <div class="sweetalert">
+                                <button class="btn btn-danger btn sweet-wrong" (click)="wrongAlert()" >Sweet Wrong</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# card -->
+            </div>
+            <!-- /# column -->
+            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Sweet Message</h4>
+                        <div class="card-content mt-3">
+                            <div class="sweetalert">
+                                <button class="btn btn-info btn sweet-message" (click)="alertMsg('Hey, Here\'s a message !!')">Sweet Message</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# card -->
+            </div>
+            <!-- /# column -->
+            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Sweet Text</h4>
+                        <div class="card-content mt-3">
+                            <div class="sweetalert">
+                                <button class="btn btn-primary btn sweet-text" (click)="textAlert('Hey, Here\'s a message !!')">Sweet Text</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# card -->
+            </div>
+            <!-- /# column -->
+            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Sweet Success</h4>
+                        <div class="card-content mt-3">
+                            <div class="sweetalert">
+                                <button class="btn btn-success btn sweet-success" (click)="successAlert('Hey, Good job !!')">Sweet Success</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# card -->
+            </div>
+            <!-- /# column -->
+            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Sweet Confirm</h4>
+                        <div class="card-content mt-3">
+                            <div class="sweetalert">
+                                <button class="btn btn-warning btn sweet-confirm"(click)="confirmAlert('Are you sure to delete ?')">Sweet Confirm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# card -->
+            </div>
+            <!-- /# column -->
+            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Sweet Confirm Or Cancel</h4>
+                        <div class="card-content mt-3">
+                            <div class="sweetalert">
+                                <button class="btn btn-warning btn sweet-success-cancel" (click)="confirmAlert('Are you sure to delete ?')">Sweet Confirm Or
+                                    Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# card -->
+            </div>
+            <!-- /# column -->
+            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Sweet Image Message</h4>
+                        <div class="card-content mt-3">
+                            <div class="sweetalert">
+                                <button class="btn btn-info btn sweet-image-message" (click)="imageAlert('Sweet !!')">Sweet Image
+                                    Message</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# card -->
+            </div>
+            <!-- /# column -->
+            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Sweet HTML</h4>
+                        <div class="card-content mt-3">
+                            <div class="sweetalert">
+                                <button class="btn btn-primary btn sweet-html" (click)="textAlert('Sweet !!')">Sweet HTML</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# card -->
+            </div>
+            <!-- /# column -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Sweet Auto Close</h4>
+                        <div class="card-content mt-3">
+                            <div class="sweetalert">
+                                <button class="btn btn-danger btn sweet-auto" (click)="autoAlert('Sweet auto close alert !!')">Sweet Auto Close </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# card -->
+            </div>
+            <!-- /# column -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Sweet Prompt</h4>
+                        <div class="card-content mt-3">
+                            <div class="sweetalert">
+                                <button class="btn btn-success btn sweet-prompt" (click)="promptAlert('Enter an input !!')">Sweet Prompt</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# card -->
+            </div>
+            <!-- /# column -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Sweet Ajax</h4>
+                        <div class="card-content mt-3">
+                            <div class="sweetalert">
+                                <button class="btn btn-info btn sweet-ajax" (click)="ajexAlert('Sweet ajax request !!')">Sweet Ajax</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

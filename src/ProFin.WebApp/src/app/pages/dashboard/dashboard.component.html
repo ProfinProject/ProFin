@@ -1,0 +1,28 @@
+<div class="content-body ">
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="welcome-card rounded ps-5 pt-5 pb-4 mt-3 position-relative mb-5">
+                    <h4 class="text-warning">Welcome to Tixia!</h4>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm.</p>
+                    <a class="btn btn-warning btn-rounded me-1" href="javascript:void(0);">Learn More <i class="las la-long-arrow-alt-right ms-sm-4 ms-2"></i></a>
+                    <a class="btn-link text-dark ms-3" href="javascript:void(0);">Remind Me Later</a>
+                    <img src="assets/images/svg/welcom-card.svg" alt="" class="position-absolute">
+                </div>
+            </div>
+            <div class="col-xl-12">
+                <app-graph-sales-revenue></app-graph-sales-revenue>
+            </div>
+            <div class="col-xl-6 col-xxxl-12 col-lg-6">
+                <app-graph-latest-sales></app-graph-latest-sales>
+            </div>
+            <div class="col-xl-6 col-xxxl-12 col-lg-6">
+                <app-latest-sales [tableData]="latestSalesMoreData"></app-latest-sales>
+            </div>
+            <div class="col-xl-12">
+                <app-graph-ticket-sold></app-graph-ticket-sold>
+            </div>
+        </div>
+    </div>
+</div>

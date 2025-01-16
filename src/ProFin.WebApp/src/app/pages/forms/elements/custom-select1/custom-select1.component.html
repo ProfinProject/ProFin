@@ -1,0 +1,28 @@
+<div class="basic-form">
+    <form action="#">
+        <div class="input-group mb-3">
+            <label class="form-label input-group-text mb-0">Options</label>
+
+            <app-select2 [items]="selectData1" class="wide"></app-select2>
+            
+        </div>
+
+        <div class="input-group mb-3">
+            <app-select2 [items]="selectData1" class="wide"></app-select2>
+
+            <label class="input-group-text form-label mb-0">Options</label>
+        </div>
+
+        <div class="input-group mb-3">
+            <button class="btn btn-primary" type="button">Button</button>
+            <app-select2 [items]="selectData1" class="wide"></app-select2>
+
+        </div>
+
+        <div class="input-group">
+            <app-select2 [items]="selectData1" class="wide"></app-select2>
+
+            <button class="btn btn-primary" type="button">Button</button>
+        </div>
+    </form>
+</div>

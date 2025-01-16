@@ -1,0 +1,104 @@
+<div class="deznav" (mouseover)='hoverAdd(true)' (mouseout)="hoverAdd(false)">
+    <div class="deznav-scroll">
+        <ul class="metismenu" id="menu">
+            @for(item of sidebarMenu; track item){
+            <li [ngClass]="{'mm-active': item.title == activeMenu}">
+                @if(!item.route){
+                    <a 
+                        class="has-arrow ai-icon"
+                        (click)="handleMenu(item.title)"
+                        [ngClass]="{'has-arrow ai-icon': item.subMenu}" 
+                        href="javascript:void(0)" 
+                        aria-expanded="false"
+                    >
+                        <i class="{{ item.icon }}"></i>
+                        <span class="nav-text me-1">{{ item.title }}
+                        @if(item.badge){
+                            <span class="badge badge-xs badge-danger ms-2">New</span>
+                        }
+                        </span>
+                    </a>
+                } @else if(item.route){
+                    <a class="has-arrow ai-icon"
+                        (click)="handleMenu(item.title)"
+                        [ngClass]="{'has-arrow ai-icon': item.subMenu}" 
+                        [routerLink]="[item.route]"
+                        aria-expanded="false"
+                    >
+                        <i class="{{ item.icon }}"></i>
+                        <span class="nav-text">{{ item.title }}
+                        @if(item.badge){
+                            <span class="badge badge-xs badge-danger ms-2">New</span>
+                        }
+                        </span>
+                    </a>
+                }
+                @if(item.subMenu){
+                    <ul aria-expanded="false" class="{{item.title == activeMenu ? 'mm-collapse mm-show': 'mm-collapse'}}">
+                        @for(subitem of item?.subMenu; track subitem){
+                        <li [ngClass]="{'mm-active': subitem.title == activeSubMenu}">
+                            @if(subitem.route && !subitem.theme){
+                                <a 
+                                    (click)="handleActiveMenu(subitem.route)" 
+                                    [routerLink]="[subitem.route]"
+                                    [ngClass]="{'mm-active': subitem.title == activeSubMenu}"
+                                >
+                                    {{subitem.title}}
+                                    @if(subitem.subBadge){
+                                        <span class="badge badge-xs badge-danger ms-2">New</span>
+                                    }
+                                </a>
+                            } @else if(!subitem.route && !subitem.theme){
+                                <a 
+                                    class="has-arrow ai-icon"
+                                    [ngClass]="{'mm-active': subitem.title == activeSubMenu}" 
+                                    (click)="handleActiveSubMenu(subitem.title)" 
+                                    href="javascript:void(0)"
+                                    aria-expanded="false"
+                                >
+                                    {{subitem.title}}
+                                    @if(subitem.subBadge){
+                                        <span class="badge badge-xs badge-danger ms-2">New</span>
+                                    }
+                                </a>
+                            } @else if(subitem.route && subitem.theme){
+                                <a 
+                                    [ngClass]="{'mm-active': subitem.theme == elementValue}" 
+                                    (click)="themeMode(subitem.theme)" 
+                                    [routerLink]="[subitem.route]"
+                                >
+                                    {{subitem.title}}
+                                </a>
+                            }
+                            @if(subitem.subsubMenu){
+                                <ul aria-expanded="false" class="{{subitem.title == activeSubMenu ? 'mm-collapse mm-show': 'mm-collapse'}}">
+                                    @for(subSubItem of subitem.subsubMenu; track subSubItem){
+                                    <li>
+                                        <a 
+                                            (click)="handleActiveMenu(subSubItem.route)" 
+                                            [routerLink]="[subSubItem.route]"
+                                            [ngClass]="{'mm-active': subSubItem.title == activeSubSubMenu}"
+                                        >
+                                            {{subSubItem.title}}
+                                        </a>
+                                    </li>
+                                    }
+                                </ul>
+                            }
+                        </li>
+                        }
+                    </ul>
+                }
+            </li>
+            }
+        </ul>
+        <div class="copyright">
+            <p>Tixia Ticketing Admin Dashboard <br>© <span class="current-year">2024</span> All Rights Reserved</p>
+            
+            <p class="fs-12">Made with 
+                <span class="heart" [class.heart-blast] = "isVisited == true" (click) = "checkVisited()" ></span>
+                 by DexignZone
+            </p>
+        </div>
+    </div>
+</div>

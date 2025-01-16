@@ -1,0 +1,44 @@
+
+<div class="dp-hidden position-absolute data-picker-costem">
+    <div class="input-group">
+        <input
+            name="datepicker"
+            class="form-control vw-25"
+            ngbDatepicker
+            #datepicker="ngbDatepicker"
+            [autoClose]="'outside'"
+            (dateSelect)="onDateSelection($event)"
+            [displayMonths]="2"
+            [dayTemplate]="t"
+            outsideDays="hidden"
+            [startDate]="fromDate!"
+            tabindex="-1"
+            [navigation]="navigation"
+            [outsideDays]="outsideDays"
+        />
+        <ng-template #t let-date let-focused="focused" class="data-custom">
+            <span
+                class="custom-day"
+                [class.focused]="focused"
+                [class.range]="isRange(date)"
+                [class.faded]="isHovered(date) || isInside(date)"
+                (mouseenter)="hoveredDate = date"
+                (mouseleave)="hoveredDate = null"
+            >
+                {{ date.day }}
+            </span>
+        </ng-template>
+    </div>
+</div>
+<div class="input-group">
+    <input
+        #dpFromDate
+        
+        class="form-control"
+        placeholder="yyyy-mm-dd"
+        name="dpFromDate"
+        [value]="value"
+        (input)="fromDate = validateInput(fromDate, dpFromDate.value)"
+        (click)="datepicker.toggle()"
+    />
+</div>

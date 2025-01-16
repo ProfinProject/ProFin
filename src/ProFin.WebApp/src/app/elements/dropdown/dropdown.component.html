@@ -1,0 +1,24 @@
+<div class="dropdown bootstrap-select  default-select form-control"
+    class="{{formControl ? 'd-inline-block style-2':'style-1 mt-3 mt-sm-0 form-control-sm'}}">
+    <button type="button" tabindex="-1" data-bs-toggle="dropdown" role="combobox" aria-owns="bs-select-1"
+        aria-haspopup="listbox" aria-expanded="false" title="Cancel" class="btn dropdown-toggle btn-light">
+        <div class="filter-option">
+            <div class="filter-option-inner">
+                <div class="filter-option-inner-inner">{{ selectValue }}</div>
+            </div>
+        </div>
+    </button>
+
+    <div class="dropdown-menu dropdown-menu-end" style="min-width: 100%;">
+        <ul class="" role="presentation">
+            @for(item of getValue; track item){
+            <li class="">
+                <a href="javascript:void(0);" (click)="getValueDrop({ item })"
+                    [ngClass]="{'active':selectValue == item}" class="dropdown-item">
+                    <span class="text">{{ item }}</span>
+                </a>
+            </li>
+            }
+        </ul>
+    </div>
+</div>

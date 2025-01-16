@@ -1,0 +1,14 @@
+<mat-form-field class="w-50">
+  <mat-label>Input & change events</mat-label>
+  <input matInput [matDatepicker]="picker" (dateInput)="addEvent('input', $event)"
+    (dateChange)="addEvent('change', $event)">
+  <mat-hint>MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+<div class="example-events border mt-2 p-3" style="height:100px">
+  @for (e of events; track e) {
+  <div>{{e}}</div>
+  }
+</div>

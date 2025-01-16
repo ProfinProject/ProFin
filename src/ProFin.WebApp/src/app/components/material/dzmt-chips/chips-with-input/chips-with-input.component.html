@@ -1,0 +1,27 @@
+<div class="example-button-container">
+    <button mat-raised-button (click)="formControl.disable()"class="me-2 mb-2">Disable form control</button>
+    <button mat-raised-button (click)="formControl.enable()" color="primary" class="mb-2">Enable form control</button>
+  </div>
+  <p>
+    <em>Enter video keywords</em>
+  </p>
+  <mat-form-field class="example-form-field">
+    <mat-label>Video keywords</mat-label>
+    <mat-chip-grid #chipGrid aria-label="Enter keywords" [formControl]="formControl" >
+      @for (keyword of keywords; track keyword) {
+        <mat-chip-row (removed)="removeKeyword(keyword)">
+          {{keyword}}
+          <button matChipRemove aria-label="'remove ' + keyword">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+      }
+    </mat-chip-grid>
+    <input placeholder="New keyword..."
+            [matChipInputFor]="chipGrid"
+            (matChipInputTokenEnd)="add($event)"/>
+  </mat-form-field>
+
+  <p class="m-0">
+    <strong>The following keywords are entered:</strong> {{formControl.value}}
+  </p>

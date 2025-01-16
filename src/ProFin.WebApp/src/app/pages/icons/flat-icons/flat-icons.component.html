@@ -1,0 +1,40 @@
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="page-titles">
+
+            <app-breadcrumb [breadcrumb]="breadcrumbList"> </app-breadcrumb>
+
+        </div>
+        <!-- row -->
+        <div class="card">
+            <div class="card-body svg-area pb-1">
+                <div class="row">
+                    @for(item of iconData; track item){
+                        <div class="col-xl-2 col-lg-3 col-xxl-2 col-md-4 col-sm-6 col-12 m-b30">
+                            <div class="svg-icons-ov style-1" (click)="open(content)">
+                                <div class="svg-icons-prev">
+                                    <i class="{{ item.icon }}"></i>
+                                </div>
+                                <div class="svg-classname">{{ item.icon }}</div>
+
+                                <ng-template #content let-modal>
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="svg_img_label_Brassieresvg">{{ item.icon }}</h5>
+                                        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <pre>&lt;i class="{{ item.icon }}"&gt;&lt;/i&gt;</pre>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">Close</button>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

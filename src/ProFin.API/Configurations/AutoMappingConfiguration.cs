@@ -10,6 +10,7 @@ namespace ProFin.API.Configurations
         {
             CreateMap<TransactionViewModel, Transaction>();
             CreateMap<Transaction, TransactionViewModel>();
+            CreateMap<CategoryTransaction, CategoryTransactionViewModel>().ReverseMap();
         }
     }
 }

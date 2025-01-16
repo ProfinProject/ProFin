@@ -1,0 +1,60 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ProFin.Core.Business.Models;
+
+namespace ProFin.Core.Data.Context
+{
+    public class AppDbContext : DbContext
+    {
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
+        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<CategoryTransaction> CategoryTransactions { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.ApplyConfiguration(new TransactionConfiguration());
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellation = default)
+        {
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                if (entry.Entity is Entity)
+                {
+                    if (entry.State == EntityState.Added)
+                    {
+                        entry.Property("CreatedDate").CurrentValue = DateTime.Now;
+                    }
+                    if (entry.State == EntityState.Modified)
+                    {
+                        entry.Property("UpdatedDate").CurrentValue = DateTime.Now;
+                        entry.Property("CreatedDate").IsModified = false;
+                    }
+
+                    if (entry.State == EntityState.Deleted)
+                    {
+                        entry.Property("Deleted").CurrentValue = true;
+                        entry.Property("UpdatedDate").CurrentValue = DateTime.Now;
+                        entry.Property("CreatedDate").IsModified = false;
+                        entry.State = EntityState.Modified;
+                    }
+                }
+
+            }
+            return base.SaveChangesAsync(cancellation);
+        }
+    }
+
+    public class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
+    {
+        public void Configure(EntityTypeBuilder<Transaction> builder)
+        {
+            builder.HasKey(a => a.Id);
+
+            builder.ToTable("Transactions");
+        }
+    }
+}

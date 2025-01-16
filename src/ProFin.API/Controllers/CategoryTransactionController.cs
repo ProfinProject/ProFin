@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using ProFin.API.ViewModel;
 using ProFin.API.ViewModels;
 using ProFin.Core.Business.Interfaces;
 using ProFin.Core.Business.Models;
@@ -19,7 +20,7 @@ public class CategoryTransactionController(ICategoryTransactionRepository Catego
     }
 
     [HttpGet("{id:long}")]
-    public async Task<ActionResult<CategoryTransactionViewModel>> GetById(long id)
+    public async Task<ActionResult<CategoryTransactionViewModel>> GetById(int id)
     {
         var categoryTransaction = await CategoryTransactionRepository.GetById(id);
 

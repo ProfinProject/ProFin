@@ -16,6 +16,7 @@ namespace ProFin.Core.Data.Context
             base.OnModelCreating(builder);
 
             builder.ApplyConfiguration(new TransactionConfiguration());
+            builder.ApplyConfiguration(new CategoryTransactionConfiguration());
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellation = default)
@@ -55,6 +56,16 @@ namespace ProFin.Core.Data.Context
             builder.HasKey(a => a.Id);
 
             builder.ToTable("Transactions");
+        }
+    }
+
+    public class CategoryTransactionConfiguration : IEntityTypeConfiguration<CategoryTransaction>
+    {
+        public void Configure(EntityTypeBuilder<CategoryTransaction> builder)
+        {
+            builder.HasKey(a => a.Id);
+
+            builder.ToTable("CategoriesTransaction");
         }
     }
 }

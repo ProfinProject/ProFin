@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProFin.Core.Business.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProFin.Core.Data.Repositories
 {
@@ -70,7 +65,7 @@ namespace ProFin.Core.Data.Repositories
         public async Task Delete(TEntity entity)
         {
             _dbset.Remove(entity);
-           await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task Update(TEntity entity)

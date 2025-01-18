@@ -1,0 +1,20 @@
+<table class="table primary-table-bordered">
+    <thead class="thead-primary">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(row of items; track row; let i = $index){
+            <tr>
+                <th class="text-black">{{ i+1 }}</th>
+                <td>{{ row.first }}</td>
+                <td>{{ row.last }}</td>
+                <td>{{ row.handle }}</td>
+            </tr>
+        }
+    </tbody>
+</table>

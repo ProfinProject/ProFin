@@ -1,0 +1,74 @@
+<div ngbAccordion class="{{ maneClass }}">
+	<div ngbAccordionItem [collapsed]="false">
+		<h2 ngbAccordionHeader [ngClass]="{'accordion-header accordion-header-primary': bg}">
+			<button ngbAccordionButton>
+				@if(maneClass && !positionClass && !iconClass){
+				<span>Accordion Header One</span>
+				}
+				@if(iconClass){
+				<span class="{{ iconClass }}"></span>
+				}
+				@if(positionClass){
+				<span class="{{ positionClass }}">Accordion Header One</span>
+				}
+			</button>
+		</h2>
+		<div ngbAccordionCollapse>
+			<div ngbAccordionBody>
+				<ng-template>
+					Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+					wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+					eiusmod.
+				</ng-template>
+			</div>
+		</div>
+	</div>
+	<div ngbAccordionItem>
+		<h2 ngbAccordionHeader [ngClass]="{'accordion-header accordion-header-info': bg}">
+			<button ngbAccordionButton>
+				@if(maneClass && !positionClass && !iconClass){
+				<span>Accordion Header Two</span>
+				}
+				@if(iconClass){
+				<span class="{{ iconClass }}"></span>
+				}
+				@if(positionClass){
+				<span class="{{ positionClass }}">Accordion Header Two</span>
+				}
+			</button>
+		</h2>
+		<div ngbAccordionCollapse>
+			<div ngbAccordionBody>
+				<ng-template>
+					Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+					wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+					eiusmod.
+				</ng-template>
+			</div>
+		</div>
+	</div>
+	<div ngbAccordionItem>
+		<h2 ngbAccordionHeader [ngClass]="{'accordion-header accordion-header-success': bg}">
+			<button ngbAccordionButton>
+				@if(maneClass && !positionClass && !iconClass){
+				<span>Accordion Header Three</span>
+				}
+				@if(iconClass){
+				<span class="{{ iconClass }}"></span>
+				}
+				@if(positionClass){
+				<span class="{{ positionClass }}">Accordion Header Three</span>
+				}
+			</button>
+		</h2>
+		<div ngbAccordionCollapse>
+			<div ngbAccordionBody>
+				<ng-template>
+					Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+					wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+					eiusmod.
+				</ng-template>
+			</div>
+		</div>
+	</div>
+</div>

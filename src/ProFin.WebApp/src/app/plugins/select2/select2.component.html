@@ -1,0 +1,5 @@
+
+
+<select2 ngDefaultControl [data]="data" [templates]="template" class="select2" value="{{valueSet}}">
+    <ng-template #template let-data="data" >{{data?.name | titlecase}}</ng-template>
+</select2>

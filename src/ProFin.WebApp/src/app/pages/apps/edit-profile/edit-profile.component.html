@@ -1,0 +1,126 @@
+
+
+<div class="content-body default-height">
+    <div class="container-fluid">
+         <!-- Conten Head -->
+         <div class="page-titles">
+            <app-breadcrumb [breadcrumb]="breadcrumbList"> </app-breadcrumb>
+         </div>
+         <!-- End Conten Head -->
+        <!-- row -->
+        <div class="row">
+            <div class="col-xl-3 col-lg-4">
+                <div class="clearfix">
+                    <div class="card  profile-card author-profile m-b30">
+                        <div class="card-body">
+                            <div class="p-5">
+                                <div class="author-profile">
+                                    <div class="author-media">
+                                        <img src="assets/images/profile/pic1.jpg" alt="">
+                                        <div class="upload-link" title="" data-bs-toggle="tooltip" data-placement="right" data-original-title="update">
+                                            <input type="file" class="update-flie">
+                                            <i class="fa fa-camera"></i>
+                                        </div>
+                                    </div>
+                                    <div class="author-info">
+                                        <h6 class="title">John</h6>
+                                        <span>Developer</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="info-list">
+                                <ul>
+                                    <li><a href="app-profile.html">Models</a><span>36</span></li>
+                                    <li><a href="uc-lightgallery.html">Gallery</a><span>3</span></li>
+                                    <li><a href="app-profile.html">Lessons</a><span>1</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="input-group mb-3">
+                                <div class="form-control rounded text-center">Portfolio</div>
+                            </div>
+                            <div class="input-group">
+                                <a href="https://www.dexignlab.com/" target="_blank"
+                                    class="form-control text-hover rounded ">www.dexignzone.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-8">
+                <div class="card profile-card m-b30">
+                    <div class="card-header">
+                        <h4 class="card-title">Account setup</h4>
+                    </div>
+                    <form class="profile-form">
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-sm-6 m-b30">
+                                    <label class="form-label">Name</label>
+                                    <input type="text" class="form-control" value="John">
+                                </div>
+                                <div class="col-sm-6 m-b30">
+                                    <label class="form-label">Surname</label>
+                                    <input type="text" class="form-control" value="Marely">
+                                </div>
+                                <div class="col-sm-6 m-b30">
+                                    <label class="form-label">Specialty</label>
+                                    <input type="text" class="form-control" value="Developer">
+                                </div>
+                                <div class="col-sm-6 m-b30">
+                                    <label class="form-label">Skills</label>
+                                    <input type="text" class="form-control" value="HTML,  JavaScript,  PHP">
+                                </div>
+                                <div class="col-sm-6 m-b30">
+                                    <label class="form-label">Gender</label>
+                                    <app-select2 [items]="selectGender"></app-select2>
+                                </div>
+                                <div class="col-sm-6 m-b30">
+                                    <div class="example">
+                                        <label class="form-label">Birth</label>
+                                        <div class="input-hasicon mb-sm-0 mb-3 data-picker-costem costem-set">
+                                            <input 
+                                                (click)="d.toggle()"
+                                                class="form-control"
+                                                placeholder="yyyy-mm-dd"
+                                                name="dp"
+                                                [(ngModel)]="model"
+                                                ngbDatepicker
+                                                #d="ngbDatepicker"
+                                                [navigation]="navigation"
+                                                [outsideDays]="outsideDays"
+                                            />
+                                            <div class="icon"(click)="d.toggle()" ><i class="far fa-calendar"></i></div>
+                                        </div>
+                                    </div>	
+                                </div>
+                                <div class="col-sm-6 m-b30">
+                                    <label class="form-label">Phone</label>
+                                    <input type="number" class="form-control" placeholder="+123456789">
+                                </div>
+                                <div class="col-sm-6 m-b30">
+                                    <label class="form-label">Email adress</label>
+                                    <input type="email" class="form-control" value="demo@gmail.com">
+                                </div>
+                                <div class="col-sm-6 m-b30">
+                                    <label class="form-label ">Country</label>
+                                    <app-select2 [items]="selectCountry"></app-select2>
+                                </div>
+                                <div class="col-sm-6 m-b30">
+                                    <label class="form-label">City</label>
+                                    <app-select2 [items]="selectCity"></app-select2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-primary">UPDATE</button>
+                            <a routerLink="/page-forgot-password" class="text-primary btn-link">Forgot your password?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

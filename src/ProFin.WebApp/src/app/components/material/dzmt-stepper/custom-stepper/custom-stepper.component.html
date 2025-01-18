@@ -1,0 +1,234 @@
+<mat-stepper linear #stepper class="form-wizard">
+    <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
+      <form [formGroup]="firstFormGroup" class="p-2">
+        <ng-template matStepLabel>Fill out your Detail</ng-template>
+        <div class="row">
+          <div class="col-6 px-2">
+            <mat-form-field appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input type="text" matInput placeholder="Parsley" formControlName="firstName">
+            </mat-form-field>
+          </div>
+          <div class="col-6 px-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input type="text" matInput placeholder="Montana" formControlName="lastName">
+            </mat-form-field>
+          </div>
+          <div class="col-6 px-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Email Address</mat-label>
+                <input type="email" matInput placeholder="Email" formControlName="email">
+            </mat-form-field>
+          </div>
+          <div class="col-6 px-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Phone Number</mat-label>
+                <input type="number" matInput placeholder="(+1)408-657-9007" formControlName="phoneNumber">
+            </mat-form-field>
+          </div>
+          <div class="col-12 px-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Where are you from</mat-label>
+                <input type="text" matInput placeholder="Enter Plece.." formControlName="place">
+            </mat-form-field>
+          </div>
+            <div class="float-end">
+                <button matStepperNext mat-raised-button color="primary" class="me-1">Next</button>
+            </div>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+        <form [formGroup]="secondFormGroup" class="p-2">
+          <ng-template matStepLabel>Company Detail</ng-template>
+          <div class="row">
+            <div class="col-6 px-2">
+              <mat-form-field appearance="outline">
+                  <mat-label>Company Name</mat-label>
+                  <input type="text" matInput placeholder="Cellophane Square" formControlName="firstName">
+              </mat-form-field>
+            </div>
+            <div class="col-6 px-2">
+              <mat-form-field appearance="outline">
+                  <mat-label>Company Email Address</mat-label>
+                  <input type="email" matInput placeholder="example@example.com.com" formControlName="email">
+              </mat-form-field>
+            </div>
+            <div class="col-6 px-2">
+              <mat-form-field appearance="outline">
+                  <mat-label>Company Phone Number</mat-label>
+                  <input type="number" matInput placeholder="(+1)408-657-9007" formControlName="phoneNumber">
+              </mat-form-field>
+            </div>
+            <div class="col-6 px-2">
+              <mat-form-field appearance="outline">
+                  <mat-label>Your position in Company</mat-label>
+                  <input type="text" matInput placeholder="Company place" formControlName="place">
+              </mat-form-field>
+            </div>
+            <div class="float-end">
+                <button mat-button matStepperPrevious>Back</button>
+                <button matStepperNext mat-raised-button color="primary" class="me-1">Next</button>
+            </div>
+          </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="therdFormGroup" [editable]="isEditable">
+        <form [formGroup]="therdFormGroup" class="p-2">
+            <ng-template matStepLabel>Day</ng-template>
+            <div class="row">
+                <div class="col-sm-4 mb-2">
+                    <span>Monday<span class="required">*</span></span>
+                </div>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-6 px-2">
+                      <mat-form-field appearance="outline">
+                          <input type="text" matInput formControlName="input1">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-6 px-2">
+                      <mat-form-field appearance="outline">
+                          <input type="email" matInput formControlName="input2">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 mb-2">
+                    <span>Tuesday<span class="required">*</span></span>
+                </div>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-6 px-2">
+                      <mat-form-field appearance="outline">
+                          <input type="text" matInput formControlName="input1">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-6 px-2">
+                      <mat-form-field appearance="outline">
+                          <input type="email" matInput formControlName="input2">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 mb-2">
+                    <span>Wednesday<span class="required">*</span></span>
+                </div>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-6 px-2">
+                      <mat-form-field appearance="outline">
+                          <input type="text" matInput formControlName="input1">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-6 px-2">
+                      <mat-form-field appearance="outline">
+                          <input type="email" matInput formControlName="input2">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 mb-2">
+                    <span>Thrusday<span class="required">*</span></span>
+                </div>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-6 px-2">
+                      <mat-form-field appearance="outline">
+                          <input type="text" matInput formControlName="input1">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-6 px-2">
+                      <mat-form-field appearance="outline">
+                          <input type="email" matInput formControlName="input2">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 mb-2">
+                    <span>Friday<span class="required">*</span></span>
+                </div>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-6 px-2">
+                      <mat-form-field appearance="outline">
+                          <input type="text" matInput formControlName="input1">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-6 px-2">
+                      <mat-form-field appearance="outline">
+                          <input type="email" matInput formControlName="input2">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="float-end">
+                <button mat-button matStepperPrevious>Back</button>
+                <button matStepperNext mat-raised-button color="primary" class="me-1">Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <div class="row emial-setup mt-4">
+            <div class="col-lg-3 col-sm-6 col-6">
+                <div class="form-group">
+                    <label for="mailclient11" class="mailclinet mailclinet-gmail">
+                        <input type="radio" name="emailclient" id="mailclient11">
+                        <span class="mail-icon">
+                            <i class="mdi mdi-google-plus" aria-hidden="true"></i>
+                        </span>
+                        <span class="mail-text">I'm using Gmail</span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-6">
+                <div class="form-group">
+                    <label for="mailclient12" class="mailclinet mailclinet-office">
+                        <input type="radio" name="emailclient" id="mailclient12">
+                        <span class="mail-icon">
+                            <i class="mdi mdi-office" aria-hidden="true"></i>
+                        </span>
+                        <span class="mail-text">I'm using Office</span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-6">
+                <div class="form-group">
+                    <label for="mailclient13" class="mailclinet mailclinet-drive">
+                        <input type="radio" name="emailclient" id="mailclient13">
+                        <span class="mail-icon">
+                            <i class="mdi mdi-google-drive" aria-hidden="true"></i>
+                        </span>
+                        <span class="mail-text">I'm using Drive</span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-6">
+                <div class="form-group">
+                    <label for="mailclient14" class="mailclinet mailclinet-another">
+                        <input type="radio" name="emailclient" id="mailclient14">
+                        <span class="mail-icon">
+                            <i class="fas fa-question-circle" aria-hidden="true"></i>
+                        </span>
+                        <span class="mail-text">Another Service</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="float-end">
+            <button mat-button matStepperPrevious>Back</button>
+            <button (click)="stepper.reset()" mat-raised-button color="primary" class=" me-1">Reset</button>
+        </div>
+    </mat-step>
+</mat-stepper>

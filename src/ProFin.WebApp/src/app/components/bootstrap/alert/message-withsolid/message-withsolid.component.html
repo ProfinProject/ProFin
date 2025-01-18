@@ -1,0 +1,22 @@
+<div class="row">
+    @for(alert of alerts; track alert){
+        <div class="col-xl-6">
+            <ngb-alert [type]="alert.type" (closed)="close(alert)" class="solid">
+                <div class="media">
+                    @if(alert.type != 'light'){
+                    <div class="media-body">
+                        <h5 class="mt-1 mb-2 text-white">{{ alert.typeMsg }}</h5>
+                        <p class="mb-0 text-white">{{ alert.message }}</p>
+                    </div>
+                    }
+                    @if(alert.type == 'light'){
+                    <div class="media-body">
+                        <h5 class="mt-1 mb-2">{{ alert.typeMsg }}</h5>
+                        <p class="mb-0">{{ alert.message }}</p>
+                    </div>
+                    }
+                </div>
+            </ngb-alert>
+        </div>
+    }
+</div>

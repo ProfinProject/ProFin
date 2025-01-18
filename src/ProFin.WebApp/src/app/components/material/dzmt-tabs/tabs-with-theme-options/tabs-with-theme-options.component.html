@@ -1,0 +1,29 @@
+<div class="mb-3 d-none">
+  <mat-button-toggle-group #colorToggle="matButtonToggleGroup" value="primary" aria-label="Change color">
+    <mat-button-toggle value="primary">Primary</mat-button-toggle>
+    <mat-button-toggle value="accent">Accent</mat-button-toggle>
+    <mat-button-toggle value="warn">Warn</mat-button-toggle>
+  </mat-button-toggle-group>
+  <span class="example-button-toggle-label ms-2">Color</span>
+</div>
+
+<div class="mb-3">
+  <mat-button-toggle-group #backgroundColorToggle="matButtonToggleGroup" value="primary" aria-label="Change color">
+    <mat-button-toggle value="primary">Primary</mat-button-toggle>
+    <mat-button-toggle value="accent">Accent</mat-button-toggle>
+    <mat-button-toggle value="warn">Warn</mat-button-toggle>
+  </mat-button-toggle-group>
+  <span class="example-button-toggle-label ms-2">Background Color</span>
+</div>
+
+<mat-tab-group [color]="colorToggle.value" [backgroundColor]="backgroundColorToggle.value">
+  <mat-tab label="First">
+    <div class="py-3">Content 1</div>
+  </mat-tab>
+  <mat-tab label="Second">
+    <div class="py-3">Content 2</div>
+  </mat-tab>
+  <mat-tab label="Third">
+    <div class="py-3">Content 3</div>
+  </mat-tab>
+</mat-tab-group>

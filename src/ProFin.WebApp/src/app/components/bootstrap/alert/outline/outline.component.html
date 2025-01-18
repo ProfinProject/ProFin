@@ -1,0 +1,8 @@
+
+@for(alert of alerts; track alert){
+<p >
+    <ngb-alert [type]="alert.type" (closed)="close(alert)"class="alert-outline-{{alert.type}}">
+        <strong>{{ alert.typeMsg }}</strong> {{ alert.message }}
+    </ngb-alert>
+</p>
+}

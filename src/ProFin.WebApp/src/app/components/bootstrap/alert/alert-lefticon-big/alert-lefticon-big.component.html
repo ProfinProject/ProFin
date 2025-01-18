@@ -1,0 +1,18 @@
+<div class="row">
+    @for(alert of alerts; track alert){
+    <div class="col-xl-6">
+        <ngb-alert [type]="alert.type" (closed)="close(alert)" class="left-icon-big">
+            <div class="media">
+                <div class="alert-left-icon-big">
+                    <span><i class="{{ alert.iconUrl }}"></i></span>
+                </div>
+                <div class="media-body">
+                    
+                    <h6 class="mt-1 mb-2">{{ alert.typeMsg }}</h6>
+                    <p class="mb-0">{{ alert.message }}</p>
+                </div>
+            </div>
+        </ngb-alert>
+    </div>
+    }
+</div>

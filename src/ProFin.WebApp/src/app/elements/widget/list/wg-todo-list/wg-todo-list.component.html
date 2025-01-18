@@ -1,0 +1,26 @@
+<ul class="timeline">
+    @for(item of items; track item){
+        <li>
+            <div class="timeline-panel">
+                <div class="form-check custom-checkbox checkbox-{{item.btn_class}} check-lg me-3">
+                    <input type="checkbox" class="form-check-input" id="customCheckBox1" checked="true">
+                    <label class="form-check-label" for="customCheckBox1"></label>
+                </div>
+                <div class="media-body">
+                    <h5 class="mb-0">{{ item.name }}</h5>
+                    <small class="text-muted">{{ item.date }}</small>
+                </div>
+                <div class="dropdown">
+                    <button type="button" class="btn btn-{{item.btn_class}} light sharp" data-bs-toggle="dropdown">
+                        <svg width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="javascript:void(0)">Edit</a>
+                        <a class="dropdown-item" href="javascript:void(0)">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+    }
+
+</ul>

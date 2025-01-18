@@ -1,0 +1,18 @@
+<div id="main-wrapper" [ngClass]="{'menu-toggle':toggleVal, 'show':true, 'rightside-event':rightsideEvent}" [class.iconhover-toggle]="mouseOvered">
+
+    <app-nav-header (sidebarToggle)=sidebarToggle($event)/>
+
+    <app-chatbox />
+
+    <app-header [dashboardTitle]="currentItem"/>
+
+    <app-sidebar (mouseHoverEvent)="iconHoverToggle($event)" (newTitleEvent)="dashboardTitle($event)" />
+
+    <app-event-sidebar/>
+
+    <router-outlet />
+
+    @if(currentRoute != '/admin/customers-chat'){
+    <app-footer />
+    }
+</div>

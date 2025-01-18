@@ -1,6 +1,7 @@
 using ProFin.API.Configurations;
 using ProFin.Core.Business.Interfaces;
 using ProFin.Data.Repositories;
+using ProFin.Data.Seed;
 using ProFin.Identity;
 
 
@@ -24,7 +25,6 @@ builder.Services.AddScoped<ICategoryTransactionRepository, CategoryTransactionRe
 
 var app = builder.Build();
 
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -32,6 +32,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+using (var scope = app.Services.CreateScope())
+{
+    var seeder = scope.ServiceProvider.GetRequiredService<DbMigrationHelper>();
+    seeder.SeedData();
+}
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

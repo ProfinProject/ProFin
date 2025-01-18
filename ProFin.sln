@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProFin.Identity", "src\ProF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProFin.Data", "src\ProFin.Data\ProFin.Data.csproj", "{B1E7761F-1EBD-48D6-8188-B2BDB9754ADC}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "ProFin.WebApp", "src\ProFin.WebApp\ProFin.WebApp.esproj", "{8AD3F51D-8E33-40E4-9E8D-8C3977E49645}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,12 @@ Global
 		{B1E7761F-1EBD-48D6-8188-B2BDB9754ADC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1E7761F-1EBD-48D6-8188-B2BDB9754ADC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1E7761F-1EBD-48D6-8188-B2BDB9754ADC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AD3F51D-8E33-40E4-9E8D-8C3977E49645}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AD3F51D-8E33-40E4-9E8D-8C3977E49645}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AD3F51D-8E33-40E4-9E8D-8C3977E49645}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{8AD3F51D-8E33-40E4-9E8D-8C3977E49645}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AD3F51D-8E33-40E4-9E8D-8C3977E49645}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AD3F51D-8E33-40E4-9E8D-8C3977E49645}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

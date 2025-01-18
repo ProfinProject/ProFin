@@ -1,11 +1,7 @@
-﻿using ProFin.Core.Business.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ProFin.Core.Interfaces;
+using ProFin.Core.Models;
 
-namespace ProFin.Core.Business.Interfaces;
+namespace ProFin.Core.Interfaces;
 
 public interface ICategoryTransactionRepository : IRepository<CategoryTransaction>
 {

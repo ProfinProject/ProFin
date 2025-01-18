@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ProFin.API.ViewModel;
-using ProFin.API.ViewModels;
-using ProFin.Core.Business.Interfaces;
-using ProFin.Core.Business.Models;
+using ProFin.Core.Interfaces;
+using ProFin.Core.Models;
 
 namespace ProFin.API.Controllers;
 

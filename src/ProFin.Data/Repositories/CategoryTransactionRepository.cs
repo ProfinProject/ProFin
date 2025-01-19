@@ -1,12 +1,7 @@
-﻿using ProFin.Core.Business.Interfaces;
-using ProFin.Core.Business.Models;
-using ProFin.Core.Data.Context;
-using ProFin.Core.Data.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ProFin.Core.Data.Repositories;
+using ProFin.Core.Interfaces;
+using ProFin.Core.Models;
+using ProFin.Data.Context;
 
 namespace ProFin.Data.Repositories;
 

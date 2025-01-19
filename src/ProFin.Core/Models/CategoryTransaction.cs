@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProFin.Core.Business.Models;
+namespace ProFin.Core.Models;
 
 public class CategoryTransaction : Entity
 {

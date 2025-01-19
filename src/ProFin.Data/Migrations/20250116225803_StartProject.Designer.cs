@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ProFin.Core.Data.Context;
-
+using ProFin.Data.Context;
+    
 #nullable disable
 
 namespace ProFin.Data.Migrations

@@ -1,5 +1,5 @@
-﻿using ProFin.Core.Business.Models;
-using ProFin.Core.Data.Context;
+﻿using ProFin.Core.Models;
+using ProFin.Data.Context;
 
 namespace ProFin.Data.Seed
 {

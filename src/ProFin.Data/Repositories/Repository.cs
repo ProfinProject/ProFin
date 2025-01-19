@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProFin.Core.Business.Interfaces;
+using ProFin.Core.Interfaces;
 using System.Linq.Expressions;
 
 namespace ProFin.Core.Data.Repositories

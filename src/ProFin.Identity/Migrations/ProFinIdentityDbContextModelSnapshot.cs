@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProFin.Identity;
 
@@ -11,12 +10,10 @@ using ProFin.Identity;
 
 namespace ProFin.Identity.Migrations
 {
-    [DbContext(typeof(IdentityDbContext))]
-    [Migration("20250110192210_AddIdentity")]
-    partial class AddIdentity
+    [DbContext(typeof(ProFinIdentityDbContext))]
+    partial class ProFinIdentityDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

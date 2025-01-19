@@ -1,5 +1,5 @@
-﻿using ProFin.Core.Business.Interfaces;
-using ProFin.Core.Data.Repositories;
+﻿using ProFin.Core.Interfaces;
+using ProFin.Data.Repositories;
 
 namespace ProFin.API.Configurations
 {

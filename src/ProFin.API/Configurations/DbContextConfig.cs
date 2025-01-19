@@ -1,6 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-using ProFin.Core.Data.Context;
+using ProFin.Data.Context;
 using ProFin.Data.Seed;
 
 namespace ProFin.API.Configurations

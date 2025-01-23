@@ -10,6 +10,8 @@ namespace ProFin.Data.Context
 
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<CategoryTransaction> CategoryTransactions { get; set; }
+        public DbSet<User> User { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -17,6 +19,8 @@ namespace ProFin.Data.Context
 
             builder.ApplyConfiguration(new TransactionConfiguration());
             builder.ApplyConfiguration(new CategoryTransactionConfiguration());
+            builder.ApplyConfiguration(new UserConfiguration());
+
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellation = default)
@@ -66,6 +70,16 @@ namespace ProFin.Data.Context
             builder.HasKey(a => a.Id);
 
             builder.ToTable("CategoriesTransaction");
+        }
+    }
+
+    public class UserConfiguration : IEntityTypeConfiguration<User>
+    {
+        public void Configure(EntityTypeBuilder<User> builder)
+        {
+            builder.HasKey(a => a.Id);
+
+            builder.ToTable("Users");
         }
     }
 }

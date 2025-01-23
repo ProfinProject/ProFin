@@ -16,6 +16,10 @@ namespace ProFin.Core.Models.Validations
               .Length(1, 100)
               .WithMessage("The field {Property Name }should be between {MinLength} and {MaxLength} characters");
 
+
+            RuleFor(f => f.Email)
+            .EmailAddress().WithMessage("The field {PropertyName} is not valid");
+
             RuleFor(f => f.Birthdate)
               .GreaterThan(DateTime.Now.AddYears(-18))
               .WithMessage("The field {PropertyName} is required");

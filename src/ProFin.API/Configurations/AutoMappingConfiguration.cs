@@ -2,6 +2,7 @@
 using ProFin.API.ViewModel;
 using ProFin.API.ViewModels;
 using ProFin.Core.Models;
+using static ProFin.API.ViewModels.UserViewModel;
 
 namespace ProFin.API.Configurations
 {

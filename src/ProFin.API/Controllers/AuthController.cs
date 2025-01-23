@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using ProFin.API.Extensions;
+using ProFin.Core.Interfaces.Services;
+using ProFin.Core.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -12,20 +14,21 @@ namespace ProFin.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController : MainController
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly JwtSettings _jwtSettings;
-       // private readonly IUserService _userService;
+        // private readonly IUserService _userService;
 
-        public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, JwtSettings jwtSettings)//, IUserService userService
+        public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, JwtSettings jwtSettings, INotifier notifier)
+             : base(notifier)//, IUserService userService
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _jwtSettings = jwtSettings;
-         //   _userService = userService;
-        } 
+            //   _userService = userService;
+        }
 
         [HttpPost]
         [AllowAnonymous]
@@ -46,13 +49,22 @@ namespace ProFin.API.Controllers
 
             var result = await _userManager.CreateAsync(user, model.Password);
 
-            if (result.Succeeded == false)
-                return BadRequest(result.Errors);
+            if (result.Succeeded == true)
+            {
+                await _signInManager.SignInAsync(user, false);
+                return Ok(await GetJwt(user.Email));
+            }
+
+            foreach (var error in result.Errors)
+            {
+                NotifieError(error.Description);
+            }
+
+            return CustomResponse(model);
 
             //   await _authorService.Create(CreateAuthorViewModel.Create(Guid.Parse(user.Id), model.FistName, model.LastName));
 
-            await _signInManager.SignInAsync(user, false);
-            return Ok(await GetJwt(user.Email));
+
         }
 
 

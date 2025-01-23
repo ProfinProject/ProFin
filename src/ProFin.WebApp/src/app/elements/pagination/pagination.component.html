@@ -1,0 +1,19 @@
+<nav aria-label="Page navigation example" class="list-pagination">
+    <ul class="pagination mb-2 mb-sm-0 ">
+        <li class="page-item">
+            <a class="page-link tex" href="javascript:void(0)" (click)="pageChang(1)">
+                <i class="fa fa-angle-double-left"></i>
+            </a>
+        </li>
+        @for(in of [].constructor(totalPage); track in;  let i = $index){
+        <li class="page-item">
+            <a class="page-link" href="javascript:void(0)" (click)="pageChang(i+1)" [ngClass]="{'active':((i+1).toString()==(page))}">{{i+1}}</a>
+        </li>
+        }
+        <li class="page-item">
+            <a class="page-link tex" href="javascript:void(0)" (click)="pageChang(totalPage)">
+                <i class="fa fa-angle-double-right"></i>
+            </a>
+        </li>
+    </ul>
+</nav>

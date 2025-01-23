@@ -1,0 +1,40 @@
+<ul class="timeline">
+    @for(item of items; track item;){
+    <li>
+        <div class="timeline-panel">
+            @if(item.img){
+                <div class="media me-2">
+                    <img alt="image" width="50" src="{{ item.img }}">
+                </div>
+            }
+            @if(item.img_null){
+                <div class="media me-2 media-{{item.btn_class}}">
+                    {{ item.img_null }}
+                </div>
+            }
+            <div class="media-body">
+                <h5 class="mb-1">{{ item.name }} <small class="text-muted">{{ item.date }}</small></h5>
+                <p class="mb-1">{{ item.decs }}</p>
+                <a href="javascript:void(0)" class="btn btn-primary btn-xxs shadow me-1">Reply</a>
+                <a href="javascript:void(0)" class="btn btn-outline-danger btn-xxs">Delete</a>
+            </div>
+            <div class="dropdown">
+                <button type="button" class="btn btn-{{ item.btn_class }} light sharp" data-bs-toggle="dropdown">
+                    <svg width="18px" height="18px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24" />
+                            <circle fill="#000000" cx="5" cy="12" r="2" />
+                            <circle fill="#000000" cx="12" cy="12" r="2" />
+                            <circle fill="#000000" cx="19" cy="12" r="2" />
+                        </g>
+                    </svg>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javascript:void(0)">Edit</a>
+                    <a class="dropdown-item" href="javascript:void(0)">Delete</a>
+                </div>
+            </div>
+        </div>
+    </li>
+    }
+</ul>

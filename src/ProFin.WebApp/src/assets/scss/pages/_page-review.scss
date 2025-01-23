@@ -1,0 +1,74 @@
+.review-table{
+	padding: 25px;
+    box-shadow: none;
+    border-radius: 0;
+    border-bottom: 1px solid #eee;
+	height: auto;
+    margin-bottom: 0;
+	
+	.disease {
+		border-#{$dz-pos-left}: 1px solid #eee;
+		padding-#{$dz-pos-left}: 20px;
+		@include respond('tab-port') {
+			border-#{$dz-pos-left}: 0;
+			padding-#{$dz-pos-left}: 0;	
+			margin-#{$dz-pos-right}:10px !important;
+			margin-#{$dz-pos-left}:0;
+		}
+	}
+	.star-review i{
+	
+		font-size:20px;
+		@include respond('tab-port') {
+			font-size:216x;
+		}
+	}
+	.media-body{
+		p{
+			color:#3e4954;
+			font-size:18px;
+			line-height:1.5;
+			@include respond('tab-port') {
+				font-size:14px;
+			}
+		}
+	}
+	.media-footer{
+		min-width:500px;
+		@include respond('laptop') {
+			min-width:300px;
+			margin-#{$dz-pos-left}:10px;
+		}
+		@include respond('tab-port') {
+			margin-#{$dz-pos-left}:0;
+			margin-top:25px;
+		}
+	}
+	img{
+		@include respond('tab-port') {
+			float:#{$dz-pos-left};
+			width: 80px;
+		}
+	}
+	.media{
+		@include respond('tab-port') {
+			display:block !important;
+		}
+		
+	}
+	@include respond('tab-land') {
+		.custom-control{
+			float:#{$dz-pos-right};
+		}
+			
+	}
+	@include respond('tab-port') {
+		padding: 15px;
+	}
+}
+
+.review-table{
+	thead th{
+		width: unset!important;
+	}
+}

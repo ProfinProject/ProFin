@@ -1,20 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ProFin.Core.Business.Models;
+using ProFin.Core.Models;
 
-namespace ProFin.Core.Data.Context
+namespace ProFin.Data.Context
 {
     public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<CategoryTransaction> CategoryTransactions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.ApplyConfiguration(new TransactionConfiguration());
+            builder.ApplyConfiguration(new CategoryTransactionConfiguration());
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellation = default)
@@ -54,6 +56,16 @@ namespace ProFin.Core.Data.Context
             builder.HasKey(a => a.Id);
 
             builder.ToTable("Transactions");
+        }
+    }
+
+    public class CategoryTransactionConfiguration : IEntityTypeConfiguration<CategoryTransaction>
+    {
+        public void Configure(EntityTypeBuilder<CategoryTransaction> builder)
+        {
+            builder.HasKey(a => a.Id);
+
+            builder.ToTable("CategoriesTransaction");
         }
     }
 }

@@ -1,0 +1,12 @@
+// dropzone
+.dropzone{
+	.dz-preview {
+		.dz-remove{
+			@at-root [data-theme-version="dark"] & {
+				&:hover{
+					color: $primary !important;
+				}
+			}
+		}
+	}
+}

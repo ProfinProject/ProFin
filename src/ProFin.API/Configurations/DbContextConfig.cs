@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-using ProFin.Core.Data.Context;
+using ProFin.Data.Context;
+using ProFin.Data.Seed;
 
 namespace ProFin.API.Configurations
 {
@@ -12,6 +13,9 @@ namespace ProFin.API.Configurations
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            builder.Services.AddTransient<DbMigrationHelper>();
+
             return builder;
         }
     }

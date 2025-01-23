@@ -1,0 +1,100 @@
+[data-sidebar-style="overlay"] {
+	&[data-layout="vertical"]{
+
+		--dz-side-sub_nav-padding : .5rem .5rem .5rem 3.5rem;
+		--dz-side-nav-padding : 0.688rem 0.75rem 0.625rem 3.438rem;
+
+	}
+    .deznav {
+        #{$dz-pos-left}: -100%;
+        @include transitionMedium;
+		box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.2);
+		.metismenu{
+			& > li {
+				padding: 0 0.5rem;
+				& > a {
+					border-radius: $radius;
+					-webkit-transition: all 0.5s;
+					-ms-transition: all 0.5s;
+					transition: all 0.5s;
+					border-radius:2.75rem;
+					
+				}
+				&:hover > a{
+					//background-color:rgba(255,255,255,0.1);
+					//color: $white;
+
+					
+				}
+				&.mm-active > a {
+					color:var(--primary);
+					i{
+						color:var(--primary);
+						
+							background-color: $white;
+						
+					}
+				}
+				
+			}
+			
+		}
+		
+    }
+    .content-body {
+        margin-#{$dz-pos-left}: 0;
+    }
+    .nav-header {
+        position: absolute;
+        .hamburger.is-active {
+            #{$dz-pos-left}: 0;
+            .line {
+                background-color: var(--primary);
+            }
+        }
+    }
+    .menu-toggle {
+        .nav-header {
+            position: absolute;
+            #{$dz-pos-left}: auto;
+        }
+        .deznav {
+            #{$dz-pos-left}: 0;
+        }
+    }
+    .footer {
+        padding-#{$dz-pos-left}: 0;
+    }
+}
+
+[data-sidebar-style="overlay"][data-header-position="fixed"] {
+    .nav-header {
+        position: fixed;
+    }
+}
+
+
+[data-container="wide-boxed"][data-sidebar-position="fixed"][data-sidebar-style="overlay"][data-layout="vertical"],
+[data-container="boxed"][data-sidebar-position="fixed"][data-sidebar-style="overlay"][data-layout="vertical"]{ 
+	.deznav {
+        position: fixed;
+		#{$dz-pos-left}: auto;
+		width:0;
+		overflow: hidden;
+		transition: all 0.3s cubic-bezier(0.77, 0, 0.175, 1) 0s;
+		& > div{
+			width: var(--dz-sidebar-width);
+			min-width: var(--dz-sidebar-width);
+			#{$dz-pos-right}: var(--dz-sidebar-width);
+			transition: all 0.3s cubic-bezier(0.77, 0, 0.175, 1) 0s;
+		}
+    }
+	.menu-toggle{
+		.deznav {
+			width:var(--dz-sidebar-width);
+			& > div{
+				#{$dz-pos-right}: 0;
+			}
+		}
+	}	
+}

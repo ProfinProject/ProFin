@@ -1,31 +1,36 @@
 ﻿using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
+using ProFin.Core.Models.Validations;
 
 namespace ProFin.Core.Services
 {
-    public class UserService : IUserService
+    public class UserService : BaseService, IUserService
     {
         private readonly IUserRepository _userRepository;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, INotifier notifier)
+            : base(notifier)
         {
             _userRepository = userRepository;
         }
 
-        public Task Create(User user)
+        public async Task Create(User user)
         {
-            throw new NotImplementedException();
+            if (!ExecuteValidation(new UserValidation(), user) == false) return;
+
+            await _userRepository.Add(user);
+        }
+        public async Task Update(User user)
+        {
+            if (!ExecuteValidation(new UserValidation(), user) == false) return;
+
+            await _userRepository.Update(user);
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
-        }
-
-        public Task Update(User user)
-        {
-            throw new NotImplementedException();
+            _userRepository.Dispose();
         }
     }
 }

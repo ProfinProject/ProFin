@@ -2,7 +2,7 @@
 
 namespace ProFin.Core.Interfaces.Repositories
 {
-    public interface IRepository<TEntity>
+    public interface IRepository<TEntity> : IDisposable
     {
         Task<IEnumerable<TEntity>> GetAll(string includes = null, Expression<Func<TEntity, bool>>? expression = null);
         Task<TEntity> GetById(long id, string? includes = null, Expression<Func<TEntity, bool>>? expression = null);

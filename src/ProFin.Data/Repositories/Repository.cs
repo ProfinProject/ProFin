@@ -84,5 +84,10 @@ namespace ProFin.Core.Data.Repositories
             return entity;
         }
 
+        public void Dispose()
+        {
+            _dbContext?.Dispose();
+        }
+
     }
 }

@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ProFin.API.ViewModel;
-using ProFin.Core.Interfaces;
+using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Models;
 
 namespace ProFin.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class CategoryTransactionController(ICategoryTransactionRepository CategoryTransactionRepository,     IMapper mapper) : ControllerBase
+public class CategoryTransactionController(ICategoryTransactionRepository CategoryTransactionRepository, IMapper mapper) : ControllerBase
 {
     [HttpGet]
     public async Task<ActionResult<IEnumerable<CategoryTransactionViewModel>>> GetAll()

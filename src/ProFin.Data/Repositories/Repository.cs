@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProFin.Core.Interfaces;
+using ProFin.Core.Interfaces.Repositories;
+using ProFin.Core.Models;
 using System.Linq.Expressions;
 
 namespace ProFin.Core.Data.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, new()
+    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, new()
     {
         private DbContext _dbContext { get; set; }
         private DbSet<TEntity> _dbset { get; set; }

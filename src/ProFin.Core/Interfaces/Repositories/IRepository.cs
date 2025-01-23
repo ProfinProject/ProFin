@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace ProFin.Core.Interfaces
+namespace ProFin.Core.Interfaces.Repositories
 {
     public interface IRepository<TEntity>
     {

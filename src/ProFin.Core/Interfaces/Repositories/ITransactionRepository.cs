@@ -1,10 +1,10 @@
 ﻿using ProFin.Core.Models;
 
-namespace ProFin.Core.Interfaces
+namespace ProFin.Core.Interfaces.Repositories
 {
     public interface ITransactionRepository
     {
-        Task<Transaction?> GetById(long id);
+        Task<Transaction?> GetById(Guid id);
 
         Task<IEnumerable<Transaction>> GetAll();
 

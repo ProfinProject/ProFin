@@ -1,8 +1,9 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
 using ProFin.Core.Notifications;
-namespace ProFin.Core.Interfaces.Services
+namespace ProFin.Core.Services
 {
     public abstract class BaseService
     {
@@ -13,15 +14,15 @@ namespace ProFin.Core.Interfaces.Services
             _notifier = notifier;
         }
 
-        protected void Notificar(ValidationResult validationResult)
+        protected void Notifie(ValidationResult validationResult)
         {
             foreach (var error in validationResult.Errors)
             {
-                Notificar(error.ErrorMessage);
+                Notifie(error.ErrorMessage);
             }
         }
 
-        protected void Notificar(string mensagem)
+        protected void Notifie(string mensagem)
         {
             _notifier.Handle(new Notification(mensagem));
         }
@@ -32,7 +33,7 @@ namespace ProFin.Core.Interfaces.Services
 
             if (validator.IsValid) return true;
 
-            Notificar(validator);
+            Notifie(validator);
 
             return false;
         }

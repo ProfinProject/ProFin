@@ -1,0 +1,62 @@
+
+
+[data-theme-version="dark"] {
+    background: $d-bg;
+    color: $d-ctl;
+    --border : #{$d-border};
+    --text : #{$d-text};
+	 --body-bg : #{$d-bg};
+    
+	
+	
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: $white !important;
+    }
+    a.link {
+        color: $d-ctd;
+    }
+    a.link:focus,
+    a.link:hover {
+        color: $info;
+    }
+
+    a {
+        &:hover {
+            color: $white!important;
+        }
+    }
+	
+    //Generating border classess
+    @each $value in $borders {
+        @if $value == "" {
+            .border {
+                border: 1px solid $d-border !important;
+            }
+        } @else {
+            .border-#{$value} {
+                border-#{$value}: 1px solid $d-border !important;
+            }
+        }
+    }
+
+    &[data-primary="color_1"], 
+    &[data-primary="color_3"] {
+        --primary: #7978ff;
+        --rgba-primary-1: rgba(121, 120, 255, 0.1);
+        --rgba-primary-2: rgba(121, 120, 255, 0.2);
+        --rgba-primary-3: rgba(121, 120, 255, 0.3);
+        --rgba-primary-4: rgba(121, 120, 255, 0.4);
+        --rgba-primary-5: rgba(121, 120, 255, 0.5);
+        --rgba-primary-6: rgba(121, 120, 255, 0.6);
+        --rgba-primary-7: rgba(121, 120, 255, 0.7);
+        --rgba-primary-8: rgba(121, 120, 255, 0.8);
+        --rgba-primary-9: rgba(121, 120, 255, 0.9);
+    }
+
+
+}

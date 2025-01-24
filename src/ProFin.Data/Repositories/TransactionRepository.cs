@@ -2,6 +2,7 @@
 using ProFin.Data.Context;
 using ProFin.Core.Interfaces;
 using ProFin.Core.Models;
+using ProFin.Core.Interfaces.Repositories;
 
 namespace ProFin.Data.Repositories
 {
@@ -13,7 +14,7 @@ namespace ProFin.Data.Repositories
             await db.SaveChangesAsync();
         }
 
-        public async Task<Transaction?> GetById(long id)
+        public async Task<Transaction?> GetById(Guid id)
         {
             return await db.Transactions.FirstOrDefaultAsync(c => c.Id == id);
         }

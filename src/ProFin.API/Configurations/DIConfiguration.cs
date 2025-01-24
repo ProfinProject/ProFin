@@ -1,4 +1,4 @@
-﻿using ProFin.Core.Interfaces;
+﻿using ProFin.Core.Interfaces.Repositories;
 using ProFin.Data.Repositories;
 
 namespace ProFin.API.Configurations

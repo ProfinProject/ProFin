@@ -1,5 +1,5 @@
 using ProFin.API.Configurations;
-using ProFin.Core.Interfaces;
+using ProFin.Core.Interfaces.Repositories;
 using ProFin.Data.Repositories;
 using ProFin.Data.Seed;
 using ProFin.Identity;

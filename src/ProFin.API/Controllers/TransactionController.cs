@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ProFin.API.ViewModels;
-using ProFin.Core.Interfaces;
+using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Models;
 
 namespace ProFin.API.Controllers
@@ -20,7 +20,7 @@ namespace ProFin.API.Controllers
         }
 
         [HttpGet("{id:long}")]
-        public async Task<ActionResult<TransactionViewModel>> GetById(long id)
+        public async Task<ActionResult<TransactionViewModel>> GetById(Guid id)
         {
             var transaction = await transactionRepository.GetById(id);
 

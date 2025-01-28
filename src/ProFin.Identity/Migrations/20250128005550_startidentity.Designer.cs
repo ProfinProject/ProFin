@@ -12,8 +12,8 @@ using ProFin.Identity;
 namespace ProFin.Identity.Migrations
 {
     [DbContext(typeof(ProFinIdentityDbContext))]
-    [Migration("20250110200334_AddIdentity")]
-    partial class AddIdentity
+    [Migration("20250128005550_startidentity")]
+    partial class startidentity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

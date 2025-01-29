@@ -22,13 +22,11 @@ namespace ProFin.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ProFin.Core.Business.Models.CategoryTransaction", b =>
+            modelBuilder.Entity("ProFin.Core.Models.CategoryTransaction", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -53,13 +51,11 @@ namespace ProFin.Data.Migrations
                     b.ToTable("CategoriesTransaction", (string)null);
                 });
 
-            modelBuilder.Entity("ProFin.Core.Business.Models.Transaction", b =>
+            modelBuilder.Entity("ProFin.Core.Models.Transaction", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Category")
                         .HasColumnType("nvarchar(max)");

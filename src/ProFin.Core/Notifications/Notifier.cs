@@ -6,9 +6,9 @@ namespace ProFin.Core.Notifications
     {
         private List<Notification> _notifications;
 
-        public Notifier(List<Notification> notifications)
+        public Notifier()
         {
-            _notifications = notifications;
+            _notifications = new List<Notification>();
         }
 
         public List<Notification> GetNotifications()

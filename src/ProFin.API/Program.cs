@@ -1,5 +1,8 @@
 using ProFin.API.Configurations;
 using ProFin.Core.Interfaces.Repositories;
+using ProFin.Core.Interfaces.Services;
+using ProFin.Core.Notifications;
+using ProFin.Core.Services;
 using ProFin.Data.Repositories;
 using ProFin.Data.Seed;
 using ProFin.Identity;
@@ -27,7 +30,10 @@ internal class Program
 
         builder.Services.AddScoped<ICategoryTransactionRepository, CategoryTransactionRepository>();
         builder.Services.AddScoped<IBudgetRepository, BudgetRepository>();
+        builder.Services.AddScoped<IBudgetService, BudgetService>();
 
+        // Registrar o serviço INotifier
+        builder.Services.AddScoped<INotifier, Notifier>();
 
         var app = builder.Build();
 

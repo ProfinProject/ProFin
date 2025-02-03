@@ -1,5 +1,4 @@
-﻿using ProFin.Core.Enumeradores;
-using ProFin.Core.Models;
+﻿using ProFin.Core.Models;
 using ProFin.Data.Context;
 
 namespace ProFin.Data.Seed
@@ -71,6 +70,29 @@ namespace ProFin.Data.Seed
             ];
 
                 _context.Transactions.AddRange(transactionsModel);
+                _context.SaveChanges();
+            }
+        }
+
+        public void SeedBudgets()
+        {
+            var category = _context.CategoryTransactions.FirstOrDefault();
+            if (!_context.Budgets.Any() && category != null)
+            {
+                var budgets = new List<Budget>
+                {
+                    new Budget
+                    {
+                        CategoryTransactionId = category.Id,
+                        Limit = 5000,
+                        CurrentSpending = 0,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now,
+                        Deleted = false
+                    }
+                };
+
+                _context.Budgets.AddRange(budgets);
                 _context.SaveChanges();
             }
         }

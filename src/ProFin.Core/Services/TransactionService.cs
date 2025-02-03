@@ -1,13 +1,7 @@
-﻿using DevIO.Business.Models.Validations;
-using ProFin.Core.Interfaces.Repositories;
+﻿using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
-using ProFin.Core.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ProFin.Core.Models.Validations;
 
 namespace ProFin.Core.Services
 {

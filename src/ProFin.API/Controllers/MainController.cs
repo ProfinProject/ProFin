@@ -2,29 +2,20 @@
 using Microsoft.AspNetCore.Mvc;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Notifications;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProFin.API.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    public abstract class MainController : ControllerBase
+    [Authorize]
+    public abstract class MainController(INotifier notifier) : ControllerBase
     {
-        private readonly INotifier _notifier;
+        private readonly INotifier _notifier = notifier;
         //public readonly IUser AppUser;
 
         protected Guid UsuarioId { get; set; }
         protected bool UsuarioAutenticado { get; set; }
-
-        protected MainController(INotifier notifier)
-        {
-            _notifier = notifier;
-            //AppUser = appUser;
-
-            //if (appUser.IsAuthenticated())
-            //{
-            //    UsuarioId = appUser.GetUserId();
-            //    UsuarioAutenticado = true;
-            //}
-        }
 
         protected bool IsValid()
         {

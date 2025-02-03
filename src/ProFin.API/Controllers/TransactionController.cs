@@ -1,50 +1,88 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProFin.API.ViewModel;
 using ProFin.API.ViewModels;
 using ProFin.Core.Interfaces.Repositories;
+using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
 
 namespace ProFin.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class TransactionController(ITransactionRepository transactionRepository,
-        IMapper mapper) : ControllerBase
+    [AllowAnonymous]
+    public class TransactionController(
+        ITransactionRepository transactionRepository,
+        ICategoryTransactionRepository categoryTransactionRepository,
+        IMapper mapper,
+        INotifier notifier,
+        ITransactionService transactionService
+        ) : MainController(notifier)
     {
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TransactionViewModel>>> GetAll()
+        public async Task<IEnumerable<TransactionViewModel>> GetAll()
         {
-            var transactions = await transactionRepository.GetAll();
-
-            return Ok(mapper.Map<IEnumerable<TransactionViewModel>>(transactions));
+            return mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll());
         }
 
-        [HttpGet("{id:long}")]
+        [HttpGet("{id:guid}")]
         public async Task<ActionResult<TransactionViewModel>> GetById(Guid id)
         {
-            var transaction = await transactionRepository.GetById(id);
+            var transaction = await GetTransactionCategory(id);
 
-            if (transaction == null)
-            {
-                // NotificationError(Messages.RegistroNaoEncontrado);
-                return NotFound();
-            }
+            if (transaction == null) return NotFound();
 
-            return Ok(transaction);
+            return transaction;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] TransactionViewModel transactionViewModel)
+        public async Task<ActionResult<TransactionViewModel>> Insert(TransactionViewModel transactionViewModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            await transactionRepository.Add(mapper.Map<Transaction>(transactionViewModel));
+            await transactionService.Insert(mapper.Map<TransactionEntity>(transactionViewModel));
 
-            return Created();
+            return CustomResponse(transactionViewModel);
         }
 
+        
+        [HttpPut("{id:guid}")]
+        public async Task<ActionResult<TransactionViewModel>> Update(Guid id, TransactionViewModel transactionViewModel)
+        {
+            if (id != transactionViewModel.Id)
+            {
+                NotifieError("O id informado não é o mesmo que foi passado na query");
+                return CustomResponse(transactionViewModel);
+            }
+
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            await transactionService.Update(mapper.Map<TransactionEntity>(transactionViewModel));
+
+            return CustomResponse(transactionViewModel);
+        }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<ActionResult<TransactionViewModel>> Excluir(Guid id)
+        {
+            var transactionViewModel = await GetTransactionCategory(id);
+
+            if (transactionViewModel == null) return NotFound();
+
+            await transactionService.Delete(id);
+
+            return CustomResponse(transactionViewModel);
+        }
+
+        [HttpGet("category/{id:guid}")]
+        public async Task<CategoryTransactionViewModel> GetCategoryById(Guid id)
+        {
+            return mapper.Map<CategoryTransactionViewModel>(await categoryTransactionRepository.GetById(id));
+        }
+
+        [NonAction]
+        private async Task<TransactionViewModel> GetTransactionCategory(Guid id)
+        {
+            return mapper.Map<TransactionViewModel>(await transactionRepository.GetTransactionCategoryAsync(id));
+        }
     }
 }

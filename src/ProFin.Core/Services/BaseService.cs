@@ -3,6 +3,7 @@ using FluentValidation.Results;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
 using ProFin.Core.Notifications;
+
 namespace ProFin.Core.Services
 {
     public abstract class BaseService

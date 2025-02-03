@@ -10,6 +10,7 @@ namespace ProFin.Data.Context
 
         public DbSet<TransactionEntity> Transactions { get; set; }
         public DbSet<CategoryTransaction> CategoryTransactions { get; set; }
+        public DbSet<Budget> Budgets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -17,6 +18,7 @@ namespace ProFin.Data.Context
 
             builder.ApplyConfiguration(new TransactionConfiguration());
             builder.ApplyConfiguration(new CategoryTransactionConfiguration());
+            builder.ApplyConfiguration(new BudgetConfiguration());
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellation = default)
@@ -68,6 +70,18 @@ namespace ProFin.Data.Context
             builder.HasKey(a => a.Id);
 
             builder.ToTable("CategoriesTransaction");
+        }
+    }
+    public class BudgetConfiguration : IEntityTypeConfiguration<Budget>
+    {
+        public void Configure(EntityTypeBuilder<Budget> builder)
+        {
+            builder.HasKey(b => b.Id);
+            builder.HasOne(b => b.CategoryTransaction)
+                   .WithMany()
+                   .HasForeignKey(b => b.CategoryTransactionId);
+
+            builder.ToTable("Budgets");
         }
     }
 }

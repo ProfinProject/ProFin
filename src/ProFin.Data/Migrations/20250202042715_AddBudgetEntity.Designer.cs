@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProFin.Data.Context;
 
@@ -11,9 +12,11 @@ using ProFin.Data.Context;
 namespace ProFin.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250202042715_AddBudgetEntity")]
+    partial class AddBudgetEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,14 +91,14 @@ namespace ProFin.Data.Migrations
                     b.ToTable("CategoriesTransaction", (string)null);
                 });
 
-            modelBuilder.Entity("ProFin.Core.Models.TransactionEntity", b =>
+            modelBuilder.Entity("ProFin.Core.Models.Transaction", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CategoryTransactionId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -106,6 +109,9 @@ namespace ProFin.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
@@ -113,8 +119,6 @@ namespace ProFin.Data.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryTransactionId");
 
                     b.ToTable("Transactions", (string)null);
                 });
@@ -126,13 +130,6 @@ namespace ProFin.Data.Migrations
                         .HasForeignKey("CategoryTransactionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ProFin.Core.Models.TransactionEntity", b =>
-                {
-                    b.HasOne("ProFin.Core.Models.CategoryTransaction", "CategoryTransaction")
-                        .WithMany()
-                        .HasForeignKey("CategoryTransactionId");
 
                     b.Navigation("CategoryTransaction");
                 });

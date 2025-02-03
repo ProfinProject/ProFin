@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
-using ProFin.Core.Models;
 
-namespace DevIO.Business.Models.Validations
+namespace ProFin.Core.Models.Validations
 {
     public class TransactionEntityValidation : AbstractValidator<TransactionEntity>
     {

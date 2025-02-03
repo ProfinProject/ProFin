@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProFin.Data.Context;
 
@@ -11,9 +12,11 @@ using ProFin.Data.Context;
 namespace ProFin.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250131225955_TransactionContext")]
+    partial class TransactionContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,43 +24,6 @@ namespace ProFin.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ProFin.Core.Models.Budget", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CategoryTransactionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("CurrentSpending")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
-                    b.Property<decimal>("Limit")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryTransactionId");
-
-                    b.ToTable("Budgets", (string)null);
-                });
 
             modelBuilder.Entity("ProFin.Core.Models.CategoryTransaction", b =>
                 {
@@ -117,15 +83,6 @@ namespace ProFin.Data.Migrations
                     b.HasIndex("CategoryTransactionId");
 
                     b.ToTable("Transactions", (string)null);
-                });
-
-            modelBuilder.Entity("ProFin.Core.Models.Budget", b =>
-                {
-                    b.HasOne("ProFin.Core.Models.CategoryTransaction", "CategoryTransaction")
-                        .WithMany()
-                        .HasForeignKey("CategoryTransactionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProFin.Core.Models.TransactionEntity", b =>

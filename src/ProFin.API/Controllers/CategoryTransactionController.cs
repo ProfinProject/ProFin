@@ -18,8 +18,8 @@ public class CategoryTransactionController(ICategoryTransactionRepository Catego
         return Ok(mapper.Map<IEnumerable<CategoryTransactionViewModel>>(CategoryTransaction));
     }
 
-    [HttpGet("{id:long}")]
-    public async Task<ActionResult<CategoryTransactionViewModel>> GetById(int id)
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<CategoryTransactionViewModel>> GetById(Guid id)
     {
         var categoryTransaction = await CategoryTransactionRepository.GetById(id);
 

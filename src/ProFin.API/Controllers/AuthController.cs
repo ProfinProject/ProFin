@@ -136,8 +136,6 @@ namespace ProFin.API.Controllers
             };
 
             return response;
-
-            return response;
         }
 
         private static long ToUnixEpochDate(DateTime date)

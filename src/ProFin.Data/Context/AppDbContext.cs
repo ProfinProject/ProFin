@@ -8,7 +8,7 @@ namespace ProFin.Data.Context
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<TransactionEntity> Transactions { get; set; }
         public DbSet<CategoryTransaction> CategoryTransactions { get; set; }
         public DbSet<Budget> Budgets { get; set; }
 
@@ -51,13 +51,15 @@ namespace ProFin.Data.Context
         }
     }
 
-    public class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
+    public class TransactionConfiguration : IEntityTypeConfiguration<TransactionEntity>
     {
-        public void Configure(EntityTypeBuilder<Transaction> builder)
+        public void Configure(EntityTypeBuilder<TransactionEntity> builder)
         {
             builder.HasKey(a => a.Id);
 
             builder.ToTable("Transactions");
+
+            builder.HasOne(c => c.CategoryTransaction);
         }
     }
 

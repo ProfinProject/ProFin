@@ -1,5 +1,4 @@
-﻿using ProFin.Core.Data.Repositories;
-using ProFin.Core.Interfaces.Repositories;
+﻿using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Models;
 using ProFin.Data.Context;
 

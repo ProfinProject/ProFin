@@ -1,33 +1,35 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Models;
+using ProFin.Data.Context;
 using System.Linq.Expressions;
 
-namespace ProFin.Core.Data.Repositories
+namespace ProFin.Data.Repositories
 {
     public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, new()
     {
-        private DbContext _dbContext { get; set; }
-        private DbSet<TEntity> _dbset { get; set; }
+        protected readonly AppDbContext AppDbContext;
+        protected readonly DbSet<TEntity> DbSet;
 
-        public Repository(DbContext dbContext)
+        public Repository(AppDbContext appDbContext)
         {
             try
             {
-                _dbContext = dbContext;
-                _dbset = _dbContext.Set<TEntity>();
-                _dbset.AsTracking();
+                AppDbContext = appDbContext;
+                DbSet = appDbContext.Set<TEntity>();
+                DbSet.AsTracking();
             }
             catch (Exception ex)
             {
                 var error = ex.Message;
                 throw;
             }
+            AppDbContext = appDbContext;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAll(string? includes = null, Expression<Func<TEntity, bool>>? expression = null)
+        public async Task<IEnumerable<TEntity>> GetAll(string includes = null, Expression<Func<TEntity, bool>> expression = null)
         {
-            IQueryable<TEntity> query = _dbset;
+            IQueryable<TEntity> query = DbSet;
 
             if (expression != null)
                 query = query.Where(expression);
@@ -43,9 +45,9 @@ namespace ProFin.Core.Data.Repositories
             return await query.ToListAsync();
         }
 
-        public async Task<TEntity> GetById(long id, string? includes = null, Expression<Func<TEntity, bool>>? expression = null)
+        public async Task<TEntity> GetById(Guid id, string includes = null, Expression<Func<TEntity, bool>> expression = null)
         {
-            IQueryable<TEntity> query = _dbset;
+            IQueryable<TEntity> query = DbSet;
 
             if (expression != null)
             {
@@ -60,34 +62,31 @@ namespace ProFin.Core.Data.Repositories
                 }
             }
 
-            return await query.FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
+            return await query.FirstOrDefaultAsync(e => EF.Property<Guid>(e, "Id") == id);
         }
 
         public async Task Delete(TEntity entity)
         {
-            _dbset.Remove(entity);
-            await _dbContext.SaveChangesAsync();
+            DbSet.Remove(entity);
+            await AppDbContext.SaveChangesAsync();
         }
 
         public async Task Update(TEntity entity)
         {
-            _dbset.Update(entity);
-            await _dbContext.SaveChangesAsync();
+            DbSet.Update(entity);
+            await AppDbContext.SaveChangesAsync();
         }
 
         public async Task<TEntity> Add(TEntity entity)
         {
-            await _dbset.AddAsync(entity);
+            await DbSet.AddAsync(entity);
 
-            await _dbContext.SaveChangesAsync();
+            await AppDbContext.SaveChangesAsync();
 
             return entity;
         }
 
-        public void Dispose()
-        {
-            _dbContext?.Dispose();
-        }
+        public void Dispose() => AppDbContext?.Dispose();
 
     }
 }

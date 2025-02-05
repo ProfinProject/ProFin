@@ -1,0 +1,35 @@
+<html>
+    <body class="bd-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 order-md-1">
+                    <form class="needs-validation">
+                        <div class="mb-4">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name">
+                                    Name
+                                </label>
+                                <input type="text" class="form-control" id="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}">
+                                <label>The name is: {{ name }}</label>
+                                <div class="invalid-feedback">Name is required</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Description">
+                                    Description
+                                </label>
+                                <input type="text" class="form-control" id="Description" >
+                                <div class="invalid-feedback">Description is required</div>
+                            </div>
+                        </div>
+                        <hr class="mb-4">
+                        <button class="btn btn-success btn-lg btn-block" (click)='saveCategory()'> Save</button>
+                        <div class="mb-4">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

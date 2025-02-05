@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th>#</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let category of categories">
+                <td>{{category.name}}</td>
+                <td>{{category.description}}</td>
+                <td><i class="bi bi-pencil-square"></i></td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>

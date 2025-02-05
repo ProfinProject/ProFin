@@ -13,7 +13,7 @@ internal class Program
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-
+        var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         // Add services to the container.
 
         builder.Services.AddControllers();
@@ -21,13 +21,14 @@ internal class Program
             .AddIdentity()
             .AddDbContextConfig()
             .AddAutoMapperConfig()
-            .AddDIConfig();
-
+            .AddDIConfig()
+            .AddCorsPolicy();
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        //to do, isso deveria estar no DI?
         builder.Services.AddScoped<ICategoryTransactionRepository, CategoryTransactionRepository>();
         builder.Services.AddScoped<IBudgetRepository, BudgetRepository>();
         builder.Services.AddScoped<IBudgetService, BudgetService>();
@@ -42,6 +43,11 @@ internal class Program
         {
             app.UseSwagger();
             app.UseSwaggerUI();
+            app.UseCors("Development");
+        }
+        else
+        {
+            app.UseCors("Production");
         }
 
         using (var scope = app.Services.CreateScope())
@@ -50,7 +56,6 @@ internal class Program
             seeder.SeedData();
         }
         app.UseHttpsRedirection();
-
         app.UseAuthorization();
 
         app.MapControllers();

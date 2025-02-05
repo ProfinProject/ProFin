@@ -1,10 +1,4 @@
-﻿using ProFin.Core.Interfaces.Repositories;
-using ProFin.Core.Interfaces.Services;
-using ProFin.Core.Notifications;
-using ProFin.Core.Services;
-using ProFin.Data.Repositories;
-
-namespace ProFin.API.Configurations
+﻿namespace ProFin.API.Configurations
 {
     public static class AddCorsConfiguration
     {

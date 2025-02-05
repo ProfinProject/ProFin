@@ -28,11 +28,6 @@ internal class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        //to do, isso deveria estar no DI?
-        builder.Services.AddScoped<ICategoryTransactionRepository, CategoryTransactionRepository>();
-        builder.Services.AddScoped<IBudgetRepository, BudgetRepository>();
-        builder.Services.AddScoped<IBudgetService, BudgetService>();
-
         // Registrar o serviço INotifier
         builder.Services.AddScoped<INotifier, Notifier>();
 

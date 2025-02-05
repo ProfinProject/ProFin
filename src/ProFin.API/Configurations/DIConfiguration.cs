@@ -14,6 +14,8 @@ namespace ProFin.API.Configurations
             builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
             builder.Services.AddScoped<ITransactionService, TransactionService>();
             builder.Services.AddScoped<ICategoryTransactionRepository, CategoryTransactionRepository>();
+            builder.Services.AddScoped<IBudgetRepository, BudgetRepository>();
+            builder.Services.AddScoped<IBudgetService, BudgetService>();
 
             return builder;
         }

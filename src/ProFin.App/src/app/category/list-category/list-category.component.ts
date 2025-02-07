@@ -14,13 +14,22 @@ export class ListCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoryService.getCategories()
-    .subscribe(
-      result => 
-        { 
-          this.categories = result,
-          console.log(result);
-        },
-        error => console.log(error)
-      );
+      .subscribe({
+        next: result => 
+          { 
+            this.categories = result,
+            console.log(result);
+          },
+          error : e => console.log(e)
+    });
   }
+
+  displayStyle = "none"; 
+  
+  openPopup() { 
+    this.displayStyle = "block"; 
+  } 
+  closePopup() { 
+    this.displayStyle = "none"; 
+  } 
 }

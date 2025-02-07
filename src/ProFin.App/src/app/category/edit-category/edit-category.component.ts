@@ -1,26 +1,27 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, OnInit, ViewChildren } from '@angular/core';
 import { Category } from '../category';
 import { CategoryService } from '../../services/categories.service';
 import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { DisplayMessage, GenericValidator, ValidationMessages } from '../../Utils/generic-form-validation';
 import { fromEvent, merge, Observable } from 'rxjs';
-import { Guid } from 'guid-typescript';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-create-category',
+  selector: 'app-edit-category',
   standalone: false,
-  templateUrl: './create-category.component.html',
+  templateUrl: './edit-category.component.html',
 })
 
-export class CreateCategoryComponent implements OnInit, AfterViewInit{
+export class EditCategoryComponent implements OnInit, AfterViewInit{
 
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements!: ElementRef[];
   public category: Category;
-  creationForm!: FormGroup;
+  editionForm!: FormGroup;
+  id!: string;
   validationMessages: ValidationMessages;
   genericValidator: GenericValidator;
   displayMessage: DisplayMessage = {};
+  private route = inject(ActivatedRoute);
 
   constructor(private categoryService: CategoryService, private fb: FormBuilder, private router: Router) {
       this.category = new Category();
@@ -37,9 +38,31 @@ export class CreateCategoryComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit(): void {
-    this.creationForm = this.fb.group({
+    this.editionForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required]
+    });
+
+    let paramId = this.route.snapshot.paramMap.get('id');
+    if(paramId != null && paramId != undefined)
+    {
+        this.category.id = this.id = paramId.toString();
+        this.loadCategory();
+    }
+  }
+
+  loadCategory(): void{
+    this.categoryService.getCategoryById(this.id)
+    .subscribe({
+      next: response => {
+        this.editionForm = this.fb.group({
+          name: [response.name, Validators.required],
+          description: [response.description, Validators.required]
+        });
+      },
+      error: e => {
+        console.log(e);
+      }
     });
   }
 
@@ -48,16 +71,14 @@ export class CreateCategoryComponent implements OnInit, AfterViewInit{
     .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));
 
     merge(...controlBlurs).subscribe(() => {
-      this.displayMessage = this.genericValidator.processMessages(this.creationForm);
+      this.displayMessage = this.genericValidator.processMessages(this.editionForm);
     });
   }
 
-  addCategory(){
-    if (this.creationForm.dirty && this.creationForm.valid) {
-      this.category = Object.assign({}, this.category, this.creationForm.value);
-      this.category.id = Guid.create().toString();
-      this.saveCategory();
-      
+  editCategory(){
+    if (this.editionForm.dirty && this.editionForm.valid) {
+      this.category = Object.assign({}, this.category, this.editionForm.value);
+      this.updateCategory();
       //to do a toaster of success
     }
     else{
@@ -65,12 +86,11 @@ export class CreateCategoryComponent implements OnInit, AfterViewInit{
     }
   }
 
-  saveCategory(){
-    this.categoryService.insertCategory(this.category)
+  updateCategory(){
+    this.categoryService.updateCategory(this.category)
       .subscribe({
         next: response => {
           console.log('success');
-          this.category = new Category();
           this.router.navigateByUrl('/category');
         },
         error: e => {

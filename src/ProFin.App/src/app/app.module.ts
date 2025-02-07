@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 //import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +13,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { CreateCategoryComponent } from './category/create-category/create-category.component';
 import { CategoryService } from './services/categories.service';
 import { ListCategoryComponent } from './category/list-category/list-category.component';
+import { EditCategoryComponent } from './category/edit-category/edit-category.component';
 
 export const httpInterceptorProviders = [
   //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
@@ -22,7 +23,8 @@ export const httpInterceptorProviders = [
   declarations: [
     AppComponent,
     CreateCategoryComponent,
-    ListCategoryComponent
+    ListCategoryComponent,
+    EditCategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +34,7 @@ export const httpInterceptorProviders = [
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [

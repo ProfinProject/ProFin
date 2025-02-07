@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 order-md-1">
-                    <form class="needs-validation" [formGroup]="creationForm" (ngSubmit)="addCategory()">
+                    <form class="needs-validation" [formGroup]="editionForm" (ngSubmit)="editCategory()">
                         <div class="mb-4">
                         </div>
                         <div class="row">
@@ -27,7 +27,7 @@
                             </div>
                         </div>
                         <hr class="mb-4">
-                            <button class="btn btn-success btn-lg btn-block" [disabled]="!creationForm.valid" type="submit"> Save</button>
+                            <button class="btn btn-success btn-lg btn-block" [disabled]="!editionForm.valid" type="submit"> Save</button>
                         <div class="mb-4">
                         </div>
                     </form>

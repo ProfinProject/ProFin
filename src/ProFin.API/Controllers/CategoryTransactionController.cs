@@ -44,4 +44,17 @@ public class CategoryTransactionController(ICategoryTransactionRepository Catego
         return Created();
     }
 
+    [HttpPut]
+    public async Task<IActionResult> Put([FromBody] CategoryTransactionViewModel transactionViewModel)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
+
+        await CategoryTransactionRepository.Update(mapper.Map<CategoryTransaction>(transactionViewModel));
+
+        return StatusCode(204);
+    }
+
 }

@@ -12,9 +12,35 @@
               <tr *ngFor="let category of categories">
                 <td>{{category.name}}</td>
                 <td>{{category.description}}</td>
-                <td><i class="bi bi-pencil-square"></i></td>
+                <td >
+                  <a style="padding: 8px;" class="link-opacity-100"  [routerLink]="['/edit-category', category.id]" routerLinkActive="router-link-active" >Edit</a>
+                  <a  class="link-opacity-100" (click)="openPopup()">Delete</a>  
+                </td>
               </tr>
             </tbody>
           </table>
     </div>
+    <a class="link-opacity-100"  [routerLink]="['/create-category']" routerLinkActive="router-link-active" >Create new category</a>
+<div class="mb-4">
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure that you want to delete this Category?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closePopup()">Close</button>
+        <button type="button" class="btn btn-danger" >Delete</button>
+      </div>
+    </div>
+  </div>
 </div>

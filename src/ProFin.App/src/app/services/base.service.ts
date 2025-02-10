@@ -39,7 +39,13 @@ export abstract class BaseService {
                 customError.push("Ocorreu um erro desconhecido");
                 response.error.errors = customError;
             }
+
+            if (response.status === 400) {                           
+                customResponse.error.errors = response.error.errors;
+                return throwError(() => customResponse);
+            }
         }
+    
         if (response.status === 500) {
             customError.push("Ocorreu um erro no processamento, tente novamente mais tarde ou contate o nosso suporte.");
 

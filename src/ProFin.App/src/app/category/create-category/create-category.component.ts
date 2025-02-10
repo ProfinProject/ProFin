@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren } from '@angular/core';
 import { Category } from '../category';
-import { CategoryService } from '../../services/categories.service';
+import { CategoryService } from '../../category/services/categories.service';
 import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { DisplayMessage, GenericValidator, ValidationMessages } from '../../Utils/generic-form-validation';
 import { fromEvent, merge, Observable } from 'rxjs';

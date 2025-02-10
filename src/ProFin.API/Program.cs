@@ -19,6 +19,7 @@ internal class Program
         builder.Services.AddControllers();
         builder
             .AddIdentity()
+            .AddJwt()
             .AddDbContextConfig()
             .AddAutoMapperConfig()
             .AddDIConfig()

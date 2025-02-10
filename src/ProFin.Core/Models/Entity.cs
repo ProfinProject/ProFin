@@ -7,6 +7,11 @@
             Id = Guid.NewGuid();
         }
 
+        public Entity(Guid id)
+        {
+            Id = id;
+        }
+
         public Guid Id { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }

@@ -5,15 +5,16 @@ import { User } from '../models/user';
 import { Observable } from 'rxjs';
 import { catchError, map } from "rxjs/operators";
 import { BaseService } from '../../services/base.service';
+import { registerUser } from '../models/registerUser';
 
 @Injectable()
 export class AccountService extends BaseService {
 
     constructor(private http: HttpClient) { super(); }
 
-    register(user: User): Observable<User> {
+    register(user: registerUser): Observable<User> {
         let response = this.http
-            .post(this.UrlServiceV1 + 'register', user, this.getHeaderJson())
+            .post(this.UrlServiceV1 + 'auth/register', user, this.getHeaderJson())
             .pipe(
                 map(this.extractData),
                 catchError(this.serviceError));
@@ -23,7 +24,7 @@ export class AccountService extends BaseService {
 
     login(user: User): Observable<User> {
         let response = this.http
-            .post(this.UrlServiceV1 + 'login', user, this.getHeaderJson())
+            .post(this.UrlServiceV1 + 'auth/login', user, this.getHeaderJson())
             .pipe(
                 map(this.extractData),
                 catchError(this.serviceError));

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -18,15 +19,19 @@ namespace ProFin.API.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly JwtSettings _jwtSettings;
-        // private readonly IUserService _userService;
+        private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
-        public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, JwtSettings jwtSettings, INotifier notifier)
-             : base(notifier)//, IUserService userService
+
+        public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, JwtSettings jwtSettings, IUserService userService,
+        IMapper mapper, INotifier notifier)
+             : base(notifier)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _jwtSettings = jwtSettings;
-            //   _userService = userService;
+            _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -34,7 +39,7 @@ namespace ProFin.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        [Route("new")]
+        [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterUserViewModel model)
         {
             if (!ModelState.IsValid) return ValidationProblem(ModelState);
@@ -47,11 +52,12 @@ namespace ProFin.API.Controllers
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
-
             if (result.Succeeded == true)
             {
+                await _userService.Create(Core.Models.User.Create(Guid.Parse(user.Id), user.Email, model.FirstName, model.LastName, model.Birhdate));
+
                 await _signInManager.SignInAsync(user, false);
-                return Ok(await GetJwt(user.Email));
+                return CustomResponse(await GetJwt(user.Email));
             }
 
             foreach (var error in result.Errors)
@@ -60,10 +66,6 @@ namespace ProFin.API.Controllers
             }
 
             return CustomResponse(model);
-
-            //   await _authorService.Create(CreateAuthorViewModel.Create(Guid.Parse(user.Id), model.FistName, model.LastName));
-
-
         }
 
 
@@ -78,14 +80,16 @@ namespace ProFin.API.Controllers
             var result = await _signInManager.PasswordSignInAsync(loginUser.Email, loginUser.Password, false, true);
 
             if (result.Succeeded)
-                return Ok(await GetJwt(loginUser.Email));
+                return CustomResponse(await GetJwt(loginUser.Email));
 
             if (result.IsLockedOut)
             {
-                return Problem("This user is temporarily blocked");
+                NotifieError("This user is temporarily blocked");
+                return CustomResponse(loginUser);
             }
 
-            return Problem("Incorrect user or password");
+            NotifieError("Incorrect user or password");
+            return CustomResponse(loginUser);
         }
 
         private async Task<LoginResponseViewModel> GetJwt(string email)

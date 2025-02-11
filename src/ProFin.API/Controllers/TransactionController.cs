@@ -39,7 +39,7 @@ namespace ProFin.API.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            await transactionService.Insert(mapper.Map<TransactionEntity>(transactionViewModel));
+            await transactionService.Insert(mapper.Map<Transaction>(transactionViewModel));
 
             return CustomResponse(transactionViewModel);
         }
@@ -56,7 +56,7 @@ namespace ProFin.API.Controllers
 
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            await transactionService.Update(mapper.Map<TransactionEntity>(transactionViewModel));
+            await transactionService.Update(mapper.Map<Transaction>(transactionViewModel));
 
             return CustomResponse(transactionViewModel);
         }

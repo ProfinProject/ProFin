@@ -1,10 +1,10 @@
 import { Component, OnInit, AfterViewInit, ViewChildren, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl, FormControlName } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, FormControlName, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { CustomValidators } from '@narik/custom-validators';
 import { ToastrService } from 'ngx-toastr'; import { FormBaseComponent } from '../../base-components/form-base.component';
-import { User } from '../models/user';
+import { registerUser } from '../models/registerUser';
 import { AccountService } from '../services/account.service';
 
 
@@ -19,7 +19,7 @@ export class RegisterComponent extends FormBaseComponent implements OnInit, Afte
 
   errors: any[] = [];
   registerForm!: FormGroup;
-  user!: User;
+  user!: registerUser;
 
   constructor(private fb: FormBuilder,
     private accountService: AccountService,
@@ -29,6 +29,18 @@ export class RegisterComponent extends FormBaseComponent implements OnInit, Afte
     super();
 
     this.validationMessages = {
+      firstName: {
+        required: 'Informe o nome do usuário',
+        rangeLength: 'O campo nome deve possuir entre 2 e 100 caracteres '
+      },
+      lastName: {
+        required: 'Informe o sobrenome do usuário',
+        rangeLength: 'O campo sobrenome deve possuir entre 2 e 100 caracteres'
+      },
+      birthdate: {
+        required: 'Informe o a data de nascimento',
+        underage: 'O usuário de deve possuir mais de 18 anos'
+      },
       email: {
         required: 'Informe o e-mail',
         email: 'Email inválido'
@@ -53,10 +65,29 @@ export class RegisterComponent extends FormBaseComponent implements OnInit, Afte
     let senhaConfirm = new FormControl('', [Validators.required, CustomValidators.rangeLength([6, 15]), CustomValidators.equalTo(senha)]);
 
     this.registerForm = this.fb.group({
+      firstName: ['', [Validators.required, CustomValidators.rangeLength([2, 15])]],
+      lastName: ['', [Validators.required, CustomValidators.rangeLength([2, 15])]],
+      birthdate: ['', [Validators.required, this.minimumAgeValidator(18)]],
       email: ['', [Validators.required, Validators.email]],
       password: senha,
       confirmPassword: senhaConfirm
     });
+  }
+
+  minimumAgeValidator(minAge: number) {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) return null;
+  
+      const birthDate = new Date(control.value);
+      const today = new Date();
+      const age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+      const dayDiff = today.getDate() - birthDate.getDate();
+  
+      const isUnderage = age < minAge || (age === minAge && (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)));
+  
+      return isUnderage ? { underage: true } : null;
+    };
   }
 
   ngAfterViewInit(): void {
@@ -68,11 +99,11 @@ export class RegisterComponent extends FormBaseComponent implements OnInit, Afte
       this.user = Object.assign({}, this.user, this.registerForm.value);
 
       this.accountService.register(this.user)
-        .subscribe({
-          next: () => { this.processSuccess(this) },
-          error: () => this.processFail(this)
-        });
-
+      .subscribe({
+          next: (response) => this.processSuccess(response), // Passa o retorno do register
+          error: (error) => this.processFail(error) // Passa o erro para processFail
+      });
+  
       this.unsavedChanges = false;
     }
   }

@@ -14,6 +14,39 @@
         </div>
 
         <div class="form-group">
+            <label class="col-md-2 control-label">Nome</label>
+            <div class="col-md-10">
+                <input class="form-control" id="firstName" type="text" placeholder="Nome (requerido)"
+                    formControlName="firstName" [ngClass]="{'is-invalid': displayMessage.firstName }" />
+                <span class="text-danger" *ngIf="displayMessage.firstName">
+                    <p [innerHTML]="displayMessage.firstName"></p>
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Sobrenome</label>
+            <div class="col-md-10">
+                <input class="form-control" id="lastName" type="text" placeholder="Sobrenome (requerido)"
+                    formControlName="lastName" [ngClass]="{'is-invalid': displayMessage.lastName }" />
+                <span class="text-danger" *ngIf="displayMessage.lastName">
+                    <p [innerHTML]="displayMessage.lastName"></p>
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Data de nascimento</label>
+            <div class="col-md-10">
+                <input class="form-control" id="birthdate" type="date" placeholder="Data de nascimento (requerido)"
+                    formControlName="birthdate" [ngClass]="{'is-invalid': displayMessage.birthdate }" />
+                <span class="text-danger" *ngIf="displayMessage.birthdate">
+                    <p [innerHTML]="displayMessage.birthdate"></p>
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="col-md-2 control-label">E-mail</label>
             <div class="col-md-10">
                 <input class="form-control" id="email" type="text" placeholder="E-mail (requerido)"
@@ -46,7 +79,7 @@
                 </span>
             </div>
         </div>
-
+<br>
         <div class="form-group">
             <div class="col-md-4 col-md-offset-2">
                 <span><button class="btn btn-success" id="Registrar" [disabled]="!registerForm.valid"
@@ -55,3 +88,4 @@
         </div>
     </form>
 </div>
+<br>

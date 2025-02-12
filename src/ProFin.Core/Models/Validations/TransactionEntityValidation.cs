@@ -2,7 +2,7 @@
 
 namespace ProFin.Core.Models.Validations
 {
-    public class TransactionEntityValidation : AbstractValidator<TransactionEntity>
+    public class TransactionEntityValidation : AbstractValidator<Transaction>
     {
         public TransactionEntityValidation()
         {

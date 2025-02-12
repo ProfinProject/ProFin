@@ -51,11 +51,12 @@ namespace ProFin.API.Controllers
                 EmailConfirmed = true
             };
 
+            await _userService.Create(Core.Models.User.Create(Guid.Parse(user.Id), user.Email, model.FirstName, model.LastName, model.Birthdate));
+            if (IsValid() == false) return CustomResponse(model);
+
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded == true)
             {
-                await _userService.Create(Core.Models.User.Create(Guid.Parse(user.Id), user.Email, model.FirstName, model.LastName, model.Birhdate));
-
                 await _signInManager.SignInAsync(user, false);
                 return CustomResponse(await GetJwt(user.Email));
             }
@@ -70,6 +71,7 @@ namespace ProFin.API.Controllers
 
 
         [HttpPost]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [Route("login")]

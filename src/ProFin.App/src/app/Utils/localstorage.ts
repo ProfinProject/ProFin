@@ -15,8 +15,11 @@ export class LocalStorageUtils {
     }
 
     public getUserToken(): string {
-        // return localStorage.getItem('profin.token');
-        return "";
+        let token = localStorage.getItem('profin.token');
+        if (token === null)
+            return ""
+
+        return token
     }
 
     public saveUserToken(token: string) {

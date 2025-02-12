@@ -17,13 +17,14 @@ namespace ProFin.Core.Services
 
         public async Task Create(User user)
         {
-            if (!ExecuteValidation(new UserValidation(), user) == false) return;
+            if (ExecuteValidation(new UserValidation(), user) == false) return;
 
             await _userRepository.Add(user);
         }
+
         public async Task Update(User user)
         {
-            if (!ExecuteValidation(new UserValidation(), user) == false) return;
+            if (ExecuteValidation(new UserValidation(), user) == false) return;
 
             await _userRepository.Update(user);
         }

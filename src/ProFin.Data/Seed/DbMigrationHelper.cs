@@ -47,7 +47,7 @@ namespace ProFin.Data.Seed
             var category = _context.CategoryTransactions.FirstOrDefault();
             if (!_context.Transactions.Any())
             {
-                IEnumerable<TransactionEntity> transactionsModel =
+                IEnumerable<Transaction> transactionsModel =
             [
                 new()
                 {

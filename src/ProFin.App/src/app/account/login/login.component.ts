@@ -64,8 +64,8 @@ export class LoginComponent extends FormBaseComponent implements OnInit {
 
       this.accountService.login(this.user)
         .subscribe({
-          next: () => { this.processSuccess(this) },
-          error: () => this.processFail(this)
+          next: (response) => this.processSuccess(response), // Passa o retorno do register
+          error: (error) => this.processFail(error) // Passa o erro para processFail
         });
     }
   }
@@ -73,6 +73,8 @@ export class LoginComponent extends FormBaseComponent implements OnInit {
   processSuccess(response: any) {
     this.loginForm.reset();
     this.errors = [];
+
+    console.log("teste")
 
     this.accountService.LocalStorage.saveLocalDataUser(response);
 

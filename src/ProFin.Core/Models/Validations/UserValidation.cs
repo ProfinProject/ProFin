@@ -7,22 +7,22 @@ namespace ProFin.Core.Models.Validations
         public UserValidation()
         {
             RuleFor(f => f.FistName)
-               .NotEmpty().WithMessage("The field {PropertyName} is required")
+               .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório")
                .Length(2, 100)
-               .WithMessage("The field {Property Name }should be between {MinLength} and {MaxLength} characters");
+              .WithMessage("O campo {Property Name} deve estar entre {MinLength} e {MaxLength} caracteres");
 
             RuleFor(f => f.LastName)
-              .NotEmpty().WithMessage("The field {PropertyName} is required")
+              .NotEmpty().WithMessage("O campo  {PropertyName} is required")
               .Length(1, 100)
-              .WithMessage("The field {Property Name }should be between {MinLength} and {MaxLength} characters");
-
+              .WithMessage("O campo {Property Name} deve estar entre {MinLength} e {MaxLength} caracteres");
 
             RuleFor(f => f.Email)
-            .EmailAddress().WithMessage("The field {PropertyName} is not valid");
+            .EmailAddress().WithMessage("O campo {PropertyName} não é valido");
 
             RuleFor(f => f.Birthdate)
-              .GreaterThan(DateTime.Now.AddYears(-18))
-              .WithMessage("The field {PropertyName} is required");
+               .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório")
+               .Must(birthdate => birthdate <= DateTime.Today.AddYears(-18))
+              .WithMessage("O usuário de deve possuir mais de 18 anos");
         }
     }
 }

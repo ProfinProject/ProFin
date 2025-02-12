@@ -5,9 +5,9 @@ using ProFin.Data.Context;
 
 namespace ProFin.Data.Repositories
 {
-    public class TransactionRepository(AppDbContext db) : Repository<TransactionEntity>(db), ITransactionRepository
+    public class TransactionRepository(AppDbContext db) : Repository<Transaction>(db), ITransactionRepository
     {
-        public async Task<TransactionEntity> GetTransactionCategoryAsync(Guid id)
+        public async Task<Transaction> GetTransactionCategoryAsync(Guid id)
         {
             return await AppDbContext.Transactions
                 .Include(t => t.CategoryTransaction)

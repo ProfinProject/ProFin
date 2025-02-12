@@ -9,7 +9,7 @@ namespace ProFin.API.Configurations
     {
         public AutoMappingConfiguration()
         {
-            CreateMap<TransactionEntity, TransactionViewModel>().ReverseMap();
+            CreateMap<Transaction, TransactionViewModel>().ReverseMap();
             CreateMap<CategoryTransaction, CategoryTransactionViewModel>().ReverseMap();
         }
     }

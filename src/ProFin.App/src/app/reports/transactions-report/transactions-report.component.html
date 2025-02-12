@@ -2,16 +2,16 @@
     <div>
         <label for="combo">Selecione uma opção:</label>
         <select id="combo" [(ngModel)]="selectedOption" (change)="onSelectionChange($event)">
-            <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+            <option *ngFor="let category of categories" [value]="category.id">{{ category.description }}</option>
         </select>
     </div>
     <br>
-    <!-- <div class="row">
+    <div class="row">
         <h2>Gráfico de Linha</h2>
         <canvas baseChart [datasets]="lineChartData.datasets" [labels]="lineChartData.labels"
-            [options]="lineChartOptions" [legend]="true" [chartType]="'line'">
+            [options]="lineChartOptions" [type]="'line'">
         </canvas>
-    </div> -->
+    </div>
     <br>
     <div class="row">
         <table class="table">
@@ -26,7 +26,8 @@
                 <tr *ngFor="let transaction of transactions">
                     <td>{{transaction.description}}</td>
                     <td>{{transaction.value}}</td>
-                    <td>{{transaction.category.name}}</td>
+                    <td></td>
+                    <!-- <td>{{transaction.category.description}}</td> -->
                 </tr>
             </tbody>
         </table>

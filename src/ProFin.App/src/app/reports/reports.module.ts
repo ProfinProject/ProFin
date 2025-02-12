@@ -8,6 +8,9 @@ import { ReportsGuard } from './services/reports.guard';
 import { ReportsAppComponent } from './reports.app.component';
 import { TransactionsReportComponent } from './transactions-report/transactions-report.component';
 import { ReportsRoutingModule } from './reports.route';
+import { BaseChartDirective } from 'ng2-charts';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+
 
 
 
@@ -22,9 +25,11 @@ import { ReportsRoutingModule } from './reports.route';
     RouterModule,
     ReportsRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BaseChartDirective
   ],
   providers: [
+    [provideCharts(withDefaultRegisterables())],
     provideHttpClient(),
     ReportsService,
     ReportsGuard]

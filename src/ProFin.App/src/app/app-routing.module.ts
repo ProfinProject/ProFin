@@ -16,9 +16,14 @@ const routes: Routes = [
     loadChildren: () => import('./account/account.module')
       .then(m => m.AccountModule)
   },
-  {path: 'create-category', component: CreateCategoryComponent},
-  {path: 'category', component: ListCategoryComponent},
-  {path: 'edit-category/:id', component: EditCategoryComponent},
+  {
+    path: 'reports',
+    loadChildren: () => import('./reports/reports.module')
+      .then(m => m.ReportsModule)
+  },
+  { path: 'create-category', component: CreateCategoryComponent },
+  { path: 'category', component: ListCategoryComponent },
+  { path: 'edit-category/:id', component: EditCategoryComponent },
   { path: 'not-allowed', component: NotAllowedComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent }

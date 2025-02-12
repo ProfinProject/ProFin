@@ -1,0 +1,34 @@
+<div class="container">
+    <div>
+        <label for="combo">Selecione uma opção:</label>
+        <select id="combo" [(ngModel)]="selectedOption" (change)="onSelectionChange($event)">
+            <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+        </select>
+    </div>
+    <br>
+    <!-- <div class="row">
+        <h2>Gráfico de Linha</h2>
+        <canvas baseChart [datasets]="lineChartData.datasets" [labels]="lineChartData.labels"
+            [options]="lineChartOptions" [legend]="true" [chartType]="'line'">
+        </canvas>
+    </div> -->
+    <br>
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Description</th>
+                    <th scope="col">Value</th>
+                    <th scope="col">Category</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let transaction of transactions">
+                    <td>{{transaction.description}}</td>
+                    <td>{{transaction.value}}</td>
+                    <td>{{transaction.category.name}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

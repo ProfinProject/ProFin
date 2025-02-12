@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators, FormControl, FormControlName, Abstr
 import { Router } from '@angular/router';
 
 import { CustomValidators } from '@narik/custom-validators';
-import { ToastrService } from 'ngx-toastr'; import { FormBaseComponent } from '../../base-components/form-base.component';
+import { ToastrService } from 'ngx-toastr';
+import { FormBaseComponent } from '../../base-components/form-base.component';
 import { registerUser } from '../models/registerUser';
 import { AccountService } from '../services/account.service';
 
@@ -77,15 +78,15 @@ export class RegisterComponent extends FormBaseComponent implements OnInit, Afte
   minimumAgeValidator(minAge: number) {
     return (control: AbstractControl): ValidationErrors | null => {
       if (!control.value) return null;
-  
+
       const birthDate = new Date(control.value);
       const today = new Date();
       const age = today.getFullYear() - birthDate.getFullYear();
       const monthDiff = today.getMonth() - birthDate.getMonth();
       const dayDiff = today.getDate() - birthDate.getDate();
-  
+
       const isUnderage = age < minAge || (age === minAge && (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)));
-  
+
       return isUnderage ? { underage: true } : null;
     };
   }
@@ -99,11 +100,11 @@ export class RegisterComponent extends FormBaseComponent implements OnInit, Afte
       this.user = Object.assign({}, this.user, this.registerForm.value);
 
       this.accountService.register(this.user)
-      .subscribe({
+        .subscribe({
           next: (response) => this.processSuccess(response), // Passa o retorno do register
           error: (error) => this.processFail(error) // Passa o erro para processFail
-      });
-  
+        });
+
       this.unsavedChanges = false;
     }
   }

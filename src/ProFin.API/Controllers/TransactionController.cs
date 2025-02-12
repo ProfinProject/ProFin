@@ -19,9 +19,10 @@ namespace ProFin.API.Controllers
         ) : MainController(notifier)
     {
         [HttpGet]
-        public async Task<IEnumerable<TransactionViewModel>> GetAll()
+        public async Task<ActionResult<TransactionViewModel>> GetAll()
         {
-            return mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll());
+            var result = mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll());
+            return CustomResponse(result);
         }
 
         [HttpGet("{id:guid}")]
@@ -44,7 +45,7 @@ namespace ProFin.API.Controllers
             return CustomResponse(transactionViewModel);
         }
 
-        
+
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<TransactionViewModel>> Update(Guid id, TransactionViewModel transactionViewModel)
         {

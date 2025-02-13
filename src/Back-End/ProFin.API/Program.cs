@@ -1,4 +1,5 @@
 using ProFin.API.Configurations;
+using ProFin.Core.Enumeradores;
 using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Notifications;
@@ -20,7 +21,7 @@ internal class Program
         builder
             .AddIdentity()
             .AddJwt()
-            .AddDbContextConfig()
+            .AddDbContextConfig(EDatabases.SQLite)
             .AddAutoMapperConfig()
             .AddDIConfig()
             .AddCorsPolicy();

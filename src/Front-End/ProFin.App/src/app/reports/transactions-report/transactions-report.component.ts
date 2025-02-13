@@ -4,11 +4,11 @@ import { ReportsService } from '../services/reports.service';
 import { ToastrService } from 'ngx-toastr';
 import { map } from 'rxjs';
 import { Category } from '../../category/category';
-import { CategoryService } from '../../services/categories.service';
 import { ChartConfiguration, ChartData, ChartOptions, ChartType } from "chart.js";
+import { CategoryService } from '../../category/services/categories.service';
 
 @Component({
-  selector: 'app-transactions-report',
+  selector: 'app.transactions.report',
   standalone: false,
   templateUrl: './transactions-report.component.html',
 })

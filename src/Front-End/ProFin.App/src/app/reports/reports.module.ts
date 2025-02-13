@@ -12,9 +12,6 @@ import { BaseChartDirective } from 'ng2-charts';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 
-
-
-
 @NgModule({
   declarations: [
     ReportsAppComponent,

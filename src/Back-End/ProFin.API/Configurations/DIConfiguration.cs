@@ -11,9 +11,10 @@ namespace ProFin.API.Configurations
         public static WebApplicationBuilder AddDIConfig(this WebApplicationBuilder builder)
         {
             builder.Services.AddScoped<INotifier, Notifier>();
-            builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
+            builder.Services.AddScoped<IFinancialTransactionRepository, FinancialTransactionRepository>();
             builder.Services.AddScoped<ITransactionService, TransactionService>();
             builder.Services.AddScoped<ICategoryTransactionRepository, CategoryTransactionRepository>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IBudgetRepository, BudgetRepository>();
             builder.Services.AddScoped<IBudgetService, BudgetService>();

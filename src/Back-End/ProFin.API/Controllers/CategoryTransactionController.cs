@@ -1,60 +1,72 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ProFin.API.ViewModel;
+using ProFin.API.ViewModels;
 using ProFin.Core.Interfaces.Repositories;
+using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
 
 namespace ProFin.API.Controllers;
 
-[Route("api/[controller]")]
-[ApiController]
-public class CategoryTransactionController(ICategoryTransactionRepository CategoryTransactionRepository, IMapper mapper) : ControllerBase
+public class CategoryTransactionController(
+        ICategoryTransactionRepository categoryCategoryRepository,
+        IMapper mapper,
+        INotifier notifier,
+        ICategoryService categoryService
+        ) : MainController(notifier)
 {
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<CategoryTransactionViewModel>>> GetAll()
+    public async Task<IEnumerable<CategoryTransactionViewModel>> GetAll()
     {
-        var CategoryTransaction = await CategoryTransactionRepository.GetAll();
-
-        return Ok(mapper.Map<IEnumerable<CategoryTransactionViewModel>>(CategoryTransaction));
+        return mapper.Map<IEnumerable<CategoryTransactionViewModel>>(await categoryCategoryRepository.GetAll());
     }
 
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<CategoryTransactionViewModel>> GetById(Guid id)
     {
-        var categoryTransaction = await CategoryTransactionRepository.GetById(id);
+        var transaction = mapper.Map<CategoryTransactionViewModel>(await categoryCategoryRepository.GetById(id));
 
-        if (categoryTransaction == null)
-        {
-            return NotFound();
-        }
+        if (transaction == null) return NotFound();
 
-        return Ok(categoryTransaction);
+        return transaction;
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add([FromBody] CategoryTransactionViewModel transactionViewModel)
+    public async Task<ActionResult<CategoryTransactionViewModel>> Insert(CategoryTransactionViewModel categoryTransactionViewModel)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest();
-        }
+        if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-        await CategoryTransactionRepository.Add(mapper.Map<CategoryTransaction>(transactionViewModel));
+        await categoryService.Insert(mapper.Map<CategoryFinancialTransaction>(categoryTransactionViewModel));
 
-        return Created();
+        return CustomResponse(categoryTransactionViewModel);
     }
 
-    [HttpPut]
-    public async Task<IActionResult> Put([FromBody] CategoryTransactionViewModel transactionViewModel)
+
+    [HttpPut("{id:guid}")]
+    public async Task<ActionResult<CategoryTransactionViewModel>> Update(Guid id, CategoryTransactionViewModel transactionViewModel)
     {
-        if (!ModelState.IsValid)
+        if (id != transactionViewModel.Id)
         {
-            return BadRequest();
+            NotifieError("O id informado não é o mesmo que foi passado na query");
+            return CustomResponse(transactionViewModel);
         }
 
-        await CategoryTransactionRepository.Update(mapper.Map<CategoryTransaction>(transactionViewModel));
+        if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-        return StatusCode(204);
+        await categoryService.Update(mapper.Map<CategoryFinancialTransaction>(transactionViewModel));
+
+        return CustomResponse(transactionViewModel);
     }
 
+    [HttpDelete("{id:guid}")]
+    public async Task<ActionResult<CategoryTransactionViewModel>> Excluir(Guid id)
+    {
+        var transactionViewModel = mapper.Map<CategoryTransactionViewModel>(await categoryCategoryRepository.GetById(id));
+
+        if (transactionViewModel == null) return NotFound();
+
+        await categoryService.Delete(id);
+
+        return CustomResponse(transactionViewModel);
+    }
 }

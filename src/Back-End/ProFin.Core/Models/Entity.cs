@@ -1,4 +1,6 @@
-﻿namespace ProFin.Core.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ProFin.Core.Models
 {
     public abstract class Entity
     {

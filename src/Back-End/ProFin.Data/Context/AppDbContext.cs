@@ -8,8 +8,8 @@ namespace ProFin.Data.Context
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<Transaction> Transactions { get; set; }
-        public DbSet<CategoryTransaction> CategoryTransactions { get; set; }
+        public DbSet<FinancialTransaction> FinancialTransactions { get; set; }
+        public DbSet<CategoryFinancialTransaction> CategoryTransactions { get; set; }
         public DbSet<Budget> Budgets { get; set; }
         public DbSet<User> User { get; set; }
 
@@ -17,8 +17,8 @@ namespace ProFin.Data.Context
         {
             base.OnModelCreating(builder);
 
-            builder.ApplyConfiguration(new TransactionConfiguration());
-            builder.ApplyConfiguration(new CategoryTransactionConfiguration());
+            builder.ApplyConfiguration(new FinancialTransactionConfiguration());
+            builder.ApplyConfiguration(new CategoryFinancialTransactionConfiguration());
             builder.ApplyConfiguration(new BudgetConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
         }
@@ -63,21 +63,21 @@ namespace ProFin.Data.Context
         }
     }
 
-    public class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
+    public class FinancialTransactionConfiguration : IEntityTypeConfiguration<FinancialTransaction>
     {
-        public void Configure(EntityTypeBuilder<Transaction> builder)
+        public void Configure(EntityTypeBuilder<FinancialTransaction> builder)
         {
             builder.HasKey(a => a.Id);
 
-            builder.ToTable("Transactions");
+            builder.ToTable("FinancialTransactions");
 
-            builder.HasOne(c => c.CategoryTransaction);
+            builder.HasOne(c => c.CategoryFinancialTransaction);
         }
     }
 
-    public class CategoryTransactionConfiguration : IEntityTypeConfiguration<CategoryTransaction>
+    public class CategoryFinancialTransactionConfiguration : IEntityTypeConfiguration<CategoryFinancialTransaction>
     {
-        public void Configure(EntityTypeBuilder<CategoryTransaction> builder)
+        public void Configure(EntityTypeBuilder<CategoryFinancialTransaction> builder)
         {
             builder.HasKey(a => a.Id);
 

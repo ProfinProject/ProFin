@@ -2,6 +2,6 @@
 
 namespace ProFin.Core.Interfaces.Repositories;
 
-public interface ICategoryTransactionRepository : IRepository<CategoryTransaction>
+public interface ICategoryTransactionRepository : IRepository<CategoryFinancialTransaction>
 {
 }

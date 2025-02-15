@@ -2,7 +2,7 @@
 
 namespace ProFin.Core.Models;
 
-public class CategoryTransaction : Entity
+public class CategoryFinancialTransaction : Entity
 {
 
     [Required]

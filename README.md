@@ -1,126 +1,143 @@
-ProFin - Plataforma de Controle Financeiro Pessoal
-1. Apresentação
+# 🏦 ProFin - Plataforma de Controle Financeiro Pessoal
 
-Bem-vindo ao repositório do projeto ProFin. Este projeto é uma entrega do MBA DevXpert Full Stack .NET e é referente ao módulo 2. O objetivo principal desenvolver uma plataforma de controle financeiro pessoal que permite aos usuários gerenciar suas finanças e controlar seus gastos, tanto através de uma interface web utilizando Angular versão 19.1.0 quanto através de uma API RESTful.
+Bem-vindo ao **ProFin**, um projeto desenvolvido no **MBA DevXpert Full Stack .NET** para o módulo 2. O **ProFin** é uma solução inovadora para gerenciamento financeiro pessoal, permitindo que os usuários acompanhem seus gastos e receitas de maneira intuitiva através de uma aplicação web moderna e uma API RESTful robusta.
 
-Autores
-    Breno Francisco Morais
-    Caio Gustavo Rodrigues Silva
-    Fabiano Marcolin Maciel
-    Luis Felipe da Silva Sousa
-    Marcelo Costa
-    Thiago Albuquerque Severo    
+## 🚀 Sobre o Projeto
 
-2. Proposta do Projeto
+A plataforma foi criada para proporcionar uma experiência fluida e segura no controle financeiro, oferecendo:
 
-O projeto consiste em:
+- **Registro e categorização de transações** 💰
+- **Painel interativo com relatórios financeiros** 📊
+- **Autenticação segura via JWT** 🔒
+- **Filtros avançados para melhor gestão dos gastos** 🔍
 
-    A Plataforma de Controle Financeiro Pessoal é uma aplicação web full-stack projetada para ajudar usuários a gerenciar suas finanças de forma eficiente e organizada. A solução deve oferecer um painel integrado para registro de transações financeiras, relatórios interativos, e ferramentas de planejamento financeiro, garantindo segurança, usabilidade e escalabilidade.
-    O sistema será dividido em três camadas principais:
-        1. Frontend (Interface do Usuário): Desenvolvido em Angular ou Blazor para criar uma SPA (Single Page Application) responsiva e interativa.
-        2. Backend (API RESTful): Desenvolvido com ASP.NET Core WebAPI,responsável pelo processamento de dados e lógica de negócios.
-        3. Banco de Dados: SQL Server ou SQLITE com EF Core para persistência e gerenciamento de dados.
+## 👥 Equipe de Desenvolvimento
 
-3. Tecnologias Utilizadas
+- **Breno Francisco Morais**
+- **Caio Gustavo Rodrigues Silva**
+- **Fabiano Marcolin Maciel**
+- **Luis Felipe da Silva Sousa**
+- **Marcelo Costa**
+- **Thiago Albuquerque Severo**
 
-    Linguagem de Programação: C#
-    Frameworks:
-        ASP.NET Core Web API versão net8.0
-        Entity Framework Core versão ^8.0.10
-        Angular ^19.1.0
-    Banco de Dados: SQL Server e SQLITE
-    Autenticação e Autorização:
-        ASP.NET Core Identity
-        JWT (JSON Web Token) para autenticação na API
-    Front-end:        
-        Angular ^19.1.0
-        TypeScript
-    Documentação da API: Swagger
+## 🛠️ Tecnologias Utilizadas
 
-4. Estrutura do Projeto
+### **Back-End:**
 
-A estrutura do projeto é organizada da seguinte forma:
+- **C#**
+- **ASP.NET Core Web API (.NET 8.0)**
+- **Entity Framework Core (EF Core 8.0.10)**
+- **SQL Server / SQLite**
+- **ASP.NET Core Identity + JWT**
 
-    src/
-        BlogMBA.MVC/ - Projeto MVC
-        BlogMBA.API/ - API RESTful
-        BlogMBA.Business/ - Modelos de Dados e Notificações
-        BlogMBA.Data/ - Contexto de banco de dados da aplicação e Repositório
-    README.md - Arquivo de Documentação do Projeto
-    FEEDBACK.md - Arquivo para Consolidação dos Feedbacks
-    .gitignore - Arquivo de Ignoração do Git
+### **Front-End:**
 
-5. Funcionalidades Implementadas
+- **Angular 19.1.0**
+- **TypeScript**
+- **Bootstrap para UI responsiva**
 
-    1. Cadastro e Autenticação de Usuários
-        • Cadastro de Usuários:
-            - Permite registro de novos usuários com dados como nome, e-mail,
-        senha.
-            - Validação de campos obrigatórios com feedback claro ao usuário.
-        • Autenticação:
-            - Implementação de login seguro utilizando ASP.NET Core Identity e JWT.
-            - Sessões protegidas com expiração configurável do token JWT.
+### **Documentação:**
 
-    2. Gerenciamento de Transações
-        • Registro de Transações:
-            - Adicionar transações com dados como valor, descrição, categoria, tipo (entrada/saída)
-            - Permitir edição e exclusão de transações.
-        • Filtro e Busca de Transações:
-            - Implementar filtros por data, categoria e tipo.
-    3. Gestão de Categorias
-        • Categorias:
-            - CRUD completo para categorias de transações financeiras.
-            - Categorias padrão criadas automaticamente (ex.: Alimentação,
-        Transporte).                
-    4. Relatórios e Dashboards
-        • Relatórios Interativos:
-            - Geração de relatórios financeiros detalhados por categoria e
-        período.
+- **Swagger** 📄
 
-6. Como Executar o Projeto
-Pré-requisitos
-    .NET SDK 8.0 ou superior
-    SQL Server ou SQLITE    
-    Visual Studio 2022 ou superior (ou qualquer IDE de sua preferência)
-    Git para executar API
-    Visual Studio Code
-    NodeJs versão 16 ou superior
-    Angular ^19.1.0
+## 📂 Estrutura do Projeto
 
-Passos para Execução
+```plaintext
+src/
+ ├── ProFin.MVC/      # Interface MVC (Opcional)
+ ├── ProFin.API/      # API RESTful
+ ├── ProFin.Business/ # Regras de negócio e validações
+ ├── ProFin.Data/     # Banco de dados e repositórios
+README.md            # Documentação do projeto
+FEEDBACK.md          # Consolidação de feedbacks
+.gitignore           # Configuração do Git
+```
 
-    Clone o Repositório:
-        git clone https://github.com/ProfinProject/ProFin.git
-        cd https://github.com/ProfinProject/ProFin.git
+## 🎯 Funcionalidades Principais
 
-    Configuração do Banco de Dados:
-        No arquivo appsettings.json, configure a string de conexão do SQL Server.
-        Rode o projeto para que a configuração do Seed crie o banco e popule com os dados básicos, atente-se ao passar por referência qual banco você deseja utilizar, SQLSERVER ou SQLITE, 
+✅ **Cadastro e Autenticação de Usuários**
 
-    Executar a Aplicação WEB API:
-        cd src/Back-End/ProFin.API/
-        "dotnet run"
-        Acesse a aplicação em: http://localhost:5005 ou https://localhost:7092 caso queira usar com camada https.
+- Registro de novos usuários com validação
+- Login seguro via **ASP.NET Core Identity** e **JWT**
 
-    Executar a aplicação angular:
-        - Vá até o diretório cd src/Front-End/ProFin.App no prompt de comando.
-        - Execute o comando "code ." [A pasta será aberta no Visual Studio Code].
-        - Vá até o terminal através do atalho "ctrl + '" e digite
-        o comando "npm i" ou "npm install", dessa forma o node irá instalar todos os pacotes necessários para a execução do projeto Angular.
-        - Após concluir o processo, ainda no terminal, digite o comando, "ng server" ou "ng s".        
+✅ **Gerenciamento de Transações**
 
-7. Instruções de Configuração
+- Adicionar, editar e excluir transações financeiras
+- Filtros por data, categoria e tipo (entrada/saída)
 
-    JWT para API: As chaves de configuração do JWT estão no appsettings.json.
-    Migrações do Banco de Dados: As migrações são gerenciadas pelo Entity Framework Core. Não é necessário aplicar devido a configuração do Seed de dados.
+✅ **Gestão de Categorias**
 
-8. Documentação da API
+- CRUD completo para categorias de transações financeiras
+- Criação automática de categorias padrão (Ex: Alimentação, Transporte)
 
-A documentação da API está disponível através do Swagger. Após iniciar a API, acesse a documentação em:
+✅ **Relatórios e Dashboards**
 
-http://localhost:5005/swagger
-9. Avaliação
+- Relatórios interativos detalhados por categoria e período
 
-    Este projeto é parte de um curso acadêmico e não aceita contribuições externas.
-    Para feedbacks ou dúvidas utilize o recurso de Issues
-    O arquivo FEEDBACK.md é um resumo das avaliações do instrutor e deverá ser modificado apenas por ele.
+## ▶️ Como Executar o Projeto
+
+### 📌 **Pré-requisitos**
+
+- **.NET SDK 8.0** ou superior
+- **SQL Server** ou **SQLite**
+- **Visual Studio 2022** ou **VS Code**
+- **Node.js 16+** e **Angular CLI**
+- **Git**
+
+### 💻 **Passos para Execução**
+
+1️⃣ **Clone o Repositório:**
+
+```sh
+git clone https://github.com/ProfinProject/ProFin.git
+cd ProFin
+```
+
+2️⃣ **Configuração do Banco de Dados:**
+
+- No arquivo `appsettings.json`, configure a **string de conexão** para SQL Server ou SQLite.
+- Execute o projeto para que a **configuração do Seed** crie e popule o banco automaticamente.
+
+3️⃣ **Executar a API (.NET 8.0):**
+
+```sh
+cd src/Back-End/ProFin.API/
+dotnet run
+```
+
+📌 Acesse a API em: [http://localhost:5005](http://localhost:5005) ou [https://localhost:7092](https://localhost:7092) (HTTPS).
+
+4️⃣ **Executar a aplicação Angular:**
+
+```sh
+cd src/Front-End/ProFin.App
+code .  # Abre no VS Code
+npm install  # Instala as dependências
+ng serve  # Inicia o servidor
+```
+
+📌 Acesse o front-end em: [http://localhost:4200](http://localhost:4200)
+
+## 🔑 Configuração de Segurança
+
+- **Autenticação JWT:** Configurada no `appsettings.json`.
+- **Migração do Banco:** Gerenciada pelo **EF Core**, com Seed de dados automático.
+
+## 📜 Documentação da API
+
+A API está documentada via **Swagger**:
+📌 Acesse em: [http://localhost:5005/swagger](http://localhost:5005/swagger)
+
+## 📌 Considerações Finais
+
+Este projeto faz parte de um curso acadêmico e **não aceita contribuições externas**.
+Para dúvidas ou feedbacks, utilize a aba **Issues** do repositório.
+O arquivo **FEEDBACK.md** contém avaliações do instrutor e deve ser modificado apenas por ele.
+
+🚀 **Gostou do projeto? Deixe uma estrela ⭐ no repositório!**
+
+---
+
+🔗 **Conecte-se com a equipe no LinkedIn!**
+\#dotnet #angular #fullstack #finanças #profin #webdevelopment
+

@@ -43,14 +43,17 @@ A plataforma foi criada para proporcionar uma experiência fluida e segura no co
 ## 📂 Estrutura do Projeto
 
 ```plaintext
-src/
- ├── ProFin.MVC/      # Interface MVC (Opcional)
+src/Back-End 
  ├── ProFin.API/      # API RESTful
- ├── ProFin.Business/ # Regras de negócio e validações
+ ├── ProFin.Core/     # Regras de negócio e validações
  ├── ProFin.Data/     # Banco de dados e repositórios
-README.md            # Documentação do projeto
-FEEDBACK.md          # Consolidação de feedbacks
-.gitignore           # Configuração do Git
+ ├── ProFin.Identity/ # Login e autenticação do usuário
+README.md             # Documentação do projeto
+FEEDBACK.md           # Consolidação de feedbacks
+.gitignore            # Configuração do Git
+------------------------------------------------------------
+src/Front-End/ProFin.App
+ ├── ProFin.App/src # Arquivos fontes para execução do projeto
 ```
 
 ## 🎯 Funcionalidades Principais

@@ -1,0 +1,46 @@
+<div class="container mt-4">
+  <h2>{{ isEditing ? 'Editar' : 'Criar' }} Orçamento</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <form [formGroup]="budgetForm" (ngSubmit)="onSubmit()" class="mt-4">
+    <div class="form-group mb-3">
+      <label for="categoryTransactionId">Categoria</label>
+      <select class="form-control" id="categoryTransactionId" formControlName="categoryTransactionId"
+        [class.is-invalid]="budgetForm.get('categoryTransactionId')?.invalid && budgetForm.get('categoryTransactionId')?.touched">
+        <option value="">Selecione uma categoria</option>
+        <option *ngFor="let category of categories" [value]="category.id">
+          {{ category.name }}
+        </option>
+      </select>
+      <div class="invalid-feedback">
+        Categoria é obrigatória
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="limit">Limite</label>
+      <input type="number" class="form-control" id="limit" formControlName="limit"
+        [class.is-invalid]="budgetForm.get('limit')?.invalid && budgetForm.get('limit')?.touched">
+      <div class="invalid-feedback">
+        Limite é obrigatório e deve ser maior que zero
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="currentSpending">Gasto Atual</label>
+      <input type="number" class="form-control" id="currentSpending" formControlName="currentSpending">
+    </div>
+
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn btn-primary" [disabled]="budgetForm.invalid">
+        {{ isEditing ? 'Atualizar' : 'Criar' }}
+      </button>
+      <button type="button" class="btn btn-secondary" [routerLink]="['/budget']">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>

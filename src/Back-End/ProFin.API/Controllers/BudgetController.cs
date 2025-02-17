@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProFin.API.ViewModel;
 using ProFin.Core.Interfaces.Services;
@@ -8,6 +9,7 @@ namespace ProFin.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BudgetController : MainController
     {
         private readonly IBudgetService _budgetService;

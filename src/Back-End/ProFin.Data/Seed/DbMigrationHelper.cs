@@ -11,6 +11,7 @@ namespace ProFin.Data.Seed
         {
             SeedCategories();
             SeedTransactions();
+            SeedBudgets();
         }
 
         public void SeedCategories()
@@ -18,24 +19,48 @@ namespace ProFin.Data.Seed
             if (!_context.CategoryTransactions.Any())
             {
                 IEnumerable<CategoryFinancialTransaction> categories =
-            [
-                new()
-                {
-                    Name = "Alimentação",
-                    Description = "Alimentação",
-                    CreatedDate = DateTime.Now,
-                    Deleted = false,
-                    UpdatedDate = DateTime.Now,
-                },
-                new ()
-                {
-                    Name = "Transporte",
-                    Description = "Locomoção",
-                    CreatedDate = DateTime.Now,
-                    Deleted = false,
-                    UpdatedDate = DateTime.Now,
-                },
-            ];
+                [
+                    new()
+                    {
+                        Name = "Alimentação",
+                        Description = "Gastos com alimentação e restaurantes",
+                        CreatedDate = DateTime.Now,
+                        Deleted = false,
+                        UpdatedDate = DateTime.Now,
+                    },
+                    new()
+                    {
+                        Name = "Transporte",
+                        Description = "Gastos com locomoção, combustível e transporte público",
+                        CreatedDate = DateTime.Now,
+                        Deleted = false,
+                        UpdatedDate = DateTime.Now,
+                    },
+                    new()
+                    {
+                        Name = "Salário",
+                        Description = "Recebimento de salário",
+                        CreatedDate = DateTime.Now,
+                        Deleted = false,
+                        UpdatedDate = DateTime.Now,
+                    },
+                    new()
+                    {
+                        Name = "Moradia",
+                        Description = "Gastos com aluguel, contas de água, luz, etc",
+                        CreatedDate = DateTime.Now,
+                        Deleted = false,
+                        UpdatedDate = DateTime.Now,
+                    },
+                    new()
+                    {
+                        Name = "Lazer",
+                        Description = "Gastos com entretenimento",
+                        CreatedDate = DateTime.Now,
+                        Deleted = false,
+                        UpdatedDate = DateTime.Now,
+                    }
+                ];
 
                 _context.CategoryTransactions.AddRange(categories);
                 _context.SaveChanges();
@@ -48,26 +73,26 @@ namespace ProFin.Data.Seed
             if (!_context.FinancialTransactions.Any())
             {
                 IEnumerable<FinancialTransaction> transactionsModel =
-            [
-                new()
-                {
-                    Value = 2254.56,
-                    Description = "Gastos com alimentação",
-                    CreatedDate = DateTime.Now,
-                    Deleted = false,
-                    UpdatedDate = DateTime.Now,
-                    CategoryFinancialTransaction = category
-                },
-                new ()
-                {
-                    Value = 800.00,
-                    Description = "Gastos com transporte",
-                    CreatedDate = DateTime.Now,
-                    Deleted = false,
-                    UpdatedDate = DateTime.Now,
-                    CategoryFinancialTransaction = category
-                },
-            ];
+                [
+                    new()
+                    {
+                        Value = 2254.56,
+                        Description = "Gastos com alimentação",
+                        CreatedDate = DateTime.Now,
+                        Deleted = false,
+                        UpdatedDate = DateTime.Now,
+                        CategoryFinancialTransaction = category
+                    },
+                    new ()
+                    {
+                        Value = 800.00,
+                        Description = "Gastos com transporte",
+                        CreatedDate = DateTime.Now,
+                        Deleted = false,
+                        UpdatedDate = DateTime.Now,
+                        CategoryFinancialTransaction = category
+                    },
+                ];
 
                 _context.FinancialTransactions.AddRange(transactionsModel);
                 _context.SaveChanges();

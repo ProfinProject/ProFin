@@ -11,6 +11,13 @@ namespace ProFin.API.Configurations
         {
             CreateMap<FinancialTransaction, TransactionViewModel>().ReverseMap();
             CreateMap<CategoryFinancialTransaction, CategoryTransactionViewModel>().ReverseMap();
+            CreateMap<Budget, BudgetViewModel>()
+               .ForMember(dest => dest.CategoryTransactionId,
+                         opt => opt.MapFrom(src => src.CategoryTransactionId))
+               .ReverseMap();
+
+            CreateMap<CategoryFinancialTransaction, CategoryFinancialTransactionViewModel>()
+                .ReverseMap();
         }
     }
 }

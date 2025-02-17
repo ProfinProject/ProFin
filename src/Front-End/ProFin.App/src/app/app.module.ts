@@ -14,6 +14,7 @@ import { CreateCategoryComponent } from './category/create-category/create-categ
 import { ListCategoryComponent } from './category/list-category/list-category.component';
 import { EditCategoryComponent } from './category/edit-category/edit-category.component';
 import { CategoryService } from './category/services/categories.service';
+import { BudgetService } from './budget/services/budget.service';
 
 export const httpInterceptorProviders = [
   //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
@@ -38,7 +39,8 @@ export const httpInterceptorProviders = [
     HttpClientModule
   ],
   providers: [
-    CategoryService
+    CategoryService,
+    BudgetService,
   ],
   bootstrap: [AppComponent]
 })

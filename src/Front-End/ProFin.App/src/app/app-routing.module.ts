@@ -6,7 +6,6 @@ import { NotFoundComponent } from './navegation/not-found/not-found.component';
 import { CreateCategoryComponent } from './category/create-category/create-category.component';
 import { ListCategoryComponent } from './category/list-category/list-category.component';
 import { EditCategoryComponent } from './category/edit-category/edit-category.component';
-import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -16,18 +15,21 @@ const routes: Routes = [
     loadChildren: () => import('./account/account.module')
       .then(m => m.AccountModule)
   },
-  {path: 'create-category', component: CreateCategoryComponent},
-  {path: 'category', component: ListCategoryComponent},
-  {path: 'edit-category/:id', component: EditCategoryComponent},
+  {
+    path: 'budget',
+    loadChildren: () => import('./budget/budget.module')
+      .then(m => m.BudgetModule)
+  },
+  { path: 'create-category', component: CreateCategoryComponent },
+  { path: 'category', component: ListCategoryComponent },
+  { path: 'edit-category/:id', component: EditCategoryComponent },
   { path: 'not-allowed', component: NotAllowedComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes)
-  ],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

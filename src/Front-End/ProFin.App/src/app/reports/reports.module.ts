@@ -10,6 +10,9 @@ import { TransactionsReportComponent } from './transactions-report/transactions-
 import { ReportsRoutingModule } from './reports.route';
 import { BaseChartDirective } from 'ng2-charts';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { MatTableModule } from '@angular/material/table'; // Importação do MatTableModule
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 
 @NgModule({
@@ -23,7 +26,9 @@ import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
     ReportsRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    BaseChartDirective
+    BaseChartDirective,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [
     [provideCharts(withDefaultRegisterables())],

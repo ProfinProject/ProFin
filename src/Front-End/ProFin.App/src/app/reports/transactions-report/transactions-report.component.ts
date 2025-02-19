@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TransactionReport } from '../models/transaction-report';
 import { ReportsService } from '../services/reports.service';
 import { ToastrService } from 'ngx-toastr';
@@ -6,14 +6,18 @@ import { map } from 'rxjs';
 import { Category } from '../../category/category';
 import { ChartConfiguration, ChartData, ChartOptions, ChartType } from "chart.js";
 import { CategoryService } from '../../category/services/categories.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app.transactions.report',
   standalone: false,
   templateUrl: './transactions-report.component.html',
+  styleUrls: ['./transactions-report.component.css']
 })
 export class TransactionsReportComponent implements OnInit {
 
+  isPrinting = false; // Flag para saber se está em modo de impressão
 
   public lineChartData: ChartData<'line'> = {
     labels: [],
@@ -60,6 +64,12 @@ export class TransactionsReportComponent implements OnInit {
   errors: any[] = [];
   selectedOption: string;
 
+
+  displayedColumns: string[] = ['description', 'value'];
+  dataSource = new MatTableDataSource<TransactionReport>([]);
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   constructor(
     private reportsService: ReportsService,
     private categoryService: CategoryService,
@@ -87,6 +97,10 @@ export class TransactionsReportComponent implements OnInit {
       })
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
   onSelectionChange(event: any) {
     console.log('Opção selecionada:', this.selectedOption);
   }
@@ -96,6 +110,8 @@ export class TransactionsReportComponent implements OnInit {
       this.transactions = transactions;
     else
       this.transactions = [];
+
+    this.dataSource.data = transactions;
 
     this.lineChartData.labels = transactions.map(item => item.description);
     this.lineChartData.datasets[0].data = transactions.map(item => item.value);
@@ -111,6 +127,14 @@ export class TransactionsReportComponent implements OnInit {
   processFail(fail: any) {
     this.errors = fail.error.errors;
     this.toastr.error('Ocorreu um erro!', 'Opa :(');
+  }
+
+  printPage() {
+    this.isPrinting = true; // Ativa o modo de impressão
+    setTimeout(() => {
+      window.print(); // Chama a impressão após o tempo para garantir a renderização
+      this.isPrinting = false; // Desativa o modo de impressão após a impressão ser chamada
+    }, 100);
   }
 }
 

@@ -5,31 +5,69 @@
             <option *ngFor="let category of categories" [value]="category.id">{{ category.description }}</option>
         </select>
     </div>
+
     <br>
-    <div class="row">
-        <h2>Gráfico de Linha</h2>
-        <canvas baseChart [datasets]="lineChartData.datasets" [labels]="lineChartData.labels"
-            [options]="lineChartOptions" [type]="'line'">
-        </canvas>
+    <div>
+        <!-- Linha com o botão de imprimir -->
+        <div class="row">
+            <div class="col-9">
+            </div>
+
+            <div class="col-3 d-flex justify-content-end">
+                <button class="btn btn-success btn-sm print-button" (click)="printPage()">
+                    <i class="fa fa-print"></i> Imprimir
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <h2>Gráfico de Linha</h2>
+            <canvas baseChart [datasets]="lineChartData.datasets" [labels]="lineChartData.labels"
+                [options]="lineChartOptions" [type]="'line'">
+            </canvas>
+        </div>
+        <br>
+        <div class="row">
+            <table mat-table [dataSource]="dataSource" *ngIf="!isPrinting" class="mat-elevation-z8">
+
+                <!-- Descrição -->
+                <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef> Descrição </th>
+                    <td mat-cell *matCellDef="let transaction"> {{ transaction.description }} </td>
+                </ng-container>
+
+                <!-- Valor (Formatado em R$) -->
+                <ng-container matColumnDef="value">
+                    <th mat-header-cell *matHeaderCellDef> Valor </th>
+                    <td mat-cell *matCellDef="let transaction"> {{ transaction.value | currency:'BRL':'symbol' }} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            </table>
+
+            <!-- Paginação -->
+            <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+        </div>
     </div>
-    <br>
-    <div class="row">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Description</th>
-                    <th scope="col">Value</th>
-                    <th scope="col">Category</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let transaction of transactions">
-                    <td>{{transaction.description}}</td>
-                    <td>{{ transaction.value | currency:'BRL':'symbol' }}</td>
-                    <td></td>
-                    <!-- <td>{{transaction.category.description}}</td> -->
-                </tr>
-            </tbody>
-        </table>
-    </div>
+</div>
+
+<!-- Versão da tabela para impressão -->
+<div class="print-table" *ngIf="isPrinting">
+    <table>
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let transaction of dataSource.data">
+                <td>{{ transaction.description }}</td>
+                <td>{{ transaction.value | currency:'BRL':'symbol' }}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>

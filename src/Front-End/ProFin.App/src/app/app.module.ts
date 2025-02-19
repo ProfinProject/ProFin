@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 //import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { BaseChartDirective } from 'ng2-charts';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -16,6 +18,7 @@ import { CreateCategoryComponent } from './category/create-category/create-categ
 import { ListCategoryComponent } from './category/list-category/list-category.component';
 import { EditCategoryComponent } from './category/edit-category/edit-category.component';
 import { CategoryService } from './category/services/categories.service';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const httpInterceptorProviders = [
   //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
@@ -38,10 +41,13 @@ export const httpInterceptorProviders = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BaseChartDirective
+    BaseChartDirective,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [
-    CategoryService
+    CategoryService,
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })

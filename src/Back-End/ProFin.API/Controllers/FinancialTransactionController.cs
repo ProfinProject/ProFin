@@ -17,8 +17,7 @@ namespace ProFin.API.Controllers
         ITransactionService transactionService
         ) : MainController(notifier)
     {
-
-        [AllowAnonymous]
+               
         [HttpGet]        
         public async Task<ActionResult<TransactionViewModel>> GetAll()
         {

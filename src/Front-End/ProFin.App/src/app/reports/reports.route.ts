@@ -11,7 +11,7 @@ const reportsRouterConfig: Routes = [
             {
                 path: 'transactions', // Sub-rota
                 component: TransactionsReportComponent,
-                //canActivate: [ReportsGuard] // Caso queira proteger a rota com o guard
+                canActivate: [ReportsGuard] // Caso queira proteger a rota com o guard
             }
         ]
     }

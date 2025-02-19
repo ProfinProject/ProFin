@@ -1,11 +1,20 @@
 <div class="container">
-    <div>
-        <label for="combo">Selecione uma categoria:</label>
-        <select id="combo" [(ngModel)]="selectedOption" (change)="onSelectionChange($event)">
-            <option *ngFor="let category of categories" [value]="category.id">{{ category.description }}</option>
-        </select>
-    </div>
+    <div class="row align-items-end">
+        <div class="col-3">
+            <label for="combo" class="form-label">Selecione uma categoria:</label>
+            <select id="combo" class="form-select" [(ngModel)]="selectedOption" (change)="onSelectionChange($event)">
+                <option *ngFor="let category of categories" [value]="category.id">{{ category.description }}</option>
+            </select>
+        </div>
 
+        <div class="col-4">
+            <label for="dateFilter" class="form-label">Filtrar por Data:</label>
+            <input type="date" class="form-control" id="dateFilter" (change)="onDateChange($event)">
+        </div>
+    </div>
+</div>
+
+<div class="container">
     <br>
     <div>
         <!-- Linha com o botão de imprimir -->
@@ -39,7 +48,14 @@
                 <!-- Valor (Formatado em R$) -->
                 <ng-container matColumnDef="value">
                     <th mat-header-cell *matHeaderCellDef> Valor </th>
-                    <td mat-cell *matCellDef="let transaction"> {{ transaction.value | currency:'BRL':'symbol' }} </td>
+                    <td mat-cell *matCellDef="let transaction"> {{ transaction.value | currency:'BRL':'symbol' }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="createdDate">
+                    <th mat-header-cell *matHeaderCellDef> Data da transação </th>
+                    <td mat-cell *matCellDef="let transaction"> {{ transaction.createdDate }}
+                    </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

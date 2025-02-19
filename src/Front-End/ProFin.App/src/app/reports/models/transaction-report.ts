@@ -1,6 +1,7 @@
 export interface TransactionReport {
     value: number;
     description: string;
+    createdDate: string;
     category: CategoryTransactionReport;
 }
 

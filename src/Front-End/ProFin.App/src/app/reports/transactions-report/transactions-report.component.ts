@@ -65,8 +65,11 @@ export class TransactionsReportComponent implements OnInit {
   selectedOption: string;
 
 
-  displayedColumns: string[] = ['description', 'value'];
+  displayedColumns: string[] = ['description', 'value', 'createdDate'];
   dataSource = new MatTableDataSource<TransactionReport>([]);
+
+  filteredTransactions = [...this.transactions];
+
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -111,10 +114,16 @@ export class TransactionsReportComponent implements OnInit {
     else
       this.transactions = [];
 
-    this.dataSource.data = transactions;
+    this.filteredTransactions = [...this.transactions];
 
-    this.lineChartData.labels = transactions.map(item => item.description);
-    this.lineChartData.datasets[0].data = transactions.map(item => item.value);
+    this.loadData();
+  }
+
+  loadData() {
+    this.dataSource.data = this.filteredTransactions;
+
+    this.lineChartData.labels = this.filteredTransactions.map(item => item.description);
+    this.lineChartData.datasets[0].data = this.filteredTransactions.map(item => item.value);
   }
 
   processCategories(categories: Category[]) {
@@ -135,6 +144,31 @@ export class TransactionsReportComponent implements OnInit {
       window.print(); // Chama a impressão após o tempo para garantir a renderização
       this.isPrinting = false; // Desativa o modo de impressão após a impressão ser chamada
     }, 100);
+  }
+
+  onDateChange(event: any) {
+    const selectedDate = event.target.value;
+
+    // Filtra os dados com base na data
+    if (selectedDate) {
+      const filterDate = new Date(selectedDate)
+
+      this.filteredTransactions = this.transactions.filter(item => {
+        const itemDateParts = item.createdDate.split(" ")[0].split("/"); // Separa "DD/MM/YYYY HH:mm:ss"
+        const itemDate = new Date(
+          Number(itemDateParts[2]), // Ano
+          Number(itemDateParts[1]) - 1, // Mês (base 0)
+          Number(itemDateParts[0]) // Dia
+        );
+
+        return itemDate >= filterDate; // Comparação entre objetos Date
+      });
+    } else {
+      this.filteredTransactions = [...this.transactions]; // Exibe todos os dados se nenhuma data for selecionada
+    }
+
+    this.loadData();
+
   }
 }
 

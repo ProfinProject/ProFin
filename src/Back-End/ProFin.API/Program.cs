@@ -18,6 +18,7 @@ internal class Program
             .AddIdentity()
             .AddJwt()
             .AddDbContextConfig(EDatabases.SQLite)
+            .AddAutoMapperConfig()
             .AddDIConfig()
             .AddCorsPolicy();
 

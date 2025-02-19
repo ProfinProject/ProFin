@@ -17,7 +17,7 @@ namespace ProFin.Data.Seed
         {
             if (!_context.CategoryTransactions.Any())
             {
-                IEnumerable<CategoryTransaction> categories =
+                IEnumerable<CategoryFinancialTransaction> categories =
             [
                 new()
                 {
@@ -45,9 +45,9 @@ namespace ProFin.Data.Seed
         public void SeedTransactions()
         {
             var category = _context.CategoryTransactions.FirstOrDefault();
-            if (!_context.Transactions.Any())
+            if (!_context.FinancialTransactions.Any())
             {
-                IEnumerable<Transaction> transactionsModel =
+                IEnumerable<FinancialTransaction> transactionsModel =
             [
                 new()
                 {
@@ -56,7 +56,7 @@ namespace ProFin.Data.Seed
                     CreatedDate = DateTime.Now,
                     Deleted = false,
                     UpdatedDate = DateTime.Now,
-                    CategoryTransaction = category
+                    CategoryFinancialTransaction = category
                 },
                 new ()
                 {
@@ -65,11 +65,11 @@ namespace ProFin.Data.Seed
                     CreatedDate = DateTime.Now,
                     Deleted = false,
                     UpdatedDate = DateTime.Now,
-                    CategoryTransaction = category
+                    CategoryFinancialTransaction = category
                 },
             ];
 
-                _context.Transactions.AddRange(transactionsModel);
+                _context.FinancialTransactions.AddRange(transactionsModel);
                 _context.SaveChanges();
             }
         }

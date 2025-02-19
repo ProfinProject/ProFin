@@ -9,9 +9,8 @@ using ProFin.Core.Models;
 
 namespace ProFin.API.Controllers
 {
-    [AllowAnonymous]
-    public class TransactionController(
-        ITransactionRepository transactionRepository,
+    public class FinancialTransactionController(
+        IFinancialTransactionRepository transactionRepository,
         ICategoryTransactionRepository categoryTransactionRepository,
         IMapper mapper,
         INotifier notifier,
@@ -40,7 +39,7 @@ namespace ProFin.API.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            await transactionService.Insert(mapper.Map<Transaction>(transactionViewModel));
+            await transactionService.Insert(mapper.Map<FinancialTransaction>(transactionViewModel));
 
             return CustomResponse(transactionViewModel);
         }
@@ -57,7 +56,7 @@ namespace ProFin.API.Controllers
 
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            await transactionService.Update(mapper.Map<Transaction>(transactionViewModel));
+            await transactionService.Update(mapper.Map<FinancialTransaction>(transactionViewModel));
 
             return CustomResponse(transactionViewModel);
         }
@@ -83,7 +82,7 @@ namespace ProFin.API.Controllers
         [NonAction]
         private async Task<TransactionViewModel> GetTransactionCategory(Guid id)
         {
-            return mapper.Map<TransactionViewModel>(await transactionRepository.GetTransactionCategoryAsync(id));
+            return mapper.Map<TransactionViewModel>(await transactionRepository.GetFinancialTransactionCategoryAsync(id));
         }
     }
 }

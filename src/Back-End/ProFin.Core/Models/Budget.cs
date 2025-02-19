@@ -6,7 +6,7 @@ namespace ProFin.Core.Models
     {
         [Required]
         public Guid CategoryTransactionId { get; set; }
-        public CategoryTransaction CategoryTransaction { get; set; }
+        public CategoryFinancialTransaction CategoryTransaction { get; set; }
         public decimal Limit { get; set; }
         public decimal CurrentSpending { get; set; }
         public DateTime CreatedAt { get; set; }

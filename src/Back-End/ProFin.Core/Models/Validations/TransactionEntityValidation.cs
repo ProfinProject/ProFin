@@ -2,7 +2,7 @@
 
 namespace ProFin.Core.Models.Validations
 {
-    public class TransactionEntityValidation : AbstractValidator<Transaction>
+    public class TransactionEntityValidation : AbstractValidator<FinancialTransaction>
     {
         public TransactionEntityValidation()
         {
@@ -13,7 +13,7 @@ namespace ProFin.Core.Models.Validations
             RuleFor(c => c.Description)
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
 
-            RuleFor(c => c.CategoryTransaction)
+            RuleFor(c => c.CategoryFinancialTransaction)
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
         }
     }

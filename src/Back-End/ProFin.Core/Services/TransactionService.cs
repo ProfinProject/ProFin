@@ -7,10 +7,10 @@ namespace ProFin.Core.Services
 {
     public class TransactionService : BaseService, ITransactionService
     {
-        private readonly ITransactionRepository _transactionRepository;
+        private readonly IFinancialTransactionRepository _transactionRepository;
         private readonly ICategoryTransactionRepository _categoryTransactionRepository;
 
-        public TransactionService(ITransactionRepository transactionRepository,
+        public TransactionService(IFinancialTransactionRepository transactionRepository,
                                  ICategoryTransactionRepository categoryTransactionRepository,
                                  INotifier notifier) : base(notifier)
         {
@@ -18,14 +18,14 @@ namespace ProFin.Core.Services
             _categoryTransactionRepository = categoryTransactionRepository;
         }
 
-        public async Task Insert(Transaction transactionEntity)
+        public async Task Insert(FinancialTransaction transactionEntity)
         {
             if (!ExecuteValidation(new TransactionEntityValidation(), transactionEntity)) return;
 
             await _transactionRepository.Add(transactionEntity);
         }
 
-        public async Task Update(Transaction transactionEntity)
+        public async Task Update(FinancialTransaction transactionEntity)
         {
             if (!ExecuteValidation(new TransactionEntityValidation(), transactionEntity)) return;
 
@@ -35,7 +35,7 @@ namespace ProFin.Core.Services
 
         public async Task Delete(Guid id)
         {
-            if (_transactionRepository.GetById(id).Result is Transaction entity && entity.CreatedDate != DateTime.MinValue)
+            if (_transactionRepository.GetById(id).Result is FinancialTransaction entity && entity.CreatedDate != DateTime.MinValue)
                 await _transactionRepository.Delete(entity);
             else
                 Notifie("Registro não encontrado!");

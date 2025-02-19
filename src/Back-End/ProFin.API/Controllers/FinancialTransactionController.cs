@@ -14,7 +14,7 @@ namespace ProFin.API.Controllers
         ICategoryTransactionRepository categoryTransactionRepository,
         IMapper mapper,
         INotifier notifier,
-        ITransactionService transactionService
+        IFinancialTransactionService financialTransactionService
         ) : MainController(notifier)
     {
         [HttpGet]
@@ -38,7 +38,7 @@ namespace ProFin.API.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            await transactionService.Insert(mapper.Map<FinancialTransaction>(transactionViewModel));
+            await financialTransactionService.Insert(mapper.Map<FinancialTransaction>(transactionViewModel));
 
             return CustomResponse(transactionViewModel);
         }
@@ -55,7 +55,7 @@ namespace ProFin.API.Controllers
 
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            await transactionService.Update(mapper.Map<FinancialTransaction>(transactionViewModel));
+            await financialTransactionService.Update(mapper.Map<FinancialTransaction>(transactionViewModel));
 
             return CustomResponse(transactionViewModel);
         }
@@ -67,7 +67,7 @@ namespace ProFin.API.Controllers
 
             if (transactionViewModel == null) return NotFound();
 
-            await transactionService.Delete(id);
+            await financialTransactionService.Delete(id);
 
             return CustomResponse(transactionViewModel);
         }

@@ -17,7 +17,9 @@ namespace ProFin.API.Controllers
         ITransactionService transactionService
         ) : MainController(notifier)
     {
-        [HttpGet]
+
+        [AllowAnonymous]
+        [HttpGet]        
         public async Task<ActionResult<TransactionViewModel>> GetAll()
         {
             var result = mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll());

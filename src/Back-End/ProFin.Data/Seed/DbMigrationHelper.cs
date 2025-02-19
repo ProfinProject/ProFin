@@ -44,30 +44,52 @@ namespace ProFin.Data.Seed
 
         public void SeedTransactions()
         {
-            var category = _context.CategoryTransactions.FirstOrDefault();
+            var categories = _context.CategoryTransactions.ToList();
             if (!_context.FinancialTransactions.Any())
             {
-                IEnumerable<FinancialTransaction> transactionsModel =
-            [
-                new()
+                List<FinancialTransaction> transactionsModel = new List<FinancialTransaction>(30);
+                Random random = new Random();
+                double min = 50;
+                double max = 5000;
+                DateTime today = DateTime.Now;
+                DateTime fourMonthsAgo = today.AddMonths(-4);
+                for (int i = 0; i < 30; i++)
                 {
-                    Value = 2254.56,
-                    Description = "Gastos com alimentação",
-                    CreatedDate = DateTime.Now,
-                    Deleted = false,
-                    UpdatedDate = DateTime.Now,
-                    CategoryFinancialTransaction = category
-                },
-                new ()
-                {
-                    Value = 800.00,
-                    Description = "Gastos com transporte",
-                    CreatedDate = DateTime.Now,
-                    Deleted = false,
-                    UpdatedDate = DateTime.Now,
-                    CategoryFinancialTransaction = category
-                },
-            ];
+                    var category = categories[random.Next(categories.Count)];
+                    int randomDays = random.Next((today - fourMonthsAgo).Days + 1);
+                    transactionsModel.Add(new()
+                    {
+                        Value = min + (random.NextDouble() * (max - min)),
+                        Description = $"Gastos com {category.Name} {i}",
+                        CreatedDate = fourMonthsAgo.AddDays(randomDays),
+                        Deleted = false,
+                        UpdatedDate = fourMonthsAgo.AddDays(randomDays),
+                        CategoryFinancialTransaction = category,
+                    });
+                }
+                //    IEnumerable<FinancialTransaction> transactionsModel =
+                //[
+                //    new()
+                //    {
+                //        Value = 2254.56,
+                //        Description = "Gastos com alimentação",
+                //        CreatedDate = DateTime.Now,
+                //        Deleted = false,
+                //        UpdatedDate = DateTime.Now,
+                //        CategoryFinancialTransaction = category
+                //    },
+                //    new ()
+                //    {
+                //        Value = 800.00,
+                //        Description = "Gastos com transporte",
+                //        CreatedDate = DateTime.Now,
+                //        Deleted = false,
+                //        UpdatedDate = DateTime.Now,
+                //        CategoryFinancialTransaction = category
+                //    },
+                //];
+
+
 
                 _context.FinancialTransactions.AddRange(transactionsModel);
                 _context.SaveChanges();

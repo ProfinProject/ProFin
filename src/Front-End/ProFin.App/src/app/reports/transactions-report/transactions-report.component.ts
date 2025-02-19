@@ -14,63 +14,46 @@ import { CategoryService } from '../../category/services/categories.service';
 })
 export class TransactionsReportComponent implements OnInit {
 
-  public lineChartData: ChartConfiguration<'line'>['data'] = {
-    labels: [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July'
-    ],
+
+  public lineChartData: ChartData<'line'> = {
+    labels: [],
     datasets: [
       {
-        data: [65, 59, 80, 81, 56, 55, 40],
-        label: 'Series A',
+        data: [],
+        label: 'Gastos',
+        borderColor: '#42A5F5',
+        backgroundColor: 'rgba(66,165,245,0.2)',
         fill: true,
-        tension: 0.5,
-        borderColor: 'black',
-        backgroundColor: 'rgba(255,0,0,0.3)'
       }
     ]
   };
-  public lineChartOptions: ChartOptions<'line'> = {
-    responsive: false
+
+
+  public lineChartOptions: ChartOptions = {
+    responsive: true,
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: (tooltipItem) => {
+            let value = tooltipItem.raw as number;
+            return `R$ ${value.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+          }
+        }
+      }
+    },
+    scales: {
+      y: {
+        ticks: {
+          callback: (value) => {
+            return `R$ ${Number(value).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+          }
+        }
+      }
+    }
   };
+
   public lineChartLegend = true;
 
-  // Definindo a estrutura dos dados para o gráfico
-  // lineChartData: ChartData<'line'> = {
-  //   labels: [],  // Vai armazenar as datas
-  //   datasets: [
-  //     {
-  //       label: 'Valor',
-  //       data: [],  // Vai armazenar os valores
-  //       fill: false,
-  //       borderColor: 'rgb(75, 192, 192)',
-  //       tension: 0.1
-  //     }
-  //   ]
-  // };
-
-  // lineChartOptions: ChartOptions = {
-  //   responsive: true,
-  //   scales: {
-  //     x: {
-  //       title: {
-  //         display: true,
-  //         text: 'Data'
-  //       }
-  //     },
-  //     y: {
-  //       title: {
-  //         display: true,
-  //         text: 'Valor'
-  //       }
-  //     }
-  //   }
-  // };
 
   public transactions: TransactionReport[] = [];
   public categories: Category[] = [];
@@ -86,7 +69,6 @@ export class TransactionsReportComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadData();
 
     const dateSixMonthsAgo = new Date();
     dateSixMonthsAgo.setMonth(dateSixMonthsAgo.getMonth() - 6);
@@ -105,19 +87,6 @@ export class TransactionsReportComponent implements OnInit {
       })
   }
 
-  loadData() {
-    // Exemplo de dados que você poderia ter vindo de uma API
-    const data: DataPoint[] = [
-      new DataPoint('2023-01-01', 200, 'Produto A'),
-      new DataPoint('2023-01-02', 300, 'Produto B'),
-      new DataPoint('2023-01-03', 150, 'Produto C')
-    ];
-
-    // Preenche os dados no gráfico
-    this.lineChartData.labels = data.map(dp => dp.data);  // Data
-    this.lineChartData.datasets[0].data = data.map(dp => dp.valor);  // Valor
-  }
-
   onSelectionChange(event: any) {
     console.log('Opção selecionada:', this.selectedOption);
   }
@@ -127,6 +96,9 @@ export class TransactionsReportComponent implements OnInit {
       this.transactions = transactions;
     else
       this.transactions = [];
+
+    this.lineChartData.labels = transactions.map(item => item.description);
+    this.lineChartData.datasets[0].data = transactions.map(item => item.value);
   }
 
   processCategories(categories: Category[]) {

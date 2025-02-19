@@ -1,6 +1,6 @@
 <div class="container">
     <div>
-        <label for="combo">Selecione uma opção:</label>
+        <label for="combo">Selecione uma categoria:</label>
         <select id="combo" [(ngModel)]="selectedOption" (change)="onSelectionChange($event)">
             <option *ngFor="let category of categories" [value]="category.id">{{ category.description }}</option>
         </select>
@@ -25,7 +25,7 @@
             <tbody>
                 <tr *ngFor="let transaction of transactions">
                     <td>{{transaction.description}}</td>
-                    <td>{{transaction.value}}</td>
+                    <td>{{ transaction.value | currency:'BRL':'symbol' }}</td>
                     <td></td>
                     <!-- <td>{{transaction.category.description}}</td> -->
                 </tr>

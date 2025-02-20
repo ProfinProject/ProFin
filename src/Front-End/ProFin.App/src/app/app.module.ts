@@ -22,10 +22,7 @@ export const httpInterceptorProviders = [
 
 @NgModule({
   declarations: [
-    AppComponent,
-    CreateCategoryComponent,
-    ListCategoryComponent,
-    EditCategoryComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,

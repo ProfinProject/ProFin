@@ -11,7 +11,7 @@ import { LocalStorageUtils } from '../../Utils/localstorage';
   providedIn: 'root'
 })
 export class BudgetService {
-  private apiUrl = `${environment.apiUrlv1}/api/Budget`;
+  private apiUrl = `${environment.apiUrlv1}Budget`;
   private budgets = new BehaviorSubject<Budget[]>([]);
   private alertsSubject = new BehaviorSubject<Alert[]>([]);
   private localStorage = new LocalStorageUtils();
@@ -69,10 +69,10 @@ export class BudgetService {
 
     console.log('Token:', token);
     console.log('Headers:', headers);
-    console.log('URL:', `${environment.apiUrlv1}/api/CategoryTransaction`);
+    console.log('URL:', `${environment.apiUrlv1}/CategoryTransaction`);
 
     return this.http.get<CategoryTransaction[]>(
-      `${environment.apiUrlv1}/api/CategoryTransaction`,
+      `${environment.apiUrlv1}/CategoryTransaction`,
       { headers }
     ).pipe(
       tap(response => console.log('Resposta da API:', response)),

@@ -20,9 +20,11 @@ const routes: Routes = [
     loadChildren: () => import('./budget/budget.module')
       .then(m => m.BudgetModule)
   },
-  { path: 'create-category', component: CreateCategoryComponent },
-  { path: 'category', component: ListCategoryComponent },
-  { path: 'edit-category/:id', component: EditCategoryComponent },
+  {
+    path: 'category',
+    loadChildren: () => import('./category/category.module')
+      .then(m => m.CategoryModule)
+  },
   { path: 'not-allowed', component: NotAllowedComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent }

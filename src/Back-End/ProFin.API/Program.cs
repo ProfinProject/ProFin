@@ -1,11 +1,12 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 using ProFin.API.Configurations;
 using ProFin.Core.Enumeradores;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Notifications;
+using ProFin.Data.Context;
 using ProFin.Data.IoC;
 using ProFin.Data.Seed;
-
 
 internal class Program
 {
@@ -14,7 +15,8 @@ internal class Program
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddControllers();
-        builder            
+
+        builder
             .AddJwt()
             .AddEF(EDatabases.SQLite)
             .AddRepositories()
@@ -23,9 +25,7 @@ internal class Program
             .AddCorsPolicy()
             .AddSwaggerConfiguration();
 
-        builder.Services.AddEndpointsApiExplorer();       
-
-        builder.Services.AddScoped<INotifier, Notifier>();
+        builder.Services.AddEndpointsApiExplorer();
 
         var app = builder.Build();
 
@@ -39,8 +39,6 @@ internal class Program
             app.UseCors("Production");
         }
 
-        using (var scope = app.Services.CreateScope())
-       
         app.UseHttpsRedirection();
         app.UseAuthentication();
         app.UseAuthorization();

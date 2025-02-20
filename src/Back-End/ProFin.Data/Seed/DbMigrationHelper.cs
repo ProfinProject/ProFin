@@ -65,11 +65,11 @@ namespace ProFin.Data.Seed
             var adminUser = new IdentityUser<Guid>
             {
                 Id = ADMIN_ID,
-                Email = "admin@blog.com",
+                Email = "admin@profin.com",
                 EmailConfirmed = true,
-                UserName = "admin@blog.com",
-                NormalizedUserName = "admin@blog.com".ToUpper(),
-                NormalizedEmail = "admin@blog.com".ToUpper()
+                UserName = "admin@profin.com",
+                NormalizedUserName = "admin@profin.com".ToUpper(),
+                NormalizedEmail = "admin@profin.com".ToUpper()
             };
 
             //set user password

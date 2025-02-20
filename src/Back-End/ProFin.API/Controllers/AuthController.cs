@@ -13,27 +13,12 @@ using static ProFin.API.ViewModels.UserViewModel;
 namespace ProFin.API.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
-    public class AuthController : MainController
+    public class AuthController(SignInManager<IdentityUser> _signInManager,
+                                UserManager<IdentityUser> _userManager,
+                                JwtSettings _jwtSettings,
+                                IUserService _userService,
+                                INotifier notifier) : MainController(notifier)
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly JwtSettings _jwtSettings;
-        private readonly IUserService _userService;
-        private readonly IMapper _mapper;
-
-
-        public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, JwtSettings jwtSettings, IUserService userService,
-        IMapper mapper, INotifier notifier)
-             : base(notifier)
-        {
-            _signInManager = signInManager;
-            _userManager = userManager;
-            _jwtSettings = jwtSettings;
-            _userService = userService;
-            _mapper = mapper;
-        }
-
         [HttpPost]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]

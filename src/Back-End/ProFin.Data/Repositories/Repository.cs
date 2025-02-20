@@ -42,7 +42,7 @@ namespace ProFin.Data.Repositories
                 }
             }
 
-            return await query.ToListAsync();
+            return await query.Where(a => !a.Deleted).ToListAsync();
         }
 
         public async Task<TEntity> GetById(Guid id, string includes = null, Expression<Func<TEntity, bool>> expression = null)

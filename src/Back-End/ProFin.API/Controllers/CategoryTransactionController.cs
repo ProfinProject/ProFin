@@ -18,7 +18,7 @@ public class CategoryTransactionController(
     [HttpGet]
     public async Task<IEnumerable<CategoryTransactionViewModel>> GetAll()
     {
-        return mapper.Map<IEnumerable<CategoryTransactionViewModel>>(await categoryCategoryRepository.GetAll(null, e => !e.Deleted));
+        return mapper.Map<IEnumerable<CategoryTransactionViewModel>>(await categoryCategoryRepository.GetAll());
     }
 
     [HttpGet("{id:guid}")]

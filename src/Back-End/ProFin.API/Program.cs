@@ -17,7 +17,7 @@ internal class Program
         builder
             .AddIdentity()
             .AddJwt()
-            .AddDbContextConfig(EDatabases.SQLite)
+            .AddDbContextConfig(EDatabases.SQLServer)
             .AddAutoMapperConfig()
             .AddDIConfig()
             .AddCorsPolicy();

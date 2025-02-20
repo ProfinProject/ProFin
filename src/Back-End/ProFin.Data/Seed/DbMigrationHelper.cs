@@ -1,22 +1,97 @@
-﻿using ProFin.Core.Models;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using ProFin.Core.Models;
 using ProFin.Data.Context;
 
 namespace ProFin.Data.Seed
 {
-    public class DbMigrationHelper(AppDbContext context)
+    public static class DbMigrationHelperExtension
     {
-        private readonly AppDbContext _context = context;
-
-        public void SeedData()
+        public static void UseDbMigrationHelper(this WebApplication app)
         {
-            SeedCategories();
-            SeedTransactions();
-            SeedBudgets();
+            DbMigrationHelper.EnsureSeedData(app).Wait();
+        }
+    }
+
+    public static class DbMigrationHelper
+    {
+        public static async Task EnsureSeedData(WebApplication application)
+        {
+            var services = application.Services.CreateScope().ServiceProvider;
+            await EnsureSeedData(services);
         }
 
-        public void SeedCategories()
+        public static async Task EnsureSeedData(IServiceProvider serviceProvider)
         {
-            if (!_context.CategoryTransactions.Any())
+            var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            var env = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
+
+            var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+            if (env.IsDevelopment())
+            {
+                await context.Database.MigrateAsync();
+                await EnsureSeedData(context);
+            }
+        }
+
+        private static async Task EnsureSeedData(AppDbContext context)
+        {
+            await SeedUsers(context);
+            await SeedCategories(context);
+            await SeedTransactions(context);
+            await SeedBudgets(context);
+        }
+
+        public static async Task SeedUsers(AppDbContext context)
+        {
+            if (context.Users.Any()) return;
+
+            #region ADMIN SEED
+            var ADMIN_ROLE_ID = Guid.NewGuid();
+            await context.Roles.AddAsync(new IdentityRole<Guid>
+            {
+                Name = "SuperAdmin",
+                NormalizedName = "SUPERADMIN",
+                Id = ADMIN_ROLE_ID,
+                ConcurrencyStamp = ADMIN_ROLE_ID.ToString()
+            });
+
+            var ADMIN_ID = Guid.NewGuid();
+            var adminUser = new IdentityUser<Guid>
+            {
+                Id = ADMIN_ID,
+                Email = "admin@blog.com",
+                EmailConfirmed = true,
+                UserName = "admin@blog.com",
+                NormalizedUserName = "admin@blog.com".ToUpper(),
+                NormalizedEmail = "admin@blog.com".ToUpper()
+            };
+
+            //set user password
+            PasswordHasher<IdentityUser<Guid>> ph = new PasswordHasher<IdentityUser<Guid>>();
+            adminUser.PasswordHash = ph.HashPassword(adminUser, "Teste@123");
+            await context.Users.AddAsync(adminUser);
+
+            var author = new User(adminUser.Id, "Admin", "Admin", "admin@profin.com", DateTime.Now.AddYears(20));
+            await context.SystemUsers.AddAsync(author);
+
+            await context.UserRoles.AddAsync(new IdentityUserRole<Guid>
+            {
+                RoleId = ADMIN_ROLE_ID,
+                UserId = ADMIN_ID
+            });
+
+
+            #endregion
+        }
+        public static async Task SeedCategories(AppDbContext context)
+        {
+            if (!context.CategoryTransactions.Any())
             {
                 IEnumerable<CategoryFinancialTransaction> categories =
                 [
@@ -62,15 +137,15 @@ namespace ProFin.Data.Seed
                     }
                 ];
 
-                _context.CategoryTransactions.AddRange(categories);
-                _context.SaveChanges();
+                await context.CategoryTransactions.AddRangeAsync(categories);
+                context.SaveChanges();
             }
         }
 
-        public void SeedTransactions()
+        public static async Task SeedTransactions(AppDbContext context)
         {
-            var categories = _context.CategoryTransactions.ToList();
-            if (!_context.FinancialTransactions.Any())
+            var categories = context.CategoryTransactions.ToList();
+            if (!context.FinancialTransactions.Any())
             {
                 List<FinancialTransaction> transactionsModel = new List<FinancialTransaction>(30);
                 Random random = new Random();
@@ -92,39 +167,16 @@ namespace ProFin.Data.Seed
                         CategoryFinancialTransaction = category,
                     });
                 }
-                //    IEnumerable<FinancialTransaction> transactionsModel =
-                //[
-                //    new()
-                //    {
-                //        Value = 2254.56,
-                //        Description = "Gastos com alimentação",
-                //        CreatedDate = DateTime.Now,
-                //        Deleted = false,
-                //        UpdatedDate = DateTime.Now,
-                //        CategoryFinancialTransaction = category
-                //    },
-                //    new ()
-                //    {
-                //        Value = 800.00,
-                //        Description = "Gastos com transporte",
-                //        CreatedDate = DateTime.Now,
-                //        Deleted = false,
-                //        UpdatedDate = DateTime.Now,
-                //        CategoryFinancialTransaction = category
-                //    },
-                //];
 
-
-
-                _context.FinancialTransactions.AddRange(transactionsModel);
-                _context.SaveChanges();
+                await context.FinancialTransactions.AddRangeAsync(transactionsModel);
+                context.SaveChanges();
             }
         }
 
-        public void SeedBudgets()
+        public static async Task SeedBudgets(AppDbContext context)
         {
-            var category = _context.CategoryTransactions.FirstOrDefault();
-            if (!_context.Budgets.Any() && category != null)
+            var category = context.CategoryTransactions.FirstOrDefault();
+            if (!context.Budgets.Any() && category != null)
             {
                 var budgets = new List<Budget>
                 {
@@ -139,9 +191,10 @@ namespace ProFin.Data.Seed
                     }
                 };
 
-                _context.Budgets.AddRange(budgets);
-                _context.SaveChanges();
+                await context.Budgets.AddRangeAsync(budgets);
+                context.SaveChanges();
             }
         }
     }
 }
+

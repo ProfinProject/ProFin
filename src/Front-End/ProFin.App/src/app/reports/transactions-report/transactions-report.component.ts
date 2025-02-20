@@ -3,11 +3,11 @@ import { TransactionReport } from '../models/transaction-report';
 import { ReportsService } from '../services/reports.service';
 import { ToastrService } from 'ngx-toastr';
 import { map } from 'rxjs';
-import { Category } from '../../category/category';
 import { ChartConfiguration, ChartData, ChartOptions, ChartType } from "chart.js";
 import { CategoryService } from '../../category/services/categories.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { Category } from '../../category/models/category';
 
 @Component({
   selector: 'app.transactions.report',

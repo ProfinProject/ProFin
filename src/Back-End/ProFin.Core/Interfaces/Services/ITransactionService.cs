@@ -2,7 +2,7 @@
 
 namespace ProFin.Core.Interfaces.Services
 {
-    public interface ITransactionService : IDisposable
+    public interface IFinancialTransactionService : IDisposable
     {
         Task Insert(FinancialTransaction transaction);
         Task Update(FinancialTransaction transaction);

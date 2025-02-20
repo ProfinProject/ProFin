@@ -5,24 +5,14 @@ using ProFin.Core.Models.Validations;
 
 namespace ProFin.Core.Services
 {
-    public class TransactionService : BaseService, ITransactionService
+    public class FinancialTransactionService(IFinancialTransactionRepository transactionRepository,
+                                    INotifier notifier) : BaseService(notifier), IFinancialTransactionService
     {
-        private readonly IFinancialTransactionRepository _transactionRepository;
-        private readonly ICategoryTransactionRepository _categoryTransactionRepository;
-
-        public TransactionService(IFinancialTransactionRepository transactionRepository,
-                                 ICategoryTransactionRepository categoryTransactionRepository,
-                                 INotifier notifier) : base(notifier)
-        {
-            _transactionRepository = transactionRepository;
-            _categoryTransactionRepository = categoryTransactionRepository;
-        }
-
         public async Task Insert(FinancialTransaction transactionEntity)
         {
             if (!ExecuteValidation(new TransactionEntityValidation(), transactionEntity)) return;
 
-            await _transactionRepository.Add(transactionEntity);
+            await transactionRepository.Add(transactionEntity);
         }
 
         public async Task Update(FinancialTransaction transactionEntity)
@@ -30,20 +20,20 @@ namespace ProFin.Core.Services
             if (!ExecuteValidation(new TransactionEntityValidation(), transactionEntity)) return;
 
 
-            await _transactionRepository.Update(transactionEntity);
+            await transactionRepository.Update(transactionEntity);
         }
 
         public async Task Delete(Guid id)
         {
-            if (_transactionRepository.GetById(id).Result is FinancialTransaction entity && entity.CreatedDate != DateTime.MinValue)
-                await _transactionRepository.Delete(entity);
+            if (transactionRepository.GetById(id).Result is FinancialTransaction entity && entity.CreatedDate != DateTime.MinValue)
+                await transactionRepository.Delete(entity);
             else
                 Notifie("Registro não encontrado!");
         }
 
         public void Dispose()
         {
-            _transactionRepository.Dispose();
+            transactionRepository.Dispose();
         }
     }
 }

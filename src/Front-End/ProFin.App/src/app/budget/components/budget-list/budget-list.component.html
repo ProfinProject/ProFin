@@ -1,0 +1,46 @@
+<div class="container mt-4">
+  <h2>Orçamentos</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div class="mb-3">
+    <button class="btn btn-primary" (click)="onAdd()">
+      Novo Orçamento
+    </button>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Categoria</th>
+        <th>Limite</th>
+        <th>Gasto Atual</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let budget of budgets">
+        <td>{{ budget.categoryTransactionId }}</td>
+        <td>{{ budget.limit | currency:'BRL' }}</td>
+        <td>{{ budget.currentSpending | currency:'BRL' }}</td>
+        <td>
+          <button class="btn btn-sm btn-primary me-2" (click)="onEdit(budget.id!)">
+            Editar
+          </button>
+          <button class="btn btn-sm btn-danger" (click)="onDelete(budget.id!)">
+            Excluir
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="alerts.length > 0" class="mt-4">
+    <h3>Alertas</h3>
+    <div *ngFor="let alert of alerts" class="alert" [ngClass]="'alert-' + alert.type">
+      {{ alert.message }}
+    </div>
+  </div>
+</div>

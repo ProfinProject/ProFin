@@ -1,3 +1,10 @@
+<div class="mb-3">
+</div>
+<h2>Categorias</h2>
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>
+<a class="btn btn-primary"  [routerLink]="['/category/create']" routerLinkActive="router-link-active" >Nova Categoria</a>
 <div class="container">
     <div class="row">
         <table class="table">
@@ -5,7 +12,7 @@
               <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
-                <th>#</th>
+                <th>Ações</th>
               </tr>
             </thead>
             <tbody>
@@ -13,34 +20,14 @@
                 <td>{{category.name}}</td>
                 <td>{{category.description}}</td>
                 <td >
-                  <a style="padding: 8px;" class="link-opacity-100"  [routerLink]="['/edit-category', category.id]" routerLinkActive="router-link-active" >Edit</a>
-                  <a  class="link-opacity-100" (click)="openPopup()">Delete</a>  
+                  <a class="btn btn-sm btn-primary me-2" [routerLink]="['/category/edit', category.id]" routerLinkActive="router-link-active" >Editar</a>
+                  <button class="btn btn-sm btn-danger" (click)="onDelete(category.id!)">
+                    Excluir
+                  </button>
                 </td>
               </tr>
             </tbody>
           </table>
     </div>
-    <a class="link-opacity-100"  [routerLink]="['/create-category']" routerLinkActive="router-link-active" >Create new category</a>
 <div class="mb-4">
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" [ngStyle]="{'display':displayStyle}">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Are you sure that you want to delete this Category?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closePopup()">Close</button>
-        <button type="button" class="btn btn-danger" >Delete</button>
-      </div>
-    </div>
-  </div>
 </div>

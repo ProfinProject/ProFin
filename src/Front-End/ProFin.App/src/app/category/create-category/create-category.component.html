@@ -1,8 +1,12 @@
 <html>
+    <h2>Criar Categoria</h2>
     <body class="bd-light">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 order-md-1">
+                    <div *ngIf="errorMessage" class="alert alert-danger">
+                        {{ errorMessage }}
+                    </div>    
                     <form class="needs-validation" [formGroup]="creationForm" (ngSubmit)="addCategory()">
                         <div class="mb-4">
                         </div>
@@ -27,9 +31,12 @@
                             </div>
                         </div>
                         <hr class="mb-4">
-                            <button class="btn btn-success btn-lg btn-block" [disabled]="!creationForm.valid" type="submit"> Save</button>
-                        <div class="mb-4">
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary" [disabled]="!creationForm.valid">
+                                Criar
+                            </button>
                         </div>
+                        <br>
                     </form>
                 </div>
             </div>

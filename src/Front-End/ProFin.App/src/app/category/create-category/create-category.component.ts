@@ -1,16 +1,22 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren } from '@angular/core';
-import { Category } from '../category';
+import { Category } from '../models/category';
 import { CategoryService } from '../../category/services/categories.service';
-import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControlName, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DisplayMessage, GenericValidator, ValidationMessages } from '../../Utils/generic-form-validation';
 import { fromEvent, merge, Observable } from 'rxjs';
 import { Guid } from 'guid-typescript';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-create-category',
-  standalone: false,
+  standalone: true,
   templateUrl: './create-category.component.html',
+  imports: [
+      CommonModule,
+      ReactiveFormsModule,
+      RouterModule
+  ]
 })
 
 export class CreateCategoryComponent implements OnInit, AfterViewInit{
@@ -21,6 +27,7 @@ export class CreateCategoryComponent implements OnInit, AfterViewInit{
   validationMessages: ValidationMessages;
   genericValidator: GenericValidator;
   displayMessage: DisplayMessage = {};
+  errorMessage: string = '';
 
   constructor(private categoryService: CategoryService, private fb: FormBuilder, private router: Router) {
       this.category = new Category();
@@ -74,7 +81,8 @@ export class CreateCategoryComponent implements OnInit, AfterViewInit{
           this.router.navigateByUrl('/category');
         },
         error: e => {
-          console.log(e);
+          console.log(e.error.errors[0]);
+          this.errorMessage = e.error.errors[0];
         }
       })
   }

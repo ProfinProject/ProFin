@@ -18,6 +18,7 @@ import { CreateCategoryComponent } from './category/create-category/create-categ
 import { ListCategoryComponent } from './category/list-category/list-category.component';
 import { EditCategoryComponent } from './category/edit-category/edit-category.component';
 import { CategoryService } from './category/services/categories.service';
+import { BudgetService } from './budget/services/budget.service';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const httpInterceptorProviders = [
@@ -26,10 +27,7 @@ export const httpInterceptorProviders = [
 
 @NgModule({
   declarations: [
-    AppComponent,
-    CreateCategoryComponent,
-    ListCategoryComponent,
-    EditCategoryComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +44,8 @@ export const httpInterceptorProviders = [
     MatPaginatorModule
   ],
   providers: [
+    CategoryService,
+    BudgetService,
     CategoryService,
     provideAnimationsAsync()
   ],

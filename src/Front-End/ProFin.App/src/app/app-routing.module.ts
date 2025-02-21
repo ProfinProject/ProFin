@@ -25,6 +25,11 @@ const routes: Routes = [
     loadChildren: () => import('./category/category.module')
       .then(m => m.CategoryModule)
   },
+  {
+    path: 'financial-transaction',
+    loadChildren: () => import('./financial-transaction/financial-transaction.module')
+      .then(m => m.FinancialTransactionModule)
+  },
   { path: 'not-allowed', component: NotAllowedComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent }

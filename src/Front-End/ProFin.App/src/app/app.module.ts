@@ -15,6 +15,7 @@ import { ListCategoryComponent } from './category/list-category/list-category.co
 import { EditCategoryComponent } from './category/edit-category/edit-category.component';
 import { CategoryService } from './category/services/categories.service';
 import { BudgetService } from './budget/services/budget.service';
+import { FinancialTransactionService } from './financial-transaction/services/financial-transaction.service';
 
 export const httpInterceptorProviders = [
   //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
@@ -38,6 +39,7 @@ export const httpInterceptorProviders = [
   providers: [
     CategoryService,
     BudgetService,
+    FinancialTransactionService
   ],
   bootstrap: [AppComponent]
 })

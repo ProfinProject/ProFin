@@ -26,10 +26,15 @@ const routes: Routes = [
       .then(m => m.CategoryModule)
   },
   {
+    path: 'reports',
+    loadChildren: () => import('./reports/reports.module')
+      .then(m => m.ReportsModule)
+  },
+  {
     path: 'financial-transaction',
     loadChildren: () => import('./financial-transaction/financial-transaction.module')
       .then(m => m.FinancialTransactionModule)
-  },
+  }
   { path: 'not-allowed', component: NotAllowedComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent }

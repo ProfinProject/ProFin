@@ -1,0 +1,28 @@
+/* Estilo para quando for imprimir */
+@media print {
+
+    /* Ocultar elementos de navegação e interatividade */
+    button,
+    mat-paginator {
+        display: none;
+    }
+
+    /* Tabela para impressão */
+    .print-table table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .print-table th,
+    .print-table td {
+        padding: 8px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    /* Outras customizações para melhorar a impressão */
+    #myChart {
+        max-width: 100%;
+        height: auto;
+    }
+}

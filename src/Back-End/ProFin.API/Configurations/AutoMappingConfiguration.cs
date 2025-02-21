@@ -9,7 +9,8 @@ namespace ProFin.API.Configurations
     {
         public AutoMappingConfiguration()
         {
-            CreateMap<FinancialTransaction, TransactionViewModel>().ReverseMap();
+            CreateMap<FinancialTransaction, TransactionViewModel>().ReverseMap();               
+
             CreateMap<CategoryFinancialTransaction, CategoryTransactionViewModel>().ReverseMap();
             CreateMap<Budget, BudgetViewModel>()
                .ForMember(dest => dest.CategoryTransactionId,

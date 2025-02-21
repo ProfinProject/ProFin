@@ -3,8 +3,8 @@ import { ChartData, ChartOptions, ChartType } from 'chart.js';
 import { ReportsService } from '../services/reports.service';
 import { CategoryService } from '../../category/services/categories.service';
 import { ToastrService } from 'ngx-toastr';
-import { TransactionReport } from '../models/transaction-report';
-
+import { CategoryTransactionReport, TransactionReport } from '../models/transaction-report';
+import { GroupedReports } from '../models/grouped-reports';
 
 @Component({
   selector: 'app-categories-report',
@@ -12,40 +12,46 @@ import { TransactionReport } from '../models/transaction-report';
   templateUrl: './categories-report.component.html'
 })
 export class CategoriesReportComponent implements OnInit {
-  // Dados para o gráfico de pizza
-  public pieChartData: ChartData<'pie'> = {
-    labels: ['Red', 'Blue', 'Yellow'], // Rótulos de cada fatia
-    datasets: [
-      {
-        data: [300, 500, 100], // Valores de cada fatia
-        backgroundColor: ['#FF0000', '#0000FF', '#FFFF00'], // Cores do gráfico
-      },
-    ],
-  };
 
-  // Opções para personalização do gráfico
-  public pieChartOptions: ChartOptions = {
-    responsive: true,
+  chartData: { category: string, totalValue: number }[] = [];
+  pieChartData: any;
+  chartLabels: string[] = [];
+  chartValues: number[] = [];
+  public pieChartType: ChartType = 'pie';
+
+  pieChartOptions: ChartOptions = {
+    responsive: false,
+    aspectRatio: 1,
     plugins: {
       legend: {
         position: 'top',
       },
-    },
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            let label = context.dataset.label || '';
+            if (label) {
+              label += ': ';
+            }
+            if (context.parsed.y !== null) {
+              label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+            }
+            return label;
+          }
+        }
+      }
+    }
   };
 
-  // Tipo do gráfico
-  public pieChartType: ChartType = 'pie'; // Tipo de gráfico (pie)
+  groupedReports: { [key: string]: { category: CategoryTransactionReport; transactions: TransactionReport[]; totalValue: number } } = {};
 
   constructor(
     private reportsService: ReportsService,
     private categoryService: CategoryService,
     private toastr: ToastrService
-  ) {
-    //this.selectedOption = '';
-  }
+  ) { }
 
   ngOnInit(): void {
-
     const dateSixMonthsAgo = new Date();
     dateSixMonthsAgo.setMonth(dateSixMonthsAgo.getMonth() - 6);
     const formattedDate = dateSixMonthsAgo.toISOString().split('T')[0];
@@ -53,18 +59,69 @@ export class CategoriesReportComponent implements OnInit {
     this.reportsService.getTransactionsSince(formattedDate)
       .subscribe({
         next: (response) => this.processTransactions(response),
-        error: (error) => this.processFail(error) // Passa o erro para processFail
+        error: (error) => this.processFail(error)
       })
   }
-  processFail(error: any): void {
-    throw new Error('Method not implemented.');
-  }
+
+  processFail(error: any): void { }
+
   processTransactions(response: TransactionReport[]): void {
-    throw new Error('Method not implemented.');
+    response.forEach(transaction => {
+      const categoryName = transaction.categoryFinancialTransaction.name;
+
+      if (!this.groupedReports[categoryName]) {
+        this.groupedReports[categoryName] = {
+          category: transaction.categoryFinancialTransaction,
+          transactions: [],
+          totalValue: 0
+        };
+      }
+
+      this.groupedReports[categoryName].transactions.push(transaction);
+      this.groupedReports[categoryName].totalValue += transaction.value;
+    });
+
+    this.generatePieChartData();
   }
 
-  ngAfterViewInit() {
-    // this.dataSource.paginator = this.paginator;
+  generatePieChartData(): void {
+    for (const categoryName in this.groupedReports) {
+      if (this.groupedReports.hasOwnProperty(categoryName)) {
+        const report = this.groupedReports[categoryName];
+        this.chartData.push({
+          category: report.category.name,
+          totalValue: report.totalValue
+        });
+      }
+    }
+
+    this.chartLabels = this.chartData.map(item => item.category);
+    this.chartValues = this.chartData.map(item => item.totalValue);
+
+    this.pieChartData = {
+      labels: Object.keys(this.groupedReports).map((categoryName) => {
+        const report = this.groupedReports[categoryName as keyof GroupedReports];
+        return report.category.name;
+      }),
+      datasets: [{
+        data: Object.keys(this.groupedReports).map((categoryName) => {
+          const report = this.groupedReports[categoryName as keyof GroupedReports];
+          return report.totalValue;
+        }),
+        backgroundColor: Object.keys(this.groupedReports).map(() => this.generateRandomColor()),
+        hoverBackgroundColor: Object.keys(this.groupedReports).map(() => this.generateRandomColor())
+      }]
+    };
+
+    this.pieChartOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
+    };
   }
 
+  generateRandomColor() {
+    return '#' + Math.floor(Math.random() * 16777215).toString(16);
+  }
+
+  ngAfterViewInit() { }
 }

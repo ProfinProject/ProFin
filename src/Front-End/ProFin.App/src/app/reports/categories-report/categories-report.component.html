@@ -24,8 +24,12 @@
         </div>
 
         <div class="row">
-            <h2>Gráfico de Linha</h2>
-            <canvas baseChart [data]="pieChartData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+
+            <canvas baseChart [data]="pieChartData" [type]="pieChartType" [legend]="true" [options]="pieChartOptions"
+                style="width: 100%; height: 700px;">
+            </canvas>
+
+
         </div>
         <br>
 

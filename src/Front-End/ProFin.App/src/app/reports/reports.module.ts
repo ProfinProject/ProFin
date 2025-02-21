@@ -16,7 +16,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { CategoriesReportComponent } from './categories-report/categories-report.component';
 
 
-
 @NgModule({
   declarations: [
     ReportsAppComponent,

@@ -2,7 +2,7 @@ export interface TransactionReport {
     value: number;
     description: string;
     createdDate: string;
-    category: CategoryTransactionReport;
+    categoryFinancialTransaction: CategoryTransactionReport;
 }
 
 export interface CategoryTransactionReport {

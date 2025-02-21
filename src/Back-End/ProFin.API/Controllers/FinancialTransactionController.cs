@@ -21,7 +21,7 @@ namespace ProFin.API.Controllers
         [HttpGet]        
         public async Task<ActionResult<TransactionViewModel>> GetAll()
         {
-            var result = mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll());
+            var result = mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll(includes: "CategoryFinancialTransaction"));
             return CustomResponse(result);
         }
 

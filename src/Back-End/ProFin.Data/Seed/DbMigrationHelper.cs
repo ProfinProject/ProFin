@@ -104,6 +104,7 @@ namespace ProFin.Data.Seed
                         CreatedDate = DateTime.Now,
                         Deleted = false,
                         UpdatedDate = DateTime.Now,
+                        IsPattern = true
                     },
                     new()
                     {
@@ -112,6 +113,7 @@ namespace ProFin.Data.Seed
                         CreatedDate = DateTime.Now,
                         Deleted = false,
                         UpdatedDate = DateTime.Now,
+                        IsPattern = true
                     },
                     new()
                     {
@@ -136,6 +138,7 @@ namespace ProFin.Data.Seed
                         CreatedDate = DateTime.Now,
                         Deleted = false,
                         UpdatedDate = DateTime.Now,
+                        IsPattern = true
                     }
                 ];
 

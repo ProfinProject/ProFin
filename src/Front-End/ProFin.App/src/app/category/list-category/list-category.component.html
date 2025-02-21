@@ -21,7 +21,7 @@
                 <td>{{category.description}}</td>
                 <td >
                   <a class="btn btn-sm btn-primary me-2" [routerLink]="['/category/edit', category.id]" routerLinkActive="router-link-active" >Editar</a>
-                  <button class="btn btn-sm btn-danger" (click)="onDelete(category.id!)">
+                  <button class="btn btn-sm btn-danger" (click)="onDelete(category.id!)" [disabled]="category.isPattern">
                     Excluir
                   </button>
                 </td>

@@ -10,4 +10,6 @@ public class CategoryTransactionViewModel : GenericViewModel
 
     [StringLength(250, ErrorMessage = "The description cannot be longer than 250 characters.")]
     public string Description { get; set; }
+
+    public bool IsPattern { get; set; }
 }

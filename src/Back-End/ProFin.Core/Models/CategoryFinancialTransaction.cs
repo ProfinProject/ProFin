@@ -11,4 +11,6 @@ public class CategoryFinancialTransaction : Entity
 
     [StringLength(250)]
     public string Description { get; set; }
+
+    public bool IsPattern { get; set; }
 }

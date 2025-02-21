@@ -35,6 +35,13 @@ namespace ProFin.Data.IoC
                     throw new ArgumentException($"Banco de dados {databases} não suportado.");
             }
 
+            builder.Services.AddDefaultIdentity<IdentityUser<Guid>>()
+              .AddRoles<IdentityRole<Guid>>()
+              .AddEntityFrameworkStores<AppDbContext>()
+              .AddSignInManager()
+              .AddRoleManager<RoleManager<IdentityRole<Guid>>>()
+              .AddDefaultTokenProviders();
+
             return builder;
         }
 

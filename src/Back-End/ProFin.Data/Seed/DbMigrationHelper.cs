@@ -69,7 +69,9 @@ namespace ProFin.Data.Seed
                 EmailConfirmed = true,
                 UserName = "admin@profin.com",
                 NormalizedUserName = "admin@profin.com".ToUpper(),
-                NormalizedEmail = "admin@profin.com".ToUpper()
+                NormalizedEmail = "admin@profin.com".ToUpper(),
+                LockoutEnabled = true,
+                SecurityStamp = ADMIN_ROLE_ID.ToString(),
             };
 
             //set user password

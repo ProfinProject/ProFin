@@ -13,8 +13,8 @@ using static ProFin.API.ViewModels.UserViewModel;
 namespace ProFin.API.Controllers
 {
     [Route("api/[controller]")]
-    public class AuthController(SignInManager<IdentityUser> _signInManager,
-                                UserManager<IdentityUser> _userManager,
+    public class AuthController(SignInManager<IdentityUser<Guid>> _signInManager,
+                                UserManager<IdentityUser<Guid>> _userManager,
                                 JwtSettings _jwtSettings,
                                 IUserService _userService,
                                 INotifier notifier) : MainController(notifier)
@@ -29,14 +29,14 @@ namespace ProFin.API.Controllers
         {
             if (!ModelState.IsValid) return ValidationProblem(ModelState);
 
-            var user = new IdentityUser
+            var user = new IdentityUser<Guid>
             {
                 UserName = model.Email,
                 Email = model.Email,
                 EmailConfirmed = true
             };
 
-            await _userService.Create(Core.Models.User.Create(Guid.Parse(user.Id), user.Email, model.FirstName, model.LastName, model.Birthdate));
+            await _userService.Create(Core.Models.User.Create(user.Id, user.Email, model.FirstName, model.LastName, model.Birthdate));
             if (IsValid() == false) return CustomResponse(model);
 
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -85,8 +85,8 @@ namespace ProFin.API.Controllers
 
             var userClaims = await _userManager.GetClaimsAsync(user);
 
-            userClaims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id));
-            userClaims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id));
+            userClaims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
+            userClaims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()));
             userClaims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
             userClaims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
             userClaims.Add(new Claim(JwtRegisteredClaimNames.Nbf, ToUnixEpochDate(DateTime.UtcNow).ToString()));
@@ -120,7 +120,7 @@ namespace ProFin.API.Controllers
                 ExpiresIn = TimeSpan.FromHours(_jwtSettings.ExpirationHours).TotalSeconds,
                 UserToken = new UserTokenViewModel
                 {
-                    Id = user.Id,
+                    Id = user.Id.ToString(),
                     Email = user.Email,
                     Claims = userClaims.Select(c => new ClaimViewModel { Type = c.Type, Value = c.Value })
                 }

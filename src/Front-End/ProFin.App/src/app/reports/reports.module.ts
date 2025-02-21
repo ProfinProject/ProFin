@@ -12,13 +12,15 @@ import { BaseChartDirective } from 'ng2-charts';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { MatTableModule } from '@angular/material/table'; // Importação do MatTableModule
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 
 @NgModule({
   declarations: [
     ReportsAppComponent,
-    TransactionsReportComponent
+    TransactionsReportComponent,
+    SidebarComponent
   ],
   imports: [
     CommonModule,

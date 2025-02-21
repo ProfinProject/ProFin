@@ -5,8 +5,7 @@ import { RouterOutlet } from "@angular/router";
 @Component({
     selector: 'reports.app.root',
     standalone: false,
-    template: '<router-outlet></router-outlet>'
-
+    templateUrl: './reports.component.html'
 })
 
 export class ReportsAppComponent { }

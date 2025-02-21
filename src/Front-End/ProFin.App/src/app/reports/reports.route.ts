@@ -8,13 +8,15 @@ const reportsRouterConfig: Routes = [
     {
         path: '', component: ReportsAppComponent, // Componente principal
         children: [
+            { path: '', redirectTo: 'transactions', pathMatch: 'full' },
             {
                 path: 'transactions', // Sub-rota
                 component: TransactionsReportComponent,
                 canActivate: [ReportsGuard] // Caso queira proteger a rota com o guard
             }
         ]
-    }
+    },
+    { path: '', redirectTo: '/reports', pathMatch: 'full' } // Redirecionamento padrão
 ];
 
 

@@ -1,7 +1,9 @@
+import { CategoryTransaction } from "./category-transaction.model";
+
 export interface FinancialTransaction {
   id?: string;
-  categoryTransactionId: string;
-  limit: number;
-  currentSpending: number;
-  remainingBudget: number;
+  description: string;
+  categoryFinancialTransaction: CategoryTransaction;
+  value: number;
+  categoryFinancialTransactionId: string
 }

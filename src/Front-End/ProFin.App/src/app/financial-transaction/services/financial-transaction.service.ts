@@ -6,6 +6,7 @@ import { Alert } from '../models/alert.model';
 import { CategoryTransaction } from '../models/category-transaction.model';
 import { environment } from '../../../environments/environment';
 import { LocalStorageUtils } from '../../Utils/localstorage';
+import { Category } from '../../category/models/category';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +39,6 @@ export class FinancialTransactionService {
   }
 
   createFinancialTransaction(financialTransaction: FinancialTransaction): Observable<FinancialTransaction> {
-    console.log('Dados enviados:', financialTransaction);
     return this.http.post<FinancialTransaction>(this.apiUrl, financialTransaction, this.getAuthHeaders())
       .pipe(
         tap(response => console.log('Resposta do create:', response)),
@@ -61,7 +61,7 @@ export class FinancialTransactionService {
     return this.alertsSubject.asObservable();
   }
 
-  getCategories(): Observable<CategoryTransaction[]> {
+  getCategories(): Observable<Category[]> {
     const token = this.localStorage.getUserToken();
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${token}`)
@@ -71,7 +71,7 @@ export class FinancialTransactionService {
     console.log('Headers:', headers);
     console.log('URL:', `${environment.apiUrlv1}/CategoryTransaction`);
 
-    return this.http.get<CategoryTransaction[]>(
+    return this.http.get<Category[]>(
       `${environment.apiUrlv1}/CategoryTransaction`,
       { headers }
     ).pipe(

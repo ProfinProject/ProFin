@@ -6,9 +6,9 @@ import { FinancialTransactionFormComponent } from './components/financial-transa
 export const FinancialTransactionRoutes: Routes = [
   {
     path: '',
-    component: FinancialTransactionListComponent,
+    component: FinancialTransactionAppComponent,
     children: [
-      { path: '', component: FinancialTransactionAppComponent },
+      { path: '', component: FinancialTransactionListComponent },
       { path: 'create', component: FinancialTransactionFormComponent },
       { path: 'edit/:id', component: FinancialTransactionFormComponent }
     ]

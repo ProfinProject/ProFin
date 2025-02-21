@@ -48,7 +48,7 @@ export const httpInterceptorProviders = [
     CategoryService,
     BudgetService,
     CategoryService,
-    FinancialTransactionService
+    FinancialTransactionService,
     provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]

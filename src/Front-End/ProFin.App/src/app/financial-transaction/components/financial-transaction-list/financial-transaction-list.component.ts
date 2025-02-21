@@ -6,7 +6,7 @@ import { FinancialTransaction } from '../../models/financial-transaction.model';
 import { Alert } from '../../models/alert.model';
 
 @Component({
-  selector: 'app-financial-transaction-root',
+  selector: 'app-financial-transaction-list',
   templateUrl: './financial-transaction-list.component.html',
   styleUrls: ['./financial-transaction-list.component.scss'],
   standalone: true,
@@ -31,6 +31,7 @@ export class FinancialTransactionListComponent implements OnInit {
     this.financialTransactionService.getFinancialTransactions().subscribe({
       next: (financialTransactions: FinancialTransaction[]) => {
         this.financialTransactions = financialTransactions;
+        console.log("DATA", financialTransactions)
       },
       error: (error) => {
         console.error('Erro ao carregar transações financeiras:', error);
@@ -46,7 +47,7 @@ export class FinancialTransactionListComponent implements OnInit {
   }
 
   onEdit(id: string): void {
-    this.router.navigate(['/financial-transactions/edit', id]);
+    this.router.navigate(['/financial-transaction/edit', id]);
   }
 
   onDelete(id: string): void {

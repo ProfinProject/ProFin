@@ -14,17 +14,17 @@
   <table class="table">
     <thead>
       <tr>
+        <th>Descrição</th>
         <th>Categoria</th>
-        <th>Limite</th>
-        <th>Gasto Atual</th>
+        <th>Valor</th>
         <th>Ações</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let financialTransaction of financialTransactions">
-        <td>{{ financialTransaction.categoryTransactionId }}</td>
-        <!-- <td>{{ budget.limit | currency:'BRL' }}</td>
-        <td>{{ budget.currentSpending | currency:'BRL' }}</td> -->
+        <td>{{ financialTransaction.description }}</td>
+        <td>{{ financialTransaction.categoryFinancialTransaction.name }}</td>
+        <td>{{ financialTransaction.value | currency:'BRL':'symbol':'1.2-2' }}</td>
         <td>
           <button class="btn btn-sm btn-primary me-2" (click)="onEdit(financialTransaction.id!)">
             Editar

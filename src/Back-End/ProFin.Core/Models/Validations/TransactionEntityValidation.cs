@@ -13,7 +13,7 @@ namespace ProFin.Core.Models.Validations
             RuleFor(c => c.Description)
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
 
-            RuleFor(c => c.CategoryFinancialTransaction)
+            RuleFor(c => c.CategoryFinancialTransactionId)
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
         }
     }

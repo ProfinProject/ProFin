@@ -26,10 +26,14 @@ namespace ProFin.Core.Services
 
         public async Task Delete(Guid id)
         {
-            if (categoryTransactionRepository.GetById(id).Result is CategoryFinancialTransaction entity && entity.CreatedDate != DateTime.MinValue)
-                await categoryTransactionRepository.Delete(entity);
-            else
+            var entity = await categoryTransactionRepository.GetById(id);
+
+            if(entity == null)
                 Notifie("Registro não encontrado!");
+            else if (entity.IsPattern)
+                Notifie("Você não pode deletar uma categoria padrão");
+            else if(entity != null && entity.CreatedDate != DateTime.MinValue && !entity.IsPattern)
+                await categoryTransactionRepository.Delete(entity);
         }
 
         public void Dispose()

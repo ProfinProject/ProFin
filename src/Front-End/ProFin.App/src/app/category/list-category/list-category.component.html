@@ -20,8 +20,8 @@
                 <td>{{category.name}}</td>
                 <td>{{category.description}}</td>
                 <td >
-                  <a class="btn btn-sm btn-primary me-2" [routerLink]="['/category/edit', category.id]" routerLinkActive="router-link-active" >Editar</a>
-                  <button class="btn btn-sm btn-danger" (click)="onDelete(category.id!)" [disabled]="category.isPattern">
+                  <a class="btn btn-sm btn-primary me-2" [routerLink]="['/category/edit', category.id]" routerLinkActive="router-link-active" *ngIf="!category.isPattern" >Editar</a>
+                  <button class="btn btn-sm btn-danger" (click)="onDelete(category.id!)" *ngIf="!category.isPattern">
                     Excluir
                   </button>
                 </td>

@@ -13,6 +13,7 @@ import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { MatTableModule } from '@angular/material/table'; // Importação do MatTableModule
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { CategoriesReportComponent } from './categories-report/categories-report.component';
 
 
 
@@ -20,7 +21,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
   declarations: [
     ReportsAppComponent,
     TransactionsReportComponent,
-    SidebarComponent
+    SidebarComponent,
+    CategoriesReportComponent
   ],
   imports: [
     CommonModule,

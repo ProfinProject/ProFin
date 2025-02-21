@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row align-items-end">
+
+        <div class="col-4">
+            <label for="dateFilter" class="form-label">Filtrar por Data:</label>
+            <!-- <input type="date" class="form-control" id="dateFilter" (change)="onDateChange($event)"> -->
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <br>
+    <div>
+        <!-- Linha com o botão de imprimir -->
+        <div class="row">
+            <div class="col-9">
+            </div>
+
+            <div class="col-3 d-flex justify-content-end">
+                <!-- <button class="btn btn-success btn-sm print-button" (click)="printPage()">
+                    <i class="fa fa-print"></i> Imprimir
+                </button> -->
+            </div>
+        </div>
+
+        <div class="row">
+            <h2>Gráfico de Linha</h2>
+            <canvas baseChart [data]="pieChartData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+        </div>
+        <br>
+
+    </div>
+</div>

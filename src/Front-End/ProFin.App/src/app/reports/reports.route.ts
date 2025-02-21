@@ -3,6 +3,7 @@ import { ReportsAppComponent } from "./reports.app.component";
 import { TransactionsReportComponent } from "./transactions-report/transactions-report.component";
 import { ReportsGuard } from "./services/reports.guard";
 import { NgModule } from "@angular/core";
+import { CategoriesReportComponent } from "./categories-report/categories-report.component";
 
 const reportsRouterConfig: Routes = [
     {
@@ -12,6 +13,11 @@ const reportsRouterConfig: Routes = [
             {
                 path: 'transactions', // Sub-rota
                 component: TransactionsReportComponent,
+                canActivate: [ReportsGuard] // Caso queira proteger a rota com o guard
+            },
+            {
+                path: 'categories', // Sub-rota
+                component: CategoriesReportComponent,
                 canActivate: [ReportsGuard] // Caso queira proteger a rota com o guard
             }
         ]

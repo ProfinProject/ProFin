@@ -1,17 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ProFin.Core.Models;
 
 namespace ProFin.Data.Context
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<FinancialTransaction> FinancialTransactions { get; set; }
         public DbSet<CategoryFinancialTransaction> CategoryTransactions { get; set; }
         public DbSet<Budget> Budgets { get; set; }
-        public DbSet<User> User { get; set; }
+        public DbSet<User> SystemUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

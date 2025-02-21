@@ -24,7 +24,12 @@ const routes: Routes = [
     path: 'category',
     loadChildren: () => import('./category/category.module')
       .then(m => m.CategoryModule)
-  },
+    },
+    {
+        path: 'reports',
+        loadChildren: () => import('./reports/reports.module')
+            .then(m => m.ReportsModule)
+    },
   { path: 'not-allowed', component: NotAllowedComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent }

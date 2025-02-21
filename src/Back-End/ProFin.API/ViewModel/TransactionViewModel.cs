@@ -10,9 +10,10 @@ namespace ProFin.API.ViewModels
         public double Value { get; set; }
 
         [Required(ErrorMessage = "The field {0} is required.")]
-        public string Description { get; set; }
+        public string Description { get; set; }     
+        public string CreatedDate { get; set; }
 
         [Required(ErrorMessage = "The field {0} is required.")]
-        public CategoryTransactionViewModel CategoryTransaction { get; set; }
+        public CategoryTransactionViewModel CategoryFinancialTransaction { get; set; }
     }
 }

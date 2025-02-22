@@ -1,8 +1,15 @@
 export class LocalStorageUtils {
 
-    public getUser() {
-        // return JSON.parse(localStorage.getItem('profin.user'));
+    public getUser(): any | null {
+        try {
+            const user = localStorage.getItem('profin.user');
+            return user ? JSON.parse(user) : null;
+        } catch (error) {
+            console.error('Erro ao recuperar usuário:', error);
+            return null;
+        }
     }
+
 
     public saveLocalDataUser(response: any) {
         this.saveUserToken(response.accessToken);

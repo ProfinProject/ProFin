@@ -8,7 +8,7 @@ namespace ProFin.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
+    [Authorize]
     public abstract class MainController(INotifier notifier) : ControllerBase
     {
         private readonly INotifier _notifier = notifier;

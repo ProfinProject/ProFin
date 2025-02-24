@@ -19,10 +19,10 @@ namespace ProFin.API.Controllers
     {
                
         [HttpGet]        
-        public async Task<IEnumerable<TransactionViewModel>> GetAll()
+        public async Task<ActionResult<TransactionViewModel>> GetAll()
         {
-            var teste = mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll(includes: "CategoryFinancialTransaction"));
-            return teste;
+            var result = mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll(includes: "CategoryFinancialTransaction"));
+            return CustomResponse(result);
         }
 
         [HttpGet("{id:guid}")]

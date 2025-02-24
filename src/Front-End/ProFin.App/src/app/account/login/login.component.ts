@@ -74,7 +74,6 @@ export class LoginComponent extends FormBaseComponent implements OnInit {
     this.loginForm.reset();
     this.errors = [];
 
-    console.log("teste")
 
     this.accountService.LocalStorage.saveLocalDataUser(response);
 
@@ -83,7 +82,7 @@ export class LoginComponent extends FormBaseComponent implements OnInit {
       toast.onHidden.subscribe(() => {
         this.returnUrl
           ? this.router.navigate([this.returnUrl])
-          : this.router.navigate(['/home']);
+          : this.router.navigate(['/panel']);
       });
     }
   }

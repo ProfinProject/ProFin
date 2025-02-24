@@ -1,11 +1,9 @@
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './navegation/home/home.component';
 import { NotAllowedComponent } from './navegation/not-allowed/not-allowed.component';
 import { NotFoundComponent } from './navegation/not-found/not-found.component';
-import { CreateCategoryComponent } from './category/create-category/create-category.component';
-import { ListCategoryComponent } from './category/list-category/list-category.component';
-import { EditCategoryComponent } from './category/edit-category/edit-category.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -29,6 +27,11 @@ const routes: Routes = [
     path: 'financial-transaction',
     loadChildren: () => import('./financial-transaction/financial-transaction.module')
       .then(m => m.FinancialTransactionModule)
+  },
+  {
+    path: 'panel',
+    loadChildren: () => import('./panel/panel.module')
+      .then(m => m.PanelModule)
   },
   {
     path: 'reports',

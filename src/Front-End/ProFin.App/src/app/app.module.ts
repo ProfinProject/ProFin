@@ -14,13 +14,11 @@ import { NavegationModule } from './navegation/navegation.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { CreateCategoryComponent } from './category/create-category/create-category.component';
-import { ListCategoryComponent } from './category/list-category/list-category.component';
-import { EditCategoryComponent } from './category/edit-category/edit-category.component';
 import { CategoryService } from './category/services/categories.service';
 import { BudgetService } from './budget/services/budget.service';
 import { FinancialTransactionService } from './financial-transaction/services/financial-transaction.service';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { PanelService } from './panel/services/panel.service';
 
 
 export const httpInterceptorProviders = [
@@ -51,6 +49,7 @@ export const httpInterceptorProviders = [
     BudgetService,
     CategoryService,
     FinancialTransactionService,
+    PanelService,
     provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]

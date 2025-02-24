@@ -9,6 +9,7 @@ import { EditCategoryComponent } from './edit-category/edit-category.component';
 import { CategoryService } from './services/categories.service';
 import { CategoryAppComponent } from './category.app.component';
 import { CategoryRoutes } from './category.route';
+import { CategoriesGuard } from './services/categories.guard';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CategoryRoutes } from './category.route';
     EditCategoryComponent
   ],
   providers: [
-    CategoryService
+    CategoryService,
+    CategoriesGuard
   ]
 })
 export class CategoryModule { }

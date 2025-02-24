@@ -33,8 +33,12 @@ export class BudgetListComponent implements OnInit {
         this.budgets = budgets;
       },
       error: (error) => {
-        console.error('Erro ao carregar orçamentos:', error);
-        this.errorMessage = 'Erro ao carregar orçamentos.';
+        if(error.status == 401)
+          this.router.navigate(['/account/login']);
+        else{
+          console.error('Erro ao carregar orçamentos:', error);
+          this.errorMessage = 'Erro ao carregar orçamentos.';
+        }
       }
     });
   }

@@ -8,6 +8,7 @@ import { FinancialTransactionAppComponent } from './financial-transaction.app.co
 import { FinancialTransactionListComponent } from './components/financial-transaction-list/financial-transaction-list.component';
 import { FinancialTransactionFormComponent } from './components/financial-transaction-form/financial-transaction-form.component';
 import { FinancialTransactionService } from './services/financial-transaction.service';
+import { FinancialTransactionsGuard } from './services/financial-transactions.guard';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FinancialTransactionService } from './services/financial-transaction.se
     FinancialTransactionFormComponent
   ],
   providers: [
-    FinancialTransactionService
+    FinancialTransactionService,
+    FinancialTransactionsGuard
   ]
 })
 export class FinancialTransactionModule { }

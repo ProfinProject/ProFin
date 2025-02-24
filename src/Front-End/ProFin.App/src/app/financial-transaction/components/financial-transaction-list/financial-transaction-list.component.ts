@@ -34,8 +34,12 @@ export class FinancialTransactionListComponent implements OnInit {
         console.log("DATA", financialTransactions)
       },
       error: (error) => {
-        console.error('Erro ao carregar transações financeiras:', error);
-        this.errorMessage = 'Erro ao carregar transações financeiras.';
+        if(error.status === 401)
+          this.router.navigate(['/account/login']); 
+        else{
+          console.error('Erro ao carregar transações financeiras:', error);
+          this.errorMessage = 'Erro ao carregar transações financeiras.';
+        }
       }
     });
   }

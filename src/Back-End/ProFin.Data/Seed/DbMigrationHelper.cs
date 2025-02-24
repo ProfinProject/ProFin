@@ -13,7 +13,7 @@ namespace ProFin.Data.Seed
     {
         public static void UseDbMigrationHelper(this WebApplication app)
         {
-            DbMigrationHelper.EnsureSeedData(app).Wait();
+            //DbMigrationHelper.EnsureSeedData(app).Wait();
         }
     }
 

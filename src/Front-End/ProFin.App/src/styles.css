@@ -9,3 +9,75 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+.logo{
+    width: 4%;
+    margin: 9px;
+}
+.logo-fin{
+ color:#02a102;
+}
+.btn-entrar{
+    background-color: white !important;
+    border: none !important;
+    outline: none!important;
+    border: 2px solid #00800080!important;
+    color: #008000 !important;
+    width: 125px !important;
+    margin: 0px !important;
+}
+.btn-entrar:hover{
+ background-color: #279c27 !important;
+ color: white !important;
+ border: 2px solid #88f08880!important;
+
+}
+.icon-default-color{
+    color: #279c27 !important;
+}
+.banner{
+    height: 500px !important;
+    background-color: #00000017 !important;
+
+}
+
+.banner-logo{
+    height: 254px;
+    border-radius: 1px 53px 3px 53px;
+    box-shadow: 16px 13px 10px rgb(13 89 47 / 20%);
+}
+
+
+.plus-and-equals{
+    margin: auto;
+    font-size: 81pt;
+    margin: 0px;
+    margin-left: 23px;
+    margin-top: 48px;
+    color: #0b9b0b87;
+}
+.frase-banner{
+    text-align: center;
+    font-size: 17pt;
+}
+
+.frasedestaque{
+    color: #23c723;
+}
+
+.footer {
+    background-color:#04a5097d;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+  }
+  
+  .footer .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px;
+  }
+  
+  .footer .footer-links {
+    list-style: none;
+    padding: 0;
+  }

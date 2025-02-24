@@ -1,35 +1,36 @@
 <header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/home']">ProFin</a>
+      <img class="logo" src="logo.png" alt="Minha Logo">
+
+      <a class="navbar-brand" [routerLink]="['/home']">Pro<span class="logo-fin">Fin</span></a>
       <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed" data-toggle="collapse"
         data-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false"
         aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngbCollapse]="isCollapsed">
-
         <app-menu-login></app-menu-login>
 
         <ul class="navbar-nav flex-grow-1">
-          <li class="nav-item">
-            <a class="nav-link text-dark" [routerLink]="['/home']">Home</a>
+          <li class="nav-item" >
+            <a class="nav-link text-dark" [routerLink]="['/home']"><i class="fa-solid fa-house p-1 icon-default-color"></i>Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" [routerLink]="['/category']">Category</a>
+            <a class="nav-link text-dark" [routerLink]="['/category']"><i class="fa-solid fa-layer-group p-1 icon-default-color"></i>Categorias</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/budget']" routerLinkActive="active">
-              <i class="fas fa-chart-pie"></i> Orçamentos
+              <i class="fa-solid fa-money-bill-trend-up p-1 icon-default-color"></i>Orçamentos
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/financial-transaction']" routerLinkActive="active">
-              <i class="fas fa-chart-pie"></i> Transações
+              <i class="fa-solid fa-money-bill-transfer p-1 icon-default-color"></i> Transações
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" [routerLink]="['/reports']">Relatórios</a>
+            <a class="nav-link text-dark" [routerLink]="['/reports']">   <i class="fas fa-chart-pie p-1 icon-default-color"></i>  Relatórios</a>
           </li>
         </ul>
       </div>

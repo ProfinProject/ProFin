@@ -19,6 +19,7 @@ import { ListCategoryComponent } from './category/list-category/list-category.co
 import { EditCategoryComponent } from './category/edit-category/edit-category.component';
 import { CategoryService } from './category/services/categories.service';
 import { BudgetService } from './budget/services/budget.service';
+import { FinancialTransactionService } from './financial-transaction/services/financial-transaction.service';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const httpInterceptorProviders = [
@@ -47,6 +48,7 @@ export const httpInterceptorProviders = [
     CategoryService,
     BudgetService,
     CategoryService,
+    FinancialTransactionService,
     provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]

@@ -21,7 +21,7 @@ import { CategoryService } from './category/services/categories.service';
 import { BudgetService } from './budget/services/budget.service';
 import { FinancialTransactionService } from './financial-transaction/services/financial-transaction.service';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { ButtonModule } from 'primeng/button';
+
 
 export const httpInterceptorProviders = [
   //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
@@ -44,8 +44,7 @@ export const httpInterceptorProviders = [
     BaseChartDirective,
     MatTableModule,
     MatPaginatorModule,
-    
-ButtonModule
+    MatPaginatorModule
   ],
   providers: [
     CategoryService,

@@ -95,11 +95,11 @@ export class FinancialTransactionFormComponent implements OnInit {
     if (this.financialTransactionForm.valid) {
       const financialTransactionData = {
         ...this.financialTransactionForm.value,
-        categoryTransactionId: this.financialTransactionForm.get('categoryTransactionId')?.value,
-        id: this.financialTransactionId
+        categoryTransactionId: this.financialTransactionForm.get('categoryTransactionId')?.value
       };
 
       if (this.isEditing && this.financialTransactionId) {
+        financialTransactionData.id = this.financialTransactionId;
         this.financialTransactionService.updateFinancialTransaction(this.financialTransactionId, financialTransactionData).subscribe({
           next: () => {
             console.log('Transação financeira atualizado com sucesso');

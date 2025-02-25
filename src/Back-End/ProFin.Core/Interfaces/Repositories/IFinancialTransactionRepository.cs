@@ -2,8 +2,8 @@
 
 namespace ProFin.Core.Interfaces.Repositories
 {
-    public interface IFinancialTransactionRepository: IRepository<FinancialTransaction>
+    public interface IFinancialTransactionRepository : IRepository<FinancialTransaction>
     {
-        Task<FinancialTransaction> GetFinancialTransactionCategoryAsync(Guid id);
+        Task<FinancialTransaction> GetFinancialTransactionCategoryAsync(Guid id, Guid userId);
     }
 }

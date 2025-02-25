@@ -1,5 +1,8 @@
-public enum TransactionType
+namespace ProFin.Core.Enums
 {
-    Income,     // Receita
-    Expense     // Despesa
-} 
+    public enum TransactionType
+    {
+        Income,     // Receita
+        Expense     // Despesa
+    }
+}

@@ -1,8 +1,6 @@
-﻿using ProFin.API.ViewModel;
-using ProFin.Core.Enumeradores;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProFin.API.ViewModels
+namespace ProFin.API.ViewModel
 {
     public class TransactionViewModel : GenericViewModel
     {
@@ -10,7 +8,7 @@ namespace ProFin.API.ViewModels
         public double Value { get; set; }
 
         [Required(ErrorMessage = "The field {0} is required.")]
-        public string Description { get; set; }     
+        public string Description { get; set; }
         public string CreatedDate { get; set; }
 
         [Required(ErrorMessage = "The field {0} is required.")]

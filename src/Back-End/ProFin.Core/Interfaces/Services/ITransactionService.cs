@@ -4,8 +4,8 @@ namespace ProFin.Core.Interfaces.Services
 {
     public interface IFinancialTransactionService : IDisposable
     {
-        Task Insert(FinancialTransaction transaction);
-        Task Update(FinancialTransaction transaction);
-        Task Delete(Guid id);
+        Task Insert(Guid userId, FinancialTransaction transaction);
+        Task Update(Guid userId, FinancialTransaction transaction);
+        Task Delete(Guid userId, Guid id);
     }
 }

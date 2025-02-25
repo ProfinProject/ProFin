@@ -13,7 +13,7 @@
 
         public User()
         {
-                
+
         }
 
         public string FistName { get; private set; }

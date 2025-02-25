@@ -5,13 +5,17 @@ using ProFin.Data.Context;
 
 namespace ProFin.Data.Repositories
 {
-    public class FinancialTransactionRepository(AppDbContext db) : Repository<FinancialTransaction>(db), IFinancialTransactionRepository
+    public class FinancialTransactionRepository : Repository<FinancialTransaction>, IFinancialTransactionRepository
     {
-        public async Task<FinancialTransaction> GetFinancialTransactionCategoryAsync(Guid id)
+        public FinancialTransactionRepository(AppDbContext db) : base(db)
+        {
+        }
+
+        public async Task<FinancialTransaction> GetFinancialTransactionCategoryAsync(Guid id, Guid userId)
         {
             return await AppDbContext.FinancialTransactions
                 .Include(t => t.CategoryFinancialTransaction)
-                .FirstOrDefaultAsync(t => t.Id == id);
+                .FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
         }
     }
 }

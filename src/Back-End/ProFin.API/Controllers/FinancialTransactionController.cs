@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProFin.API.ViewModel;
-using ProFin.API.ViewModels;
 using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
+using System.Security.Claims;
 
 namespace ProFin.API.Controllers
 {
@@ -17,18 +16,25 @@ namespace ProFin.API.Controllers
         IFinancialTransactionService financialTransactionService
         ) : MainController(notifier)
     {
-               
-        [HttpGet]        
-        public async Task<ActionResult<TransactionViewModel>> GetAll()
+
+        private Guid GetUserId()
         {
-            var result = mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll(includes: "CategoryFinancialTransaction"));
+            return Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<TransactionViewModel>>> GetAll()
+        {
+            var userId = GetUserId();
+            var result = mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll(userId, includes: "CategoryFinancialTransaction"));
             return CustomResponse(result);
         }
 
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<TransactionViewModel>> GetById(Guid id)
         {
-            var transaction = await GetTransactionCategory(id);
+            var userId = GetUserId();
+            var transaction = await GetTransactionCategory(id, userId);
 
             if (transaction == null) return NotFound();
 
@@ -40,11 +46,11 @@ namespace ProFin.API.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            await financialTransactionService.Insert(mapper.Map<FinancialTransaction>(transactionViewModel));
+            var userId = GetUserId();
+            await financialTransactionService.Insert(userId, mapper.Map<FinancialTransaction>(transactionViewModel));
 
             return CustomResponse(transactionViewModel);
         }
-
 
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<TransactionViewModel>> Update(Guid id, TransactionViewModel transactionViewModel)
@@ -57,19 +63,21 @@ namespace ProFin.API.Controllers
 
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            await financialTransactionService.Update(mapper.Map<FinancialTransaction>(transactionViewModel));
+            var userId = GetUserId();
+            await financialTransactionService.Update(userId, mapper.Map<FinancialTransaction>(transactionViewModel));
 
             return CustomResponse(transactionViewModel);
         }
 
         [HttpDelete("{id:guid}")]
-        public async Task<ActionResult<TransactionViewModel>> Excluir(Guid id)
+        public async Task<ActionResult<TransactionViewModel>> Delete(Guid id)
         {
-            var transactionViewModel = await GetTransactionCategory(id);
+            var userId = GetUserId();
+            var transactionViewModel = await GetTransactionCategory(id, userId);
 
             if (transactionViewModel == null) return NotFound();
 
-            await financialTransactionService.Delete(id);
+            await financialTransactionService.Delete(userId, id);
 
             return CustomResponse(transactionViewModel);
         }
@@ -81,9 +89,9 @@ namespace ProFin.API.Controllers
         }
 
         [NonAction]
-        private async Task<TransactionViewModel> GetTransactionCategory(Guid id)
+        private async Task<TransactionViewModel> GetTransactionCategory(Guid id, Guid userId)
         {
-            return mapper.Map<TransactionViewModel>(await transactionRepository.GetFinancialTransactionCategoryAsync(id));
+            return mapper.Map<TransactionViewModel>(await transactionRepository.GetFinancialTransactionCategoryAsync(id, userId));
         }
     }
 }

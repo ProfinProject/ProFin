@@ -16,41 +16,54 @@ namespace ProFin.Core.Services
         }
 
 
-        public async Task Insert(Budget budget)
+        public async Task Insert(Budget budget, Guid userId)
         {
+            budget.UserId = userId;
             if (!ExecuteValidation(new BudgetValidation(), budget)) return;
 
-            await _budgetRepository.Add(budget);
+            await _budgetRepository.Add(userId, budget);
         }
 
-        public async Task Update(Budget budget)
+        public async Task Update(Budget budget, Guid userId)
         {
+            if (budget.UserId != userId)
+            {
+                Notifie("Você não tem permissão para atualizar este orçamento.");
+                return;
+            }
+
             if (!ExecuteValidation(new BudgetValidation(), budget)) return;
 
-            await _budgetRepository.Update(budget);
+            await _budgetRepository.Update(userId, budget);
         }
 
-        public async Task Delete(Guid id)
+        public async Task Delete(Guid id, Guid userId)
         {
-            var budget = await _budgetRepository.GetById(id);
-            if (budget != null)
+            var budget = await _budgetRepository.GetById(userId, id);
+            if (budget == null || budget.UserId != userId)
             {
-                await _budgetRepository.Delete(budget);
+                Notifie("Você não tem permissão para excluir este orçamento.");
+                return;
             }
-            else
+
+            await _budgetRepository.Delete(userId, budget);
+        }
+
+        public async Task<IEnumerable<Budget>> GetAllBudgetsAsync(Guid userId)
+        {
+            return await _budgetRepository.GetAll(userId);
+        }
+
+        public async Task<Budget> GetBudgetByIdAsync(Guid id, Guid userId)
+        {
+            var budget = await _budgetRepository.GetById(userId, id);
+            if (budget == null || budget.UserId != userId)
             {
-                Notifie("Registro não encontrado!");
+                Notifie("Você não tem permissão para visualizar este orçamento.");
+                return null;
             }
-        }
 
-        public async Task<IEnumerable<Budget>> GetAllBudgetsAsync()
-        {
-            return await _budgetRepository.GetAll();
-        }
-
-        public async Task<Budget> GetBudgetByIdAsync(Guid id)
-        {
-            return await _budgetRepository.GetById(id);
+            return budget;
         }
 
         public void Dispose()

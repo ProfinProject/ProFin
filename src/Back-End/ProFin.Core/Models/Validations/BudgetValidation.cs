@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using ProFin.Core.Models;
 
 
 namespace ProFin.Core.Models.Validations

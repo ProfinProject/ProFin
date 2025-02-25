@@ -9,7 +9,5 @@ namespace ProFin.Core.Models
         public CategoryFinancialTransaction CategoryTransaction { get; set; }
         public decimal Limit { get; set; }
         public decimal CurrentSpending { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
     }
 }

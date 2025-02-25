@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ProFin.API.ViewModel;
-using ProFin.API.ViewModels;
 using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
+using System.Security.Claims;
 
 namespace ProFin.API.Controllers;
 
@@ -15,16 +15,25 @@ public class CategoryTransactionController(
         ICategoryService categoryService
         ) : MainController(notifier)
 {
+    private Guid GetUserId()
+    {
+        return Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+    }
+
     [HttpGet]
     public async Task<IEnumerable<CategoryTransactionViewModel>> GetAll()
     {
-        return mapper.Map<IEnumerable<CategoryTransactionViewModel>>(await categoryCategoryRepository.GetAll());
+        var userId = GetUserId();
+        var result = mapper.Map<IEnumerable<CategoryTransactionViewModel>>(await categoryCategoryRepository.GetAll(userId));
+        return result;
     }
 
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<CategoryTransactionViewModel>> GetById(Guid id)
     {
-        var transaction = mapper.Map<CategoryTransactionViewModel>(await categoryCategoryRepository.GetById(id));
+
+        var userId = GetUserId();
+        var transaction = mapper.Map<CategoryTransactionViewModel>(await categoryCategoryRepository.GetById(userId, id));
 
         if (transaction == null) return NotFound();
 
@@ -36,11 +45,11 @@ public class CategoryTransactionController(
     {
         if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-        await categoryService.Insert(mapper.Map<CategoryFinancialTransaction>(categoryTransactionViewModel));
+        var userId = GetUserId();
+        await categoryService.Insert(userId, mapper.Map<CategoryFinancialTransaction>(categoryTransactionViewModel));
 
         return CustomResponse(categoryTransactionViewModel);
     }
-
 
     [HttpPut("{id:guid}")]
     public async Task<ActionResult<CategoryTransactionViewModel>> Update(Guid id, CategoryTransactionViewModel transactionViewModel)
@@ -53,19 +62,21 @@ public class CategoryTransactionController(
 
         if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-        await categoryService.Update(mapper.Map<CategoryFinancialTransaction>(transactionViewModel));
+        var userId = GetUserId();
+        await categoryService.Update(userId, mapper.Map<CategoryFinancialTransaction>(transactionViewModel));
 
         return CustomResponse(transactionViewModel);
     }
 
     [HttpDelete("{id:guid}")]
-    public async Task<ActionResult<CategoryTransactionViewModel>> Excluir(Guid id)
+    public async Task<ActionResult<CategoryTransactionViewModel>> Delete(Guid id)
     {
         var transactionViewModel = mapper.Map<CategoryTransactionViewModel>(await categoryCategoryRepository.GetById(id));
 
         if (transactionViewModel == null) return NotFound();
 
-        await categoryService.Delete(id);
+        var userId = GetUserId();
+        await categoryService.Delete(userId, id);
 
         return CustomResponse(transactionViewModel);
     }

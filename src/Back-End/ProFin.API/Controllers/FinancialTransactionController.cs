@@ -18,9 +18,11 @@ namespace ProFin.API.Controllers
         ) : MainController(notifier)
     {
         [HttpGet]
-        public async Task<IEnumerable<TransactionViewModel>> GetAll()
+
+        public async Task<ActionResult<IEnumerable<TransactionViewModel>>> GetAll()
         {
-            return mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll(includes: "CategoryFinancialTransaction"));
+            var result = mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll(includes: "CategoryFinancialTransaction"));
+            return CustomResponse(result.ToList());
         }
 
         [HttpGet("{id:guid}")]

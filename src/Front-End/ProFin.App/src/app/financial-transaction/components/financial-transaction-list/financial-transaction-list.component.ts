@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FinancialTransactionService } from '../../services/financial-transaction.service';
 import { FinancialTransaction } from '../../models/financial-transaction.model';
 import { Alert } from '../../models/alert.model';
-
+import { ApiResponse } from '../../../Utils/api-response-model';
 @Component({
   selector: 'app-financial-transaction-list',
   templateUrl: './financial-transaction-list.component.html',
@@ -29,14 +29,19 @@ export class FinancialTransactionListComponent implements OnInit {
 
   loadFinancialTransactions(): void {
     this.financialTransactionService.getFinancialTransactions().subscribe({
-      next: (financialTransactions: FinancialTransaction[]) => {
-        this.financialTransactions = financialTransactions;
-        console.log("DATA", financialTransactions)
+      next: (response: ApiResponse<FinancialTransaction[]>) => {
+        if (response.success) {
+          this.financialTransactions = response.data;
+
+        } else {
+          console.error("Erro na resposta da API:", response);
+          this.errorMessage = "Erro ao carregar transações financeiras.";
+        }
       },
       error: (error) => {
-        if(error.status === 401)
-          this.router.navigate(['/account/login']); 
-        else{
+        if (error.status === 401) {
+          this.router.navigate(['/account/login']);
+        } else {
           console.error('Erro ao carregar transações financeiras:', error);
           this.errorMessage = 'Erro ao carregar transações financeiras.';
         }

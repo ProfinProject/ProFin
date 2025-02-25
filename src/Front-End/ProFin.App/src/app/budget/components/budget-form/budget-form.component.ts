@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BudgetService } from '../../services/budget.service';
 import { Budget } from '../../models/budget.model';
 import { CategoryTransaction } from '../../models/category-transaction.model';
+import { CategoryService } from '../../../category/services/categories.service';
 
 @Component({
   selector: 'app-budget-form',
@@ -29,7 +30,8 @@ export class BudgetFormComponent implements OnInit {
     private fb: FormBuilder,
     private budgetService: BudgetService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private categoryService: CategoryService
   ) {
     this.budgetForm = this.fb.group({
       categoryTransactionId: ['', Validators.required],
@@ -49,9 +51,8 @@ export class BudgetFormComponent implements OnInit {
   }
 
   private loadCategories(): void {
-    this.budgetService.getCategories().subscribe({
+    this.categoryService.getCategories().subscribe({
       next: (categories) => {
-        console.log('Categorias carregadas:', categories);
         this.categories = categories;
         if (categories.length === 0) {
           this.errorMessage = 'Nenhuma categoria encontrada.';
@@ -63,7 +64,6 @@ export class BudgetFormComponent implements OnInit {
       }
     });
   }
-
   private loadBudget(id: string): void {
     this.budgetService.getBudgetById(id).subscribe({
       next: (budget) => {

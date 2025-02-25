@@ -1,14 +1,21 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ProFin.Core.Models;
+using System.Security.Claims;
 
 namespace ProFin.Data.Context
 {
     public class AppDbContext : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public AppDbContext(DbContextOptions<AppDbContext> options, IHttpContextAccessor httpContextAccessor) : base(options)
+        {
+            _httpContextAccessor = httpContextAccessor;
+        }
 
         public DbSet<FinancialTransaction> FinancialTransactions { get; set; }
         public DbSet<CategoryFinancialTransaction> CategoryTransactions { get; set; }
@@ -23,6 +30,20 @@ namespace ProFin.Data.Context
             builder.ApplyConfiguration(new CategoryFinancialTransactionConfiguration());
             builder.ApplyConfiguration(new BudgetConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
+
+            var userId = GetUserId();
+            if (userId != Guid.Empty)
+            {
+                builder.Entity<FinancialTransaction>().HasQueryFilter(ft => ft.UserId == userId);
+                builder.Entity<CategoryFinancialTransaction>().HasQueryFilter(ct => ct.UserId == userId);
+                builder.Entity<Budget>().HasQueryFilter(b => b.UserId == userId);
+            }
+        }
+
+        private Guid GetUserId()
+        {
+            var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            return Guid.TryParse(userIdClaim, out var userId) ? userId : Guid.Empty;
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellation = default)
@@ -49,7 +70,6 @@ namespace ProFin.Data.Context
                         entry.State = EntityState.Modified;
                     }
                 }
-
             }
             return base.SaveChangesAsync(cancellation);
         }
@@ -114,4 +134,6 @@ namespace ProFin.Data.Context
                    .OnDelete(DeleteBehavior.Cascade);
         }
     }
+
+
 }

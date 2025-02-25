@@ -4,8 +4,6 @@ using ProFin.API.ViewModel;
 using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
-using ProFin.Core.Services;
-using System.Security.Claims;
 
 namespace ProFin.API.Controllers
 {
@@ -21,16 +19,14 @@ namespace ProFin.API.Controllers
 
         public async Task<ActionResult<IEnumerable<TransactionViewModel>>> GetAll()
         {
-            var userId = GetUserId();
-            var result = mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll(userId, includes: "CategoryFinancialTransaction"));
+            var result = mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll(includes: "CategoryFinancialTransaction"));
             return CustomResponse(result.ToList());
         }
 
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<TransactionViewModel>> GetById(Guid id)
         {
-            var userId = GetUserId();
-            var transaction = await GetTransactionCategory(id, userId);
+            var transaction = await GetTransactionCategory(id);
 
             if (transaction == null) return NotFound();
 
@@ -42,11 +38,9 @@ namespace ProFin.API.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var userId = GetUserId();
             var transaction = mapper.Map<FinancialTransaction>(transactionViewModel);
-            transaction.UserId = userId;
 
-            await financialTransactionService.Insert(userId, transaction);
+            await financialTransactionService.Insert(transaction);
 
             return CustomResponse(transactionViewModel);
         }
@@ -62,8 +56,7 @@ namespace ProFin.API.Controllers
 
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var userId = GetUserId();
-            await financialTransactionService.Update(userId, mapper.Map<FinancialTransaction>(transactionViewModel));
+            await financialTransactionService.Update(mapper.Map<FinancialTransaction>(transactionViewModel));
 
             return CustomResponse(transactionViewModel);
         }
@@ -71,12 +64,11 @@ namespace ProFin.API.Controllers
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult<TransactionViewModel>> Delete(Guid id)
         {
-            var userId = GetUserId();
-            var transactionViewModel = await GetTransactionCategory(id, userId);
+            var transactionViewModel = await GetTransactionCategory(id);
 
             if (transactionViewModel == null) return NotFound();
 
-            await financialTransactionService.Delete(userId, id);
+            await financialTransactionService.Delete(id);
 
             return CustomResponse(transactionViewModel);
         }
@@ -88,14 +80,9 @@ namespace ProFin.API.Controllers
         }
 
         [NonAction]
-        private async Task<TransactionViewModel> GetTransactionCategory(Guid id, Guid userId)
+        private async Task<TransactionViewModel> GetTransactionCategory(Guid id)
         {
-            return mapper.Map<TransactionViewModel>(await transactionRepository.GetFinancialTransactionCategoryAsync(id, userId));
-        }
-
-        private Guid GetUserId()
-        {
-            return Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return mapper.Map<TransactionViewModel>(await transactionRepository.GetFinancialTransactionCategoryAsync(id));
         }
 
         [HttpGet("since/{startedDate}")]

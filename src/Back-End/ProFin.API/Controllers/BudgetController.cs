@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using ProFin.API.ViewModel;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
-using System.Security.Claims;
 
 namespace ProFin.API.Controllers
 {
@@ -14,24 +13,17 @@ namespace ProFin.API.Controllers
                                   INotifier notifier) : MainController(notifier)
     {
 
-        private Guid GetUserId()
-        {
-            return Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-        }
-
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BudgetViewModel>>> GetAll()
         {
-            var userId = GetUserId();
-            var budgets = await budgetService.GetAllBudgetsAsync(userId);
+            var budgets = await budgetService.GetAllBudgetsAsync();
             return Ok(mapper.Map<IEnumerable<BudgetViewModel>>(budgets));
         }
 
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<BudgetViewModel>> GetById(Guid id)
         {
-            var userId = GetUserId();
-            var budget = await budgetService.GetBudgetByIdAsync(id, userId);
+            var budget = await budgetService.GetBudgetByIdAsync(id);
             if (budget == null)
             {
                 return NotFound();
@@ -49,9 +41,7 @@ namespace ProFin.API.Controllers
             }
 
             var budget = mapper.Map<Budget>(budgetViewModel);
-            var userId = GetUserId();
-            budget.UserId = userId;
-            await budgetService.Insert(budget, userId);
+            await budgetService.Insert(budget);
 
             return CreatedAtAction(nameof(GetById), new { id = budget.Id }, budgetViewModel);
         }
@@ -71,9 +61,8 @@ namespace ProFin.API.Controllers
             }
 
             var budget = mapper.Map<Budget>(budgetViewModel);
-            var userId = GetUserId();
-            budget.UserId = userId;
-            await budgetService.Update(budget, userId);
+
+            await budgetService.Update(budget);
 
             return CustomResponse(budgetViewModel);
         }
@@ -81,8 +70,7 @@ namespace ProFin.API.Controllers
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var userId = GetUserId();
-            await budgetService.Delete(id, userId);
+            await budgetService.Delete(id);
             return CustomResponse();
         }
     }

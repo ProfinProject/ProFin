@@ -11,11 +11,11 @@ namespace ProFin.Data.Repositories
         {
         }
 
-        public async Task<FinancialTransaction> GetFinancialTransactionCategoryAsync(Guid id, Guid userId)
+        public async Task<FinancialTransaction> GetFinancialTransactionCategoryAsync(Guid id)
         {
             return await AppDbContext.FinancialTransactions
                 .Include(t => t.CategoryFinancialTransaction)
-                .FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
+                .FirstOrDefaultAsync(t => t.Id == id);
         }
     }
 }

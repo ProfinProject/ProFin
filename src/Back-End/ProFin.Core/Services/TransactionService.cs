@@ -3,7 +3,6 @@ using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
 using ProFin.Core.Models.Validations;
 using System.Linq.Expressions;
-using System.Xml;
 
 namespace ProFin.Core.Services
 {
@@ -17,27 +16,27 @@ namespace ProFin.Core.Services
             _transactionRepository = transactionRepository;
         }
 
-        public async Task Insert(Guid userId, FinancialTransaction transactionEntity)
+        public async Task Insert(FinancialTransaction transactionEntity)
         {
             if (!ExecuteValidation(new TransactionEntityValidation(), transactionEntity)) return;
 
-            transactionEntity.UserId = userId;
-            await _transactionRepository.Add(userId, transactionEntity);
+
+            await _transactionRepository.Add(transactionEntity);
         }
 
-        public async Task Update(Guid userId, FinancialTransaction transactionEntity)
+        public async Task Update(FinancialTransaction transactionEntity)
         {
             if (!ExecuteValidation(new TransactionEntityValidation(), transactionEntity)) return;
 
-            transactionEntity.UserId = userId;
-            await _transactionRepository.Update(userId, transactionEntity);
+
+            await _transactionRepository.Update(transactionEntity);
         }
 
-        public async Task Delete(Guid userId, Guid id)
+        public async Task Delete(Guid id)
         {
-            var entity = await _transactionRepository.GetById(userId, id);
+            var entity = await _transactionRepository.GetById(id);
             if (entity != null && entity.CreatedDate != DateTime.MinValue)
-                await _transactionRepository.Delete(userId, entity);
+                await _transactionRepository.Delete(entity);
             else
                 Notifie("Registro não encontrado!");
         }
@@ -45,7 +44,7 @@ namespace ProFin.Core.Services
         public async Task<IEnumerable<FinancialTransaction>> GetSince(DateTime startedDate)
         {
             Expression<Func<FinancialTransaction, bool>> filter = x => x.CreatedDate.Date >= startedDate;
-            var data = await transactionRepository.GetAll(includes: "CategoryFinancialTransaction", filter);
+            var data = await _transactionRepository.GetAll(includes: "CategoryFinancialTransaction", filter);
             return data;
         }
 

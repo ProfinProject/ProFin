@@ -8,58 +8,50 @@ namespace ProFin.Core.Services
     public class BudgetService : BaseService, IBudgetService
     {
         private readonly IBudgetRepository _budgetRepository;
-        
+
         public BudgetService(IBudgetRepository budgetRepository,
                              INotifier notifier) : base(notifier)
         {
             _budgetRepository = budgetRepository;
         }
 
-
-        public async Task Insert(Budget budget, Guid userId)
+        public async Task Insert(Budget budget)
         {
-            budget.UserId = userId;
             if (!ExecuteValidation(new BudgetValidation(), budget)) return;
 
-            await _budgetRepository.Add(userId, budget);
+            await _budgetRepository.Add(budget);
         }
 
-        public async Task Update(Budget budget, Guid userId)
+        public async Task Update(Budget budget)
         {
-            if (budget.UserId != userId)
+            if (!ExecuteValidation(new BudgetValidation(), budget)) return;
+
+            await _budgetRepository.Update(budget);
+        }
+
+        public async Task Delete(Guid id)
+        {
+            var budget = await _budgetRepository.GetById(id);
+            if (budget == null)
             {
-                Notifie("Você não tem permissão para atualizar este orçamento.");
+                Notifie("Orçamento não encontrado.");
                 return;
             }
 
-            if (!ExecuteValidation(new BudgetValidation(), budget)) return;
-
-            await _budgetRepository.Update(userId, budget);
+            await _budgetRepository.Delete(budget);
         }
 
-        public async Task Delete(Guid id, Guid userId)
+        public async Task<IEnumerable<Budget>> GetAllBudgetsAsync()
         {
-            var budget = await _budgetRepository.GetById(userId, id);
-            if (budget == null || budget.UserId != userId)
+            return await _budgetRepository.GetAll();
+        }
+
+        public async Task<Budget> GetBudgetByIdAsync(Guid id)
+        {
+            var budget = await _budgetRepository.GetById(id);
+            if (budget == null)
             {
-                Notifie("Você não tem permissão para excluir este orçamento.");
-                return;
-            }
-
-            await _budgetRepository.Delete(userId, budget);
-        }
-
-        public async Task<IEnumerable<Budget>> GetAllBudgetsAsync(Guid userId)
-        {
-            return await _budgetRepository.GetAll(userId);
-        }
-
-        public async Task<Budget> GetBudgetByIdAsync(Guid id, Guid userId)
-        {
-            var budget = await _budgetRepository.GetById(userId, id);
-            if (budget == null || budget.UserId != userId)
-            {
-                Notifie("Você não tem permissão para visualizar este orçamento.");
+                Notifie("Orçamento não encontrado.");
                 return null;
             }
 
@@ -70,6 +62,5 @@ namespace ProFin.Core.Services
         {
             _budgetRepository.Dispose();
         }
-
     }
 }

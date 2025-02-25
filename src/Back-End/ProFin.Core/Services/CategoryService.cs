@@ -15,32 +15,30 @@ namespace ProFin.Core.Services
             _categoryTransactionRepository = categoryTransactionRepository;
         }
 
-        public async Task Insert(Guid userId, CategoryFinancialTransaction categoryFinancialTransaction)
+        public async Task Insert(CategoryFinancialTransaction categoryFinancialTransaction)
         {
             if (!ExecuteValidation(new CategoryFinancialTransactionEntityValidation(), categoryFinancialTransaction)) return;
 
-            categoryFinancialTransaction.UserId = userId;
-            await _categoryTransactionRepository.Add(userId, categoryFinancialTransaction);
+            await _categoryTransactionRepository.Add(categoryFinancialTransaction);
         }
 
-        public async Task Update(Guid userId, CategoryFinancialTransaction categoryFinancialTransaction)
+        public async Task Update(CategoryFinancialTransaction categoryFinancialTransaction)
         {
             if (!ExecuteValidation(new CategoryFinancialTransactionEntityValidation(), categoryFinancialTransaction)) return;
 
-            categoryFinancialTransaction.UserId = userId;
-            await _categoryTransactionRepository.Update(userId, categoryFinancialTransaction);
+            await _categoryTransactionRepository.Update(categoryFinancialTransaction);
         }
 
-        public async Task Delete(Guid userId, Guid id)
+        public async Task Delete(Guid id)
         {
-            var entity = await _categoryTransactionRepository.GetById(userId, id);
+            var entity = await _categoryTransactionRepository.GetById(id);
 
             if (entity == null)
                 Notifie("Registro não encontrado!");
             else if (entity.IsPattern)
                 Notifie("Você não pode deletar uma categoria padrão");
             else if (entity != null && entity.CreatedDate != DateTime.MinValue && !entity.IsPattern)
-                await _categoryTransactionRepository.Delete(userId, entity);
+                await _categoryTransactionRepository.Delete(entity);
         }
 
         public void Dispose()

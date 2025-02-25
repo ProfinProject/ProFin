@@ -4,11 +4,11 @@ namespace ProFin.Core.Interfaces.Services
 {
     public interface IBudgetService : IDisposable
     {
-        Task Insert(Budget budget, Guid userId);
-        Task Update(Budget budget, Guid userId);
-        Task Delete(Guid id, Guid userId);
-        Task<IEnumerable<Budget>> GetAllBudgetsAsync(Guid userId);
-        Task<Budget> GetBudgetByIdAsync(Guid id, Guid userId);
+        Task Insert(Budget budget);
+        Task Update(Budget budget);
+        Task Delete(Guid id);
+        Task<IEnumerable<Budget>> GetAllBudgetsAsync();
+        Task<Budget> GetBudgetByIdAsync(Guid id);
     }
 }
 

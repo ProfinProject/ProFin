@@ -4,8 +4,8 @@ namespace ProFin.Core.Interfaces.Services
 {
     public interface ICategoryService : IDisposable
     {
-        Task Insert(Guid userId, CategoryFinancialTransaction categoryFinancialTransaction);
-        Task Update(Guid userId, CategoryFinancialTransaction categoryFinancialTransaction);
-        Task Delete(Guid userId, Guid id);
+        Task Insert(CategoryFinancialTransaction categoryFinancialTransaction);
+        Task Update(CategoryFinancialTransaction categoryFinancialTransaction);
+        Task Delete(Guid id);
     }
 }

@@ -14,7 +14,7 @@ export class ReportsService extends BaseService {
     //TODO filtrar por data e usuario
     getTransactionsSince(date: string): Observable<TransactionReport[]> {
         return this.http
-            .get<any[]>(this.UrlServiceV1 + "FinancialTransaction", super.getuthHeaderJson())
+            .get<any[]>(this.UrlServiceV1 + "FinancialTransaction", this.getAuthHeaderJson())
             .pipe(
                 map(this.extractData),
                 catchError(this.serviceError));

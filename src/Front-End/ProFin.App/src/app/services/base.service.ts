@@ -16,10 +16,18 @@ export abstract class BaseService {
         };
     }
 
-    protected getuthHeaderJson() {
+    protected getAuthHeaderJson() {
         return {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.LocalStorage.getUserToken()}`
+            })
+        };
+    }
+
+    protected getAuthHeader() {
+        return {
+            headers: new HttpHeaders({
                 'Authorization': `Bearer ${this.LocalStorage.getUserToken()}`
             })
         };
@@ -40,12 +48,12 @@ export abstract class BaseService {
                 response.error.errors = customError;
             }
 
-            if (response.status === 400) {                           
+            if (response.status === 400) {
                 customResponse.error.errors = response.error.errors;
                 return throwError(() => customResponse);
             }
         }
-    
+
         if (response.status === 500) {
             customError.push("Ocorreu um erro no processamento, tente novamente mais tarde ou contate o nosso suporte.");
 

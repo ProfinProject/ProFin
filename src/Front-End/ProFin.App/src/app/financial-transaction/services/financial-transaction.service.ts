@@ -7,39 +7,31 @@ import { CategoryTransaction } from '../models/category-transaction.model';
 import { environment } from '../../../environments/environment';
 import { LocalStorageUtils } from '../../Utils/localstorage';
 import { Category } from '../../category/models/category';
+import { BaseService } from '../../services/base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FinancialTransactionService {
+export class FinancialTransactionService extends BaseService {
   private apiUrl = `${environment.apiUrlv1}FinancialTransaction`;
   private financialTransactions = new BehaviorSubject<FinancialTransaction[]>([]);
   private alertsSubject = new BehaviorSubject<Alert[]>([]);
-  private localStorage = new LocalStorageUtils();
 
   constructor(private http: HttpClient) {
+    super();
     //this.checkFinancialTransactionsLimits();
   }
 
-  private getAuthHeaders() {
-    const token = this.localStorage.getUserToken();
-    return {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      })
-    };
-  }
-
   getFinancialTransactions(): Observable<FinancialTransaction[]> {
-    return this.http.get<FinancialTransaction[]>(this.apiUrl, this.getAuthHeaders());
+    return this.http.get<FinancialTransaction[]>(this.apiUrl, this.getAuthHeaderJson());
   }
 
   getFinancialTransactionById(id: string): Observable<FinancialTransaction> {
-    return this.http.get<FinancialTransaction>(`${this.apiUrl}/${id}`, this.getAuthHeaders());
+    return this.http.get<FinancialTransaction>(`${this.apiUrl}/${id}`, this.getAuthHeaderJson());
   }
 
   createFinancialTransaction(financialTransaction: FinancialTransaction): Observable<FinancialTransaction> {
-    return this.http.post<FinancialTransaction>(this.apiUrl, financialTransaction, this.getAuthHeaders())
+    return this.http.post<FinancialTransaction>(this.apiUrl, financialTransaction, this.getAuthHeaderJson())
       .pipe(
         tap(response => console.log('Resposta do create:', response)),
         catchError(error => {
@@ -50,11 +42,11 @@ export class FinancialTransactionService {
   }
 
   updateFinancialTransaction(id: string, financialTransaction: FinancialTransaction): Observable<FinancialTransaction> {
-    return this.http.put<FinancialTransaction>(`${this.apiUrl}/${id}`, financialTransaction, this.getAuthHeaders());
+    return this.http.put<FinancialTransaction>(`${this.apiUrl}/${id}`, financialTransaction, this.getAuthHeaderJson());
   }
 
   deleteFinancialTransaction(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`, this.getAuthHeaders());
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, this.getAuthHeaderJson());
   }
 
   getAlerts(): Observable<Alert[]> {
@@ -62,18 +54,10 @@ export class FinancialTransactionService {
   }
 
   getCategories(): Observable<Category[]> {
-    const token = this.localStorage.getUserToken();
-    const headers = new HttpHeaders()
-      .set('Authorization', `Bearer ${token}`)
-      .set('Content-Type', 'application/json');
-
-    console.log('Token:', token);
-    console.log('Headers:', headers);
-    console.log('URL:', `${environment.apiUrlv1}/CategoryTransaction`);
 
     return this.http.get<Category[]>(
       `${environment.apiUrlv1}/CategoryTransaction`,
-      { headers }
+      this.getAuthHeaderJson()
     ).pipe(
       tap(response => console.log('Resposta da API:', response)),
       catchError(error => {

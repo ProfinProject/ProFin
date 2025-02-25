@@ -18,10 +18,12 @@ namespace ProFin.API.Controllers
         ) : MainController(notifier)
     {
         [HttpGet]
-        public async Task<IEnumerable<TransactionViewModel>> GetAll()
+
+        public async Task<ActionResult<IEnumerable<TransactionViewModel>>> GetAll()
         {
             var userId = GetUserId();
-            return mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll(userId, includes: "CategoryFinancialTransaction"));
+            var result = mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll(userId, includes: "CategoryFinancialTransaction"));
+            return CustomResponse(result.ToList());
         }
 
         [HttpGet("{id:guid}")]
@@ -94,6 +96,19 @@ namespace ProFin.API.Controllers
         private Guid GetUserId()
         {
             return Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        }
+
+        [HttpGet("since/{startedDate}")]
+        public async Task<IActionResult> GetSince(string startedDate)
+        {
+            if (!DateTime.TryParse(startedDate, out var parsedDate))
+            {
+                NotifieError("Data no formato inválido. Formato esperado: yyyy-MM-ddTHH:mm:ss");
+                return CustomResponse();
+            }
+
+            var result = mapper.Map<IEnumerable<TransactionViewModel>>(await financialTransactionService.GetSince(parsedDate));
+            return CustomResponse(result);
         }
     }
 }

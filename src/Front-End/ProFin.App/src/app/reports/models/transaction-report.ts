@@ -6,6 +6,7 @@ export interface TransactionReport {
 }
 
 export interface CategoryTransactionReport {
+    id: string;
     name: string;
     description: string;
 }

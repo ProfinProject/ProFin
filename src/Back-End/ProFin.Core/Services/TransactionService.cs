@@ -2,6 +2,8 @@
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
 using ProFin.Core.Models.Validations;
+using System.Linq.Expressions;
+using System.Xml;
 
 namespace ProFin.Core.Services
 {
@@ -40,9 +42,18 @@ namespace ProFin.Core.Services
                 Notifie("Registro não encontrado!");
         }
 
+        public async Task<IEnumerable<FinancialTransaction>> GetSince(DateTime startedDate)
+        {
+            Expression<Func<FinancialTransaction, bool>> filter = x => x.CreatedDate.Date >= startedDate;
+            var data = await transactionRepository.GetAll(includes: "CategoryFinancialTransaction", filter);
+            return data;
+        }
+
         public void Dispose()
         {
             _transactionRepository.Dispose();
         }
+
+
     }
 }

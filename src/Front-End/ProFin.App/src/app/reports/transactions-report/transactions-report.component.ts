@@ -63,6 +63,7 @@ export class TransactionsReportComponent implements OnInit {
   public categories: Category[] = [];
   errors: any[] = [];
   selectedOption: string;
+  startedDate: string;
 
 
   displayedColumns: string[] = ['description', 'value', 'createdDate'];
@@ -79,13 +80,12 @@ export class TransactionsReportComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.selectedOption = '';
+    this.startedDate = this.getStartedDate();
   }
 
   ngOnInit(): void {
 
-    const dateSixMonthsAgo = new Date();
-    dateSixMonthsAgo.setMonth(dateSixMonthsAgo.getMonth() - 6);
-    const formattedDate = dateSixMonthsAgo.toISOString().split('T')[0];
+    const formattedDate = this.getStartedDate();
 
     this.categoryService.getCategories()
       .subscribe({
@@ -100,12 +100,34 @@ export class TransactionsReportComponent implements OnInit {
       })
   }
 
+  private getStartedDate() {
+    const dateSixMonthsAgo = new Date();
+    dateSixMonthsAgo.setMonth(dateSixMonthsAgo.getMonth() - 6);
+    const formattedDate = dateSixMonthsAgo.toISOString().split('T')[0];
+    return formattedDate;
+  }
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
 
   onSelectionChange(event: any) {
     console.log('Opção selecionada:', this.selectedOption);
+
+    this.filterByCategory();
+    this.loadData();
+  }
+
+  filterByCategory() {
+    if (!this.selectedOption || this.selectedOption.trim() === '') {
+      this.filteredTransactions = [...this.transactions];
+      return;
+    }
+
+    const value = this.selectedOption;
+    this.filteredTransactions = this.transactions.filter(item => {
+      return item.categoryFinancialTransaction.id == value; // Comparação entre objetos Date
+    });
   }
 
   processTransactions(transactions: TransactionReport[]) {
@@ -114,8 +136,7 @@ export class TransactionsReportComponent implements OnInit {
     else
       this.transactions = [];
 
-    this.filteredTransactions = [...this.transactions];
-
+    this.filterByCategory();
     this.loadData();
   }
 
@@ -146,29 +167,16 @@ export class TransactionsReportComponent implements OnInit {
     }, 100);
   }
 
-  onDateChange(event: any) {
-    const selectedDate = event.target.value;
+  onDateChange() {
+    console.log(this.startedDate);
 
-    // Filtra os dados com base na data
-    if (selectedDate) {
-      const filterDate = new Date(selectedDate)
-
-      this.filteredTransactions = this.transactions.filter(item => {
-        const itemDateParts = item.createdDate.split(" ")[0].split("/"); // Separa "DD/MM/YYYY HH:mm:ss"
-        const itemDate = new Date(
-          Number(itemDateParts[2]), // Ano
-          Number(itemDateParts[1]) - 1, // Mês (base 0)
-          Number(itemDateParts[0]) // Dia
-        );
-
-        return itemDate >= filterDate; // Comparação entre objetos Date
-      });
-    } else {
-      this.filteredTransactions = [...this.transactions]; // Exibe todos os dados se nenhuma data for selecionada
-    }
+    this.reportsService.getTransactionsSince(this.startedDate)
+      .subscribe({
+        next: (response) => this.processTransactions(response),
+        error: (error) => this.processFail(error) // Passa o erro para processFail
+      })
 
     this.loadData();
-
   }
 }
 

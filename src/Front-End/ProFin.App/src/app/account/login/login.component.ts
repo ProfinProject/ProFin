@@ -75,16 +75,18 @@ export class LoginComponent extends FormBaseComponent implements OnInit {
     this.errors = [];
 
 
+    this.router.navigate(['/panel'])//Decidir se vai ser redirecionado para o painel ou para home
     this.accountService.LocalStorage.saveLocalDataUser(response);
 
-    let toast = this.toastr.success('Login realizado com Sucesso!', 'Bem vindo!!!');
-    if (toast) {
-      toast.onHidden.subscribe(() => {
-        this.returnUrl
-          ? this.router.navigate([this.returnUrl])
-          : this.router.navigate(['/panel']);
-      });
-    }
+    //Comentado pois deixava o processo de login muito lento, retirar depois se não for mais necessário.
+    // let toast = this.toastr.success('Login realizado com Sucesso!', 'Bem vindo!!!');
+    // if (toast) {
+    //   toast.onHidden.subscribe(() => {
+    //     this.returnUrl
+    //       ? this.router.navigate([this.returnUrl])
+    //       : this.router.navigate(['/panel']);
+    //   });
+    // }
   }
 
   processFail(fail: any) {

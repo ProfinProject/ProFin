@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-//import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { BaseChartDirective } from 'ng2-charts';
 import { MatTableModule } from '@angular/material/table';
@@ -19,11 +19,12 @@ import { BudgetService } from './budget/services/budget.service';
 import { FinancialTransactionService } from './financial-transaction/services/financial-transaction.service';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { PanelService } from './panel/services/panel.service';
+import { AuthInterceptor } from './Utils/AuthInterceptor ';
 
 
-export const httpInterceptorProviders = [
-  //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-];
+// export const httpInterceptorProviders = [
+//   { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+// ];
 
 @NgModule({
   declarations: [
@@ -50,7 +51,9 @@ export const httpInterceptorProviders = [
     CategoryService,
     FinancialTransactionService,
     PanelService,
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, // Registra o interceptor
+
   ],
   bootstrap: [AppComponent]
 })

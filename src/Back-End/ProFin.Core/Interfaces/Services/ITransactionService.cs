@@ -7,5 +7,7 @@ namespace ProFin.Core.Interfaces.Services
         Task Insert(FinancialTransaction transaction);
         Task Update(FinancialTransaction transaction);
         Task Delete(Guid id);
+        Task<IEnumerable<FinancialTransaction>> GetSince(DateTime startedDate);
+
     }
 }

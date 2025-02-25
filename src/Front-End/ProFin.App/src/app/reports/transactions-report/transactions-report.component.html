@@ -3,13 +3,14 @@
         <div class="col-3">
             <label for="combo" class="form-label">Selecione uma categoria:</label>
             <select id="combo" class="form-select" [(ngModel)]="selectedOption" (change)="onSelectionChange($event)">
+                <option value="">Todos</option>
                 <option *ngFor="let category of categories" [value]="category.id">{{ category.description }}</option>
             </select>
         </div>
 
         <div class="col-4">
             <label for="dateFilter" class="form-label">Filtrar por Data:</label>
-            <input type="date" class="form-control" id="dateFilter" (change)="onDateChange($event)">
+            <input type="date" class="form-control" id="dateFilter" [(ngModel)]="startedDate" (change)="onDateChange()">
         </div>
     </div>
 </div>
@@ -30,7 +31,7 @@
         </div>
 
         <div class="row">
-            <h2>Gráfico de Linha</h2>
+            <h2>Transações desde {{startedDate}}</h2>
             <canvas baseChart [datasets]="lineChartData.datasets" [labels]="lineChartData.labels"
                 [options]="lineChartOptions" [type]="'line'">
             </canvas>

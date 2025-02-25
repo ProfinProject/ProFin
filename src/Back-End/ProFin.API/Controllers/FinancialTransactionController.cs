@@ -63,7 +63,7 @@ namespace ProFin.API.Controllers
         }
 
         [HttpDelete("{id:guid}")]
-        public async Task<ActionResult<TransactionViewModel>> Excluir(Guid id)
+        public async Task<ActionResult<TransactionViewModel>> Delete(Guid id)
         {
             var transactionViewModel = await GetTransactionCategory(id);
 
@@ -84,6 +84,19 @@ namespace ProFin.API.Controllers
         private async Task<TransactionViewModel> GetTransactionCategory(Guid id)
         {
             return mapper.Map<TransactionViewModel>(await transactionRepository.GetFinancialTransactionCategoryAsync(id));
+        }
+
+        [HttpGet("since/{startedDate}")]
+        public async Task<IActionResult> GetSince(string startedDate)
+        {
+            if (!DateTime.TryParse(startedDate, out var parsedDate))
+            {
+                NotifieError("Data no formato inválido. Formato esperado: yyyy-MM-ddTHH:mm:ss");
+                return CustomResponse();
+            }
+
+            var result = mapper.Map<IEnumerable<TransactionViewModel>>(await  financialTransactionService.GetSince(parsedDate));
+            return CustomResponse(result);
         }
     }
 }

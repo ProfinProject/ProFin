@@ -7,5 +7,8 @@
 
         public Guid CategoryFinancialTransactionId { get; set; }
         public CategoryFinancialTransaction CategoryFinancialTransaction { get; set; }
+
+        public Guid UserId { get; set; }
+        public User User { get; set; }
     }
 }

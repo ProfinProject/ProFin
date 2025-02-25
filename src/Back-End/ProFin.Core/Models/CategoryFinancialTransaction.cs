@@ -13,4 +13,7 @@ public class CategoryFinancialTransaction : Entity
     public string Description { get; set; }
 
     public bool IsPattern { get; set; }
+
+    public Guid UserId { get; set; }
+    public User User { get; set; }
 }

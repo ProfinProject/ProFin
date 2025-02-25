@@ -16,6 +16,5 @@
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public bool Deleted { get; set; }
-        public Guid UserId { get; set; }
     }
 }

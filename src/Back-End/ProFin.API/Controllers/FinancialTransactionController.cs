@@ -17,13 +17,10 @@ namespace ProFin.API.Controllers
         IFinancialTransactionService financialTransactionService
         ) : MainController(notifier)
     {
-               
-        [HttpGet]        
-
-        public async Task<ActionResult<TransactionViewModel>> GetAll()
+        [HttpGet]
+        public async Task<IEnumerable<TransactionViewModel>> GetAll()
         {
-            var result = mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll(includes: "CategoryFinancialTransaction"));
-            return CustomResponse(result);
+            return mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll(includes: "CategoryFinancialTransaction"));
         }
 
         [HttpGet("{id:guid}")]

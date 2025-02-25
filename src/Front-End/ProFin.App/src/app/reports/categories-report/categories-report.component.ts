@@ -107,7 +107,6 @@ export class CategoriesReportComponent implements OnInit {
     this.chartLabels = this.chartData.map(item => item.category);
     this.chartValues = this.chartData.map(item => item.totalValue);
 
-    console.log('test');
     this.pieChartData = {
       labels: Object.keys(this.groupedReports).map((categoryName) => {
         const report = this.groupedReports[categoryName as keyof GroupedReports];

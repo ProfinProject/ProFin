@@ -8,6 +8,7 @@ import { environment } from '../../../environments/environment';
 import { LocalStorageUtils } from '../../Utils/localstorage';
 import { Category } from '../../category/models/category';
 import { BaseService } from '../../services/base.service';
+import { ApiResponse } from '../../Utils/api-response-model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +23,8 @@ export class FinancialTransactionService extends BaseService {
     //this.checkFinancialTransactionsLimits();
   }
 
-  getFinancialTransactions(): Observable<FinancialTransaction[]> {
-    return this.http.get<FinancialTransaction[]>(this.apiUrl, this.getAuthHeaderJson());
+  getFinancialTransactions(): Observable<ApiResponse<FinancialTransaction[]>> {
+    return this.http.get<ApiResponse<FinancialTransaction[]>>(this.apiUrl, this.getAuthHeaderJson());
   }
 
   getFinancialTransactionById(id: string): Observable<FinancialTransaction> {

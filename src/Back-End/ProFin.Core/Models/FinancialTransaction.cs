@@ -4,6 +4,8 @@
     {
         public double Value { get; set; }
         public string Description { get; set; }
+
+        public Guid CategoryFinancialTransactionId { get; set; }
         public CategoryFinancialTransaction CategoryFinancialTransaction { get; set; }
     }
 }

@@ -64,11 +64,6 @@ export class CreateCategoryComponent implements OnInit, AfterViewInit{
       this.category = Object.assign({}, this.category, this.creationForm.value);
       this.category.id = Guid.create().toString();
       this.saveCategory();
-      
-      //to do a toaster of success
-    }
-    else{
-      //to do a toaster of error
     }
   }
 

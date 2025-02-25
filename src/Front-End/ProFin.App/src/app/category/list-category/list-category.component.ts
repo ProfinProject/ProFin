@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Category } from '../models/category';
 import { CategoryService } from '../../category/services/categories.service';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-list-category',
@@ -11,7 +11,7 @@ import { RouterLink } from '@angular/router';
   imports: [CommonModule, RouterLink]
 })
 export class ListCategoryComponent implements OnInit {
-  constructor(private categoryService: CategoryService) {}
+  constructor(private categoryService: CategoryService, private router:Router) {}
 
   public categories: Category[] = [];
   errorMessage: string = '';
@@ -28,8 +28,12 @@ export class ListCategoryComponent implements OnInit {
           console.log(result);
         },
         error : e => {
-          console.error('Erro ao carregar categoria:', e);
-          this.errorMessage = 'Erro ao carregar categorias.';
+          if(e.status === 401)
+            this.router.navigate(['/account/login']); 
+          else{
+            console.error('Erro ao carregar categoria:', e);
+            this.errorMessage = 'Erro ao carregar categorias.';
+          }
         }
   });
   }

@@ -8,6 +8,7 @@ import { BudgetAppComponent } from './budget.app.component';
 import { BudgetListComponent } from './components/budget-list/budget-list.component';
 import { BudgetFormComponent } from './components/budget-form/budget-form.component';
 import { BudgetService } from './services/budget.service';
+import { BudgetsGuard } from './services/budgets.guard';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { BudgetService } from './services/budget.service';
     BudgetFormComponent
   ],
   providers: [
-    BudgetService
+    BudgetService,
+    BudgetsGuard
   ]
 })
 export class BudgetModule { }

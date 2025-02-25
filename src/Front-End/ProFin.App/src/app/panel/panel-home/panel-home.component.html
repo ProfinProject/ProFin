@@ -1,0 +1,74 @@
+<html>
+    <style>
+       .panel-header{
+            background: #5eb256;
+            height: 50px;
+            text-align: center;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            line-height: 45px;
+            color: white;
+            cursor: pointer;
+       }
+    </style>
+    <body class="bd-light">
+        <div class="container" style="margin-top: 50px; margin-bottom: 230px;">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div class="nav-link text-dark" class="panel-header" [routerLink]="['/category' ]"><i class="fa-solid fa-layer-group p-1 icon-white-color"></i>Categorias</div>
+                        <div class="card-body">
+                        <p class="card-text">Em <b>5</b> Categorias</p>
+                        <p class="card-text"><b>R$ 550,00</b> gastos entre elas</p>
+                        <p class="card-text"><b>Moradia</b> foi a categoria que mais consumiu do seu orçamento</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" [routerLink]="['/category']">View</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div class="nav-link text-dark" class="panel-header" [routerLink]="['/budget']"><i class="fa-solid fa-money-bill-trend-up p-1 icon-white-color"></i>Orçamentos</div>
+                        <div class="card-body">
+                        <p class="card-text">Em <b>3</b> Orçamentos</p>
+                        <p class="card-text"><b>R$ 1800,00 </b> é o limite total entre elas</p>
+                        <p class="card-text">Lazer é o seu maior orçamento, com um montante de <b>R$775,00</b></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" [routerLink]="['/budget']">View</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div class="nav-link text-dark" class="panel-header" [routerLink]="['/financial-transaction']"><i class="fa-solid fa-money-bill-transfer p-1 icon-white-color"></i>Transações</div>
+                        <div class="card-body">
+                            <p class="card-text">Em <b>28</b> transações</p>
+                            <p class="card-text"><b>R$ 550,00</b> gastos entre elas</p>
+                            <p class="card-text"><b>Lazer</b> foi a categoria teve mais transações com um total de <b>11</b></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" [routerLink]="['/financial-transaction']">View</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="card text-white bg-info mb-3" style="max-width: 18rem; background-color:  rgb(13 240 185)!important;">
+                    <div class="card-header">Categoria</div>
+                    <div class="card-body">
+                      <h5 class="card-title">Totais</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                  </div>
+            </div> -->
+        </div>
+    </body>
+</html>

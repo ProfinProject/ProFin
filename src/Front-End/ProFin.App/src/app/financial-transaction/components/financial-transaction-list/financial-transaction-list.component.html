@@ -1,0 +1,46 @@
+<div class="container mt-4">
+  <h2>Transações Financeiras</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div class="mb-3">
+    <button class="btn btn-primary" (click)="onAdd()">
+      Nova Transação
+    </button>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th>Categoria</th>
+        <th>Valor</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let financialTransaction of financialTransactions">
+        <td>{{ financialTransaction.description }}</td>
+        <td>{{ financialTransaction.categoryFinancialTransaction.name }}</td>
+        <td>{{ financialTransaction.value | currency:'BRL':'symbol':'1.2-2' }}</td>
+        <td>
+          <button class="btn btn-sm btn-primary me-2" (click)="onEdit(financialTransaction.id!)">
+            Editar
+          </button>
+          <button class="btn btn-sm btn-danger" (click)="onDelete(financialTransaction.id!)">
+            Excluir
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="alerts.length > 0" class="mt-4">
+    <h3>Alertas</h3>
+    <div *ngFor="let alert of alerts" class="alert" [ngClass]="'alert-' + alert.type">
+      {{ alert.message }}
+    </div>
+  </div>
+</div>

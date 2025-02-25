@@ -16,18 +16,10 @@ namespace ProFin.API.Controllers
         IFinancialTransactionService financialTransactionService
         ) : MainController(notifier)
     {
-
-        private Guid GetUserId()
-        {
-            return Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-        }
-
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TransactionViewModel>>> GetAll()
+        public async Task<IEnumerable<TransactionViewModel>> GetAll()
         {
-            var userId = GetUserId();
-            var result = mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll(userId, includes: "CategoryFinancialTransaction"));
-            return CustomResponse(result);
+            return mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll(includes: "CategoryFinancialTransaction"));
         }
 
         [HttpGet("{id:guid}")]

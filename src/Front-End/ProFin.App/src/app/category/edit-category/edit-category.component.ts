@@ -68,7 +68,12 @@ export class EditCategoryComponent implements OnInit, AfterViewInit{
         });
       },
       error: e => {
-        console.log(e);
+        if(e.status === 401)
+          this.router.navigate(['/account/login']); 
+        else{
+          console.error('Erro ao carregar categoria:', e);
+          this.errorMessage = 'Erro ao carregar categoria.';
+        }
       }
     });
   }
@@ -86,10 +91,6 @@ export class EditCategoryComponent implements OnInit, AfterViewInit{
     if (this.editionForm.dirty && this.editionForm.valid) {
       this.category = Object.assign({}, this.category, this.editionForm.value);
       this.updateCategory();
-      //to do a toaster of success
-    }
-    else{
-      //to do a toaster of error
     }
   }
 

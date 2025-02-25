@@ -59,7 +59,7 @@ public class CategoryTransactionController(
     }
 
     [HttpDelete("{id:guid}")]
-    public async Task<ActionResult<CategoryTransactionViewModel>> Excluir(Guid id)
+    public async Task<ActionResult<CategoryTransactionViewModel>> Delete(Guid id)
     {
         var transactionViewModel = mapper.Map<CategoryTransactionViewModel>(await categoryCategoryRepository.GetById(id));
 

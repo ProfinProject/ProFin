@@ -4,6 +4,7 @@ using ProFin.API.ViewModel;
 using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
+using ProFin.Core.Services;
 using System.Security.Claims;
 
 namespace ProFin.API.Controllers
@@ -19,7 +20,8 @@ namespace ProFin.API.Controllers
         [HttpGet]
         public async Task<IEnumerable<TransactionViewModel>> GetAll()
         {
-            return mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll(includes: "CategoryFinancialTransaction"));
+            var userId = GetUserId();
+            return mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll(userId, includes: "CategoryFinancialTransaction"));
         }
 
         [HttpGet("{id:guid}")]
@@ -39,7 +41,10 @@ namespace ProFin.API.Controllers
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var userId = GetUserId();
-            await financialTransactionService.Insert(userId, mapper.Map<FinancialTransaction>(transactionViewModel));
+            var transaction = mapper.Map<FinancialTransaction>(transactionViewModel);
+            transaction.UserId = userId;
+
+            await financialTransactionService.Insert(userId, transaction);
 
             return CustomResponse(transactionViewModel);
         }
@@ -84,6 +89,11 @@ namespace ProFin.API.Controllers
         private async Task<TransactionViewModel> GetTransactionCategory(Guid id, Guid userId)
         {
             return mapper.Map<TransactionViewModel>(await transactionRepository.GetFinancialTransactionCategoryAsync(id, userId));
+        }
+
+        private Guid GetUserId()
+        {
+            return Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
         }
     }
 }

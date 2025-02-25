@@ -60,7 +60,6 @@ namespace ProFin.Data.Context
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(a => a.Id);
-
             builder.ToTable("Users");
         }
     }
@@ -70,10 +69,17 @@ namespace ProFin.Data.Context
         public void Configure(EntityTypeBuilder<FinancialTransaction> builder)
         {
             builder.HasKey(a => a.Id);
-
             builder.ToTable("FinancialTransactions");
 
-            builder.HasOne(c => c.CategoryFinancialTransaction);
+            builder.HasOne(ft => ft.CategoryFinancialTransaction)
+                   .WithMany()
+                   .HasForeignKey(ft => ft.CategoryFinancialTransactionId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(ft => ft.User)
+                  .WithMany()
+                  .HasForeignKey(ft => ft.UserId)
+                  .OnDelete(DeleteBehavior.Cascade);
         }
     }
 
@@ -82,8 +88,12 @@ namespace ProFin.Data.Context
         public void Configure(EntityTypeBuilder<CategoryFinancialTransaction> builder)
         {
             builder.HasKey(a => a.Id);
-
             builder.ToTable("CategoriesTransaction");
+
+            builder.HasOne(ct => ct.User)
+                 .WithMany()
+                 .HasForeignKey(ct => ct.UserId)
+                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
     public class BudgetConfiguration : IEntityTypeConfiguration<Budget>
@@ -91,11 +101,17 @@ namespace ProFin.Data.Context
         public void Configure(EntityTypeBuilder<Budget> builder)
         {
             builder.HasKey(b => b.Id);
+            builder.ToTable("Budgets");
+
             builder.HasOne(b => b.CategoryTransaction)
                    .WithMany()
-                   .HasForeignKey(b => b.CategoryTransactionId);
+                   .HasForeignKey(b => b.CategoryTransactionId)
+                   .OnDelete(DeleteBehavior.Cascade);
 
-            builder.ToTable("Budgets");
+            builder.HasOne(b => b.User)
+                   .WithMany()
+                   .HasForeignKey(b => b.UserId)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

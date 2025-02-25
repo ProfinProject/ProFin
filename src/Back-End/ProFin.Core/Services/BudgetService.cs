@@ -8,7 +8,7 @@ namespace ProFin.Core.Services
     public class BudgetService : BaseService, IBudgetService
     {
         private readonly IBudgetRepository _budgetRepository;
-
+        
         public BudgetService(IBudgetRepository budgetRepository,
                              INotifier notifier) : base(notifier)
         {

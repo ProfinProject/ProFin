@@ -45,11 +45,12 @@ namespace ProFin.API.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return CustomResponse(ModelState);
             }
 
             var budget = mapper.Map<Budget>(budgetViewModel);
             var userId = GetUserId();
+            budget.UserId = userId;
             await budgetService.Insert(budget, userId);
 
             return CreatedAtAction(nameof(GetById), new { id = budget.Id }, budgetViewModel);
@@ -71,6 +72,7 @@ namespace ProFin.API.Controllers
 
             var budget = mapper.Map<Budget>(budgetViewModel);
             var userId = GetUserId();
+            budget.UserId = userId;
             await budgetService.Update(budget, userId);
 
             return CustomResponse(budgetViewModel);

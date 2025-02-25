@@ -4,15 +4,20 @@ using ProFin.API.ViewModel;
 using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
+using ProFin.Core.Services;
+using ProFin.Data.Repositories;
 using System.Security.Claims;
 
 namespace ProFin.API.Controllers;
 
+[Route("api/[controller]")]
+[ApiController]
 public class CategoryTransactionController(
         ICategoryTransactionRepository categoryCategoryRepository,
         IMapper mapper,
         INotifier notifier,
-        ICategoryService categoryService
+        ICategoryService categoryService,
+        IUserRepository userRepository
         ) : MainController(notifier)
 {
     private Guid GetUserId()
@@ -31,7 +36,6 @@ public class CategoryTransactionController(
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<CategoryTransactionViewModel>> GetById(Guid id)
     {
-
         var userId = GetUserId();
         var transaction = mapper.Map<CategoryTransactionViewModel>(await categoryCategoryRepository.GetById(userId, id));
 
@@ -46,7 +50,17 @@ public class CategoryTransactionController(
         if (!ModelState.IsValid) return CustomResponse(ModelState);
 
         var userId = GetUserId();
-        await categoryService.Insert(userId, mapper.Map<CategoryFinancialTransaction>(categoryTransactionViewModel));
+
+        var user = await userRepository.GetById(userId);
+        if (user == null)
+        {
+            return BadRequest("Usuário não encontrado.");
+        }
+
+        var categoryTransaction = mapper.Map<CategoryFinancialTransaction>(categoryTransactionViewModel);
+        categoryTransaction.UserId = userId;
+
+        await categoryService.Insert(userId, categoryTransaction);
 
         return CustomResponse(categoryTransactionViewModel);
     }
@@ -63,7 +77,18 @@ public class CategoryTransactionController(
         if (!ModelState.IsValid) return CustomResponse(ModelState);
 
         var userId = GetUserId();
-        await categoryService.Update(userId, mapper.Map<CategoryFinancialTransaction>(transactionViewModel));
+
+        // Verifica se o usuário existe
+        var user = await userRepository.GetById(userId);
+        if (user == null)
+        {
+            return BadRequest("Usuário não encontrado.");
+        }
+
+        var categoryTransaction = mapper.Map<CategoryFinancialTransaction>(transactionViewModel);
+        categoryTransaction.UserId = userId;
+
+        await categoryService.Update(userId, categoryTransaction);
 
         return CustomResponse(transactionViewModel);
     }
@@ -76,6 +101,14 @@ public class CategoryTransactionController(
         if (transactionViewModel == null) return NotFound();
 
         var userId = GetUserId();
+
+        // Verifica se o usuário existe
+        var user = await userRepository.GetById(userId);
+        if (user == null)
+        {
+            return BadRequest("Usuário não encontrado.");
+        }
+
         await categoryService.Delete(userId, id);
 
         return CustomResponse(transactionViewModel);

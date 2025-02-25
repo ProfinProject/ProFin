@@ -44,12 +44,20 @@ export class CategoriesReportComponent implements OnInit {
   };
 
   groupedReports: { [key: string]: { category: CategoryTransactionReport; transactions: TransactionReport[]; totalValue: number } } = {};
+  startedDate: string;
 
   constructor(
-    private reportsService: ReportsService,
-    private categoryService: CategoryService,
-    private toastr: ToastrService
-  ) { }
+    private reportsService: ReportsService
+  ) {
+    this.startedDate = this.getStartedDate();
+  }
+
+  private getStartedDate() {
+    const dateSixMonthsAgo = new Date();
+    dateSixMonthsAgo.setMonth(dateSixMonthsAgo.getMonth() - 6);
+    const formattedDate = dateSixMonthsAgo.toISOString().split('T')[0];
+    return formattedDate;
+  }
 
   ngOnInit(): void {
     const dateSixMonthsAgo = new Date();
@@ -66,6 +74,7 @@ export class CategoriesReportComponent implements OnInit {
   processFail(error: any): void { }
 
   processTransactions(response: TransactionReport[]): void {
+    this.groupedReports = {};
     response.forEach(transaction => {
       const categoryName = transaction.categoryFinancialTransaction.name;
 
@@ -98,6 +107,7 @@ export class CategoriesReportComponent implements OnInit {
     this.chartLabels = this.chartData.map(item => item.category);
     this.chartValues = this.chartData.map(item => item.totalValue);
 
+    console.log('test');
     this.pieChartData = {
       labels: Object.keys(this.groupedReports).map((categoryName) => {
         const report = this.groupedReports[categoryName as keyof GroupedReports];
@@ -121,6 +131,20 @@ export class CategoriesReportComponent implements OnInit {
 
   generateRandomColor() {
     return '#' + Math.floor(Math.random() * 16777215).toString(16);
+  }
+
+  onDateChange() {
+    console.log(this.startedDate);
+
+    this.reportsService.getTransactionsSince(this.startedDate)
+      .subscribe({
+        next: (response) => this.processTransactions(response),
+        error: (error) => this.processFail(error)
+      });
+  }
+
+  printPage() {
+    window.print(); // Chama a impressão após o tempo para garantir a renderização
   }
 
   ngAfterViewInit() { }

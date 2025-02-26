@@ -7,40 +7,39 @@ import { fromEvent, merge, Observable } from 'rxjs';
 import { Guid } from 'guid-typescript';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormBaseComponent } from '../../base-components/form-base.component';
 
 @Component({
   selector: 'app-create-category',
   standalone: true,
   templateUrl: './create-category.component.html',
   imports: [
-      CommonModule,
-      ReactiveFormsModule,
-      RouterModule
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule
   ]
 })
 
-export class CreateCategoryComponent implements OnInit, AfterViewInit{
+export class CreateCategoryComponent extends FormBaseComponent implements OnInit, AfterViewInit {
 
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements!: ElementRef[];
   public category: Category;
   creationForm!: FormGroup;
-  validationMessages: ValidationMessages;
-  genericValidator: GenericValidator;
-  displayMessage: DisplayMessage = {};
   errorMessage: string = '';
 
   constructor(private categoryService: CategoryService, private fb: FormBuilder, private router: Router) {
-      this.category = new Category();
-      this.validationMessages = {
-        name: {
-          required: 'The name is required',
-        },
-        description: {
-          required: 'The description is required',
-        },
-      };
-  
-      this.genericValidator = new GenericValidator(this.validationMessages);
+    super();
+    this.category = new Category();
+    this.validationMessages = {
+      name: {
+        required: 'The name is required',
+      },
+      description: {
+        required: 'The description is required',
+      },
+    };
+
+    super.configureValidationMessagesBase(this.validationMessages);
   }
 
   ngOnInit(): void {
@@ -51,15 +50,11 @@ export class CreateCategoryComponent implements OnInit, AfterViewInit{
   }
 
   ngAfterViewInit(): void {
-    let controlBlurs: Observable<any>[] = this.formInputElements
-    .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));
+    super.configureFormValidationBase(this.formInputElements, this.creationForm);
 
-    merge(...controlBlurs).subscribe(() => {
-      this.displayMessage = this.genericValidator.processMessages(this.creationForm);
-    });
   }
 
-  addCategory(){
+  addCategory() {
     if (this.creationForm.dirty && this.creationForm.valid) {
       this.category = Object.assign({}, this.category, this.creationForm.value);
       this.category.id = Guid.create().toString();
@@ -67,7 +62,7 @@ export class CreateCategoryComponent implements OnInit, AfterViewInit{
     }
   }
 
-  saveCategory(){
+  saveCategory() {
     this.categoryService.insertCategory(this.category)
       .subscribe({
         next: response => {
@@ -80,5 +75,8 @@ export class CreateCategoryComponent implements OnInit, AfterViewInit{
           this.errorMessage = e.error.errors[0];
         }
       })
+
+    this.unsavedChanges = false;
+
   }
 }

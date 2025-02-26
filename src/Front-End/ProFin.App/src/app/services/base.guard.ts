@@ -1,12 +1,21 @@
-import { Router, ActivatedRouteSnapshot } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, CanDeactivate } from '@angular/router';
 import { LocalStorageUtils } from '../Utils/localstorage';
+import { FormBaseComponent } from '../base-components/form-base.component';
 
 
-export abstract class BaseGuard {
+export abstract class BaseGuard implements CanDeactivate<FormBaseComponent> {
 
-    private localStorageUtils = new LocalStorageUtils();
+    protected localStorageUtils = new LocalStorageUtils();
 
     constructor(protected router: Router) { }
+
+    canDeactivate(component: FormBaseComponent) {
+        if (component.unsavedChanges) {
+            return window.confirm('Tem certeza que deseja abandonar o preenchimento do formulario?');
+        }
+
+        return true
+    }
 
     protected validateClaims(routeAc: ActivatedRouteSnapshot): boolean {
 

@@ -10,8 +10,8 @@ export const FinancialTransactionRoutes: Routes = [
     component: FinancialTransactionAppComponent,
     children: [
       { path: '', component: FinancialTransactionListComponent, canActivate: [FinancialTransactionsGuard] },
-      { path: 'create', component: FinancialTransactionFormComponent, canActivate: [FinancialTransactionsGuard]  },
-      { path: 'edit/:id', component: FinancialTransactionFormComponent, canActivate: [FinancialTransactionsGuard]  }
+      { path: 'create', component: FinancialTransactionFormComponent, canActivate: [FinancialTransactionsGuard], canDeactivate: [FinancialTransactionsGuard] },
+      { path: 'edit/:id', component: FinancialTransactionFormComponent, canActivate: [FinancialTransactionsGuard] }
     ]
   }
 ];

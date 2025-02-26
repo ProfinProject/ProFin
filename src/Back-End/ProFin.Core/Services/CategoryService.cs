@@ -28,12 +28,15 @@ namespace ProFin.Core.Services
         {
             var entity = await categoryTransactionRepository.GetById(id);
 
-            if(entity == null)
+            if (entity == null)
                 Notifie("Registro não encontrado!");
             else if (entity.IsPattern)
                 Notifie("Você não pode deletar uma categoria padrão");
-            else if(entity != null && entity.CreatedDate != DateTime.MinValue && !entity.IsPattern)
+            else if (entity != null && entity.CreatedDate != DateTime.MinValue && !entity.IsPattern)
+            {
                 await categoryTransactionRepository.Delete(entity);
+                await categoryTransactionRepository.MoveTransactionsToCategoryAsync(entity.Id);
+            }
         }
 
         public void Dispose()

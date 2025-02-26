@@ -68,4 +68,12 @@ public class CategoryTransactionController(
 
         return CustomResponse(transactionViewModel);
     }
+
+    [HttpPut("Move/{id:guid}")]
+    public async Task<ActionResult> MoveForOthers(Guid id)
+    {
+        await categoryCategoryRepository.MoveTransactionsToCategoryAsync(id);
+
+        return CustomResponse();
+    }
 }

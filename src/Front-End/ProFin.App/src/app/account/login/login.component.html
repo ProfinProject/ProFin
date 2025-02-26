@@ -1,10 +1,9 @@
-<div class="container main-container">
-    <h1>Login</h1>
+<div class=" main-container container container-login">
+    <h1 class="container-login-h1">Login</h1>
 
-    <form novalidate (ngSubmit)="login()" [formGroup]="loginForm">
+    <form novalidate (ngSubmit)="login()" class="" [formGroup]="loginForm">
 
-        <h4>Entre na sua conta</h4>
-        <hr>
+
 
         <div class="alert alert-danger" *ngIf="errors.length > 0">
             <h3 id="msgRetorno">Opa! Alguma coisa não deu certo:</h3>
@@ -15,8 +14,8 @@
 
         <div class="form-group">
             <label class="col-md-2 control-label">E-mail</label>
-            <div class="col-md-10">
-                <input class="form-control" id="email" type="text" placeholder="E-mail (requerido)"
+            <div class="col-md-12">
+                <input class="form-control container-login-input" id="email" type="text" placeholder="Favor preencher E-mail"
                     formControlName="email" [ngClass]="{'is-invalid': displayMessage['email'] }" />
                 <span class="text-danger" *ngIf="displayMessage['email']">
                     <p [innerHTML]="displayMessage['email']"></p>
@@ -26,8 +25,8 @@
 
         <div class="form-group">
             <label class="col-md-2 control-label">Senha</label>
-            <div class="col-md-10">
-                <input class="form-control" id="password" type="password" placeholder="Senha (requerido)"
+            <div class="col-md-12">
+                <input class="form-control container-login-input" id="password" type="password" placeholder="Favor preencher Senha"
                     formControlName="password" [ngClass]="{'is-invalid': displayMessage['password'] }" />
                 <span class="text-danger" *ngIf="displayMessage['password']">
                     <p [innerHTML]="displayMessage['password']"></p>
@@ -36,9 +35,9 @@
         </div>
         <br>
         <div class="form-group">
-            <div class="col-md-4 col-md-offset-2">
-                <span><button class="btn btn-success" id="Login" [disabled]="!loginForm.valid"
-                        type="submit">Login</button></span>
+            <div class="col-12 ">
+                <span><button class="btn btn-success container-login-bt" id="Login" [disabled]="!loginForm.valid"
+                        type="submit">ENTRAR</button></span>
             </div>
         </div>
         <br>

@@ -1,45 +1,51 @@
 <html>
-    <h2>Criar Categoria</h2>
-    <body class="bd-light">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 order-md-1">
-                    <div *ngIf="errorMessage" class="alert alert-danger">
-                        {{ errorMessage }}
-                    </div>    
-                    <form class="needs-validation" [formGroup]="creationForm" (ngSubmit)="addCategory()">
-                        <div class="mb-4">
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="name">
-                                    Name
-                                </label>
-                                <input type="text" class="form-control" id="name" placeholder="Name (required)" formControlName="name" [ngClass]="{'is-invalid': displayMessage.name }">
-                                <span class="text-danger" *ngIf="displayMessage.name">
-                                    <p [innerHTML]="displayMessage.name"></p>
-                                </span>
-                            </div>
-                            <div class="mb-3">
-                                <label for="Description">
-                                    Description
-                                </label>
-                                <input type="text" class="form-control" id="description" placeholder="description (required)" formControlName="description" [ngClass]="{'is-invalid': displayMessage.description }">
-                                <span class="text-danger" *ngIf="displayMessage.description">
-                                    <p [innerHTML]="displayMessage.description"></p>
-                                </span>
-                            </div>
-                        </div>
-                        <hr class="mb-4">
-                        <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary" [disabled]="!creationForm.valid">
-                                Criar
-                            </button>
-                        </div>
-                        <br>
-                    </form>
+<h2>Criar Categoria</h2>
+
+<body class="bd-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 order-md-1">
+                <div *ngIf="errorMessage" class="alert alert-danger">
+                    {{ errorMessage }}
                 </div>
+                <form class="needs-validation" [formGroup]="creationForm" (ngSubmit)="addCategory()">
+                    <div class="mb-4">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="name">
+                                Name
+                            </label>
+                            <input type="text" class="form-control" id="name" placeholder="Name (required)"
+                                formControlName="name" [ngClass]="{'is-invalid': displayMessage.name }">
+                            <span class="text-danger" *ngIf="displayMessage.name">
+                                <p [innerHTML]="displayMessage.name"></p>
+                            </span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Description">
+                                Description
+                            </label>
+                            <input type="text" class="form-control" id="description"
+                                placeholder="description (required)" formControlName="description"
+                                [ngClass]="{'is-invalid': displayMessage.description }">
+                            <span class="text-danger" *ngIf="displayMessage.description">
+                                <p [innerHTML]="displayMessage.description"></p>
+                            </span>
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary" [disabled]="!creationForm.valid">
+                            Criar
+                        </button>
+                    </div>
+                    <br>
+                </form>
+                <br>
             </div>
         </div>
-    </body>
+    </div>
+</body>
+
 </html>

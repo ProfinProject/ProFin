@@ -45,7 +45,7 @@ namespace ProFin.Core.Services
 
         public async Task<IEnumerable<Budget>> GetAllBudgetsAsync()
         {
-            return await _budgetRepository.GetAll();
+            return await _budgetRepository.GetAll(includes: "CategoryTransaction");
         }
 
         public async Task<Budget> GetBudgetByIdAsync(Guid id)

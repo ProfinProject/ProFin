@@ -31,11 +31,12 @@ export class BudgetListComponent implements OnInit {
     this.budgetService.getBudgets().subscribe({
       next: (budgets: Budget[]) => {
         this.budgets = budgets;
+        console.log(this.budgets);
       },
       error: (error) => {
-        if(error.status == 401)
+        if (error.status == 401)
           this.router.navigate(['/account/login']);
-        else{
+        else {
           console.error('Erro ao carregar orçamentos:', error);
           this.errorMessage = 'Erro ao carregar orçamentos.';
         }

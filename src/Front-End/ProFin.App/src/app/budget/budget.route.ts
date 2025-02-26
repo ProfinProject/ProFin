@@ -11,8 +11,8 @@ export const BudgetRoutes: Routes = [
     component: BudgetAppComponent,
     children: [
       { path: '', component: BudgetListComponent, canActivate: [BudgetsGuard] },
-      { path: 'create', component: BudgetFormComponent, canActivate: [BudgetsGuard] },
-      { path: 'edit/:id', component: BudgetFormComponent, canActivate: [BudgetsGuard] }
+      { path: 'create', component: BudgetFormComponent, canActivate: [BudgetsGuard], canDeactivate: [BudgetsGuard] },
+      { path: 'edit/:id', component: BudgetFormComponent, canActivate: [BudgetsGuard], canDeactivate: [BudgetsGuard] }
     ]
   }
 ];

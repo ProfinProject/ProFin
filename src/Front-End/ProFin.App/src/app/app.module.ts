@@ -19,12 +19,11 @@ import { BudgetService } from './budget/services/budget.service';
 import { FinancialTransactionService } from './financial-transaction/services/financial-transaction.service';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { PanelService } from './panel/services/panel.service';
-import { AuthInterceptor } from './Utils/AuthInterceptor ';
+import { ErrorInterceptor } from './Utils/ErrorInterceptor';
 
-
-// export const httpInterceptorProviders = [
-//   { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-// ];
+export const httpInterceptorProviders = [
+  { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+];
 
 @NgModule({
   declarations: [
@@ -52,7 +51,7 @@ import { AuthInterceptor } from './Utils/AuthInterceptor ';
     FinancialTransactionService,
     PanelService,
     provideAnimationsAsync(),
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, // Registra o interceptor
+    httpInterceptorProviders
 
   ],
   bootstrap: [AppComponent]

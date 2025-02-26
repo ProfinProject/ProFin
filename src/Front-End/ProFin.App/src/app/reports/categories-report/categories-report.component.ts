@@ -5,11 +5,15 @@ import { CategoryService } from '../../category/services/categories.service';
 import { ToastrService } from 'ngx-toastr';
 import { CategoryTransactionReport, TransactionReport } from '../models/transaction-report';
 import { GroupedReports } from '../models/grouped-reports';
+import { ValueFormater } from '../../pipes/ValueFormater.pipe';
 
 @Component({
   selector: 'app-categories-report',
   standalone: false,
-  templateUrl: './categories-report.component.html'
+  templateUrl: './categories-report.component.html',
+  providers: [
+    ValueFormater
+  ]
 })
 export class CategoriesReportComponent implements OnInit {
 
@@ -30,11 +34,13 @@ export class CategoriesReportComponent implements OnInit {
         callbacks: {
           label: function (context) {
             let label = context.dataset.label || '';
+            console.log("test");
+
             if (label) {
               label += ': ';
             }
-            if (context.parsed.y !== null) {
-              label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+            if (context.parsed !== null) {
+              label += new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(context.parsed);
             }
             return label;
           }
@@ -120,11 +126,6 @@ export class CategoriesReportComponent implements OnInit {
         backgroundColor: Object.keys(this.groupedReports).map(() => this.generateRandomColor()),
         hoverBackgroundColor: Object.keys(this.groupedReports).map(() => this.generateRandomColor())
       }]
-    };
-
-    this.pieChartOptions = {
-      responsive: true,
-      maintainAspectRatio: false,
     };
   }
 

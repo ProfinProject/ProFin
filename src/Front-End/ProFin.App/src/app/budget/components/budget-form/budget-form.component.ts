@@ -5,9 +5,9 @@ import { RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BudgetService } from '../../services/budget.service';
-import { Budget } from '../../models/budget.model';
 import { CategoryTransaction } from '../../models/category-transaction.model';
 import { CategoryService } from '../../../category/services/categories.service';
+import { FormBaseComponent } from '../../../base-components/form-base.component';
 
 @Component({
   selector: 'app-budget-form',
@@ -19,7 +19,7 @@ import { CategoryService } from '../../../category/services/categories.service';
     RouterModule
   ]
 })
-export class BudgetFormComponent implements OnInit {
+export class BudgetFormComponent extends FormBaseComponent implements OnInit {
   budgetForm: FormGroup;
   isEditing = false;
   budgetId: string | null = null;
@@ -33,6 +33,7 @@ export class BudgetFormComponent implements OnInit {
     private route: ActivatedRoute,
     private categoryService: CategoryService
   ) {
+    super();
     this.budgetForm = this.fb.group({
       categoryTransactionId: ['', Validators.required],
       limit: ['', [Validators.required, Validators.min(0)]],
@@ -48,6 +49,8 @@ export class BudgetFormComponent implements OnInit {
       this.budgetId = id;
       this.loadBudget(this.budgetId);
     }
+
+    this.unsavedChanges = true;
   }
 
   private loadCategories(): void {
@@ -109,6 +112,8 @@ export class BudgetFormComponent implements OnInit {
           }
         });
       }
+
+      this.unsavedChanges = false;
     }
   }
 }

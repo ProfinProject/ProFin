@@ -14,6 +14,7 @@ internal class Program
         builder
             .AddJwt()
             .AddEF(EDatabases.SQLite)
+            .AddAPIServices()
             .AddRepositories()
             .AddServices()
             .AddAutoMapperConfig()

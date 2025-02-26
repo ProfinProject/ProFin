@@ -7,5 +7,7 @@ namespace ProFin.Core.Interfaces.Services
         Task Insert(CategoryFinancialTransaction categoryFinancialTransaction);
         Task Update(CategoryFinancialTransaction categoryFinancialTransaction);
         Task Delete(Guid id);
+        Task<IEnumerable<CategoryFinancialTransaction>> GetAll();
+        Task<CategoryFinancialTransaction> GetById(Guid id);
     }
 }

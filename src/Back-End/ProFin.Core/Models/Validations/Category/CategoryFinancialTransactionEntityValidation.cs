@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace ProFin.Core.Models.Validations
+namespace ProFin.Core.Models.Validations.Category
 {
     public class CategoryFinancialTransactionEntityValidation : AbstractValidator<CategoryFinancialTransaction>
     {

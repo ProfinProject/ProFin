@@ -1,4 +1,5 @@
-﻿using ProFin.Core.Interfaces.Repositories;
+﻿using ProFin.Core.Interfaces;
+using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
 using ProFin.Core.Models.Validations;
@@ -9,9 +10,8 @@ namespace ProFin.Core.Services
     public class FinancialTransactionService : BaseService, IFinancialTransactionService
     {
         private readonly IFinancialTransactionRepository _transactionRepository;
-
-        public FinancialTransactionService(IFinancialTransactionRepository transactionRepository, INotifier notifier)
-            : base(notifier)
+        public FinancialTransactionService(IFinancialTransactionRepository transactionRepository, INotifier notifier, IAppUserService userService)
+            : base(notifier, userService)
         {
             _transactionRepository = transactionRepository;
         }

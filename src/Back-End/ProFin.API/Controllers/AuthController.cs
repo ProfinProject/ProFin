@@ -26,7 +26,11 @@ namespace ProFin.API.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterUserViewModel model)
         {
-            if (!ModelState.IsValid) return ValidationProblem(ModelState);
+            if (!ModelState.IsValid) return ValidationProblem(ModelState);           
+
+            //Valida primeiro que todos os dados obrigatorios foram informados, antes de gerar um usuario invalido no identity
+            _userService.ValidateUser(Core.Models.User.Create(Guid.Empty, model.Email, model.FirstName, model.LastName, model.Birthdate));
+            if (IsValid() == false) return CustomResponse(model);
 
             var user = new IdentityUser<Guid>
             {
@@ -35,12 +39,10 @@ namespace ProFin.API.Controllers
                 EmailConfirmed = true
             };
 
-            await _userService.Create(Core.Models.User.Create(user.Id, user.Email, model.FirstName, model.LastName, model.Birthdate));
-            if (IsValid() == false) return CustomResponse(model);
-
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded == true)
             {
+                await _userService.Create(Core.Models.User.Create(user.Id, user.Email, model.FirstName, model.LastName, model.Birthdate));
                 await _signInManager.SignInAsync(user, false);
                 return CustomResponse(await GetJwt(user.Email));
             }
@@ -87,7 +89,7 @@ namespace ProFin.API.Controllers
             userClaims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
             userClaims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()));
             userClaims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
-            userClaims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
+            userClaims.Add(new Claim(JwtRegisteredClaimNames.Jti, user.Id.ToString()));
             userClaims.Add(new Claim(JwtRegisteredClaimNames.Nbf, ToUnixEpochDate(DateTime.UtcNow).ToString()));
             userClaims.Add(new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(DateTime.UtcNow).ToString(), ClaimValueTypes.Integer64));
 

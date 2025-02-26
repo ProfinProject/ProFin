@@ -1,4 +1,5 @@
-﻿using ProFin.Core.Interfaces.Repositories;
+﻿using ProFin.Core.Interfaces;
+using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
 using ProFin.Core.Models.Validations;
@@ -10,7 +11,7 @@ namespace ProFin.Core.Services
         private readonly IBudgetRepository _budgetRepository;
 
         public BudgetService(IBudgetRepository budgetRepository,
-                             INotifier notifier) : base(notifier)
+                             INotifier notifier, IAppUserService userService) : base(notifier, userService)
         {
             _budgetRepository = budgetRepository;
         }

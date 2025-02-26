@@ -21,18 +21,18 @@ public class CategoryTransactionController(
     [HttpGet]
     public async Task<IEnumerable<CategoryTransactionViewModel>> GetAll()
     {
-        var result = mapper.Map<IEnumerable<CategoryTransactionViewModel>>(await categoryCategoryRepository.GetAll());
-        return result;
+        var result = mapper.Map<IEnumerable<CategoryTransactionViewModel>>(await categoryService.GetAll());
+        return result; //TODO alterar para custom response
     }
 
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<CategoryTransactionViewModel>> GetById(Guid id)
     {
-        var transaction = mapper.Map<CategoryTransactionViewModel>(await categoryCategoryRepository.GetById(id));
+        var transaction = mapper.Map<CategoryTransactionViewModel>(await categoryService.GetById(id));
 
         if (transaction == null) return NotFound();
 
-        return transaction;
+        return transaction; //TODO alterar para custom response
     }
 
     [HttpPost]
@@ -41,7 +41,6 @@ public class CategoryTransactionController(
         if (!ModelState.IsValid) return CustomResponse(ModelState);
 
         var categoryTransaction = mapper.Map<CategoryFinancialTransaction>(categoryTransactionViewModel);
-        categoryTransaction.UserId = GetUserId();
         await categoryService.Insert(categoryTransaction);
 
         return CustomResponse(categoryTransactionViewModel);
@@ -61,24 +60,18 @@ public class CategoryTransactionController(
         var categoryTransaction = mapper.Map<CategoryFinancialTransaction>(transactionViewModel);
 
         await categoryService.Update(categoryTransaction);
-
         return CustomResponse(transactionViewModel);
     }
 
     [HttpDelete("{id:guid}")]
     public async Task<ActionResult<CategoryTransactionViewModel>> Delete(Guid id)
     {
-        var transactionViewModel = mapper.Map<CategoryTransactionViewModel>(await categoryCategoryRepository.GetById(id));
+        var transaction = await categoryCategoryRepository.GetById(id);
 
-        if (transactionViewModel == null) return NotFound();
+        if (transaction == null) return NotFound();
 
         await categoryService.Delete(id);
 
-        return CustomResponse(transactionViewModel);
-    }
-
-    private Guid GetUserId()
-    {
-        return Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToUpper());
+        return CustomResponse(mapper.Map<CategoryTransactionViewModel>(transaction));
     }
 }

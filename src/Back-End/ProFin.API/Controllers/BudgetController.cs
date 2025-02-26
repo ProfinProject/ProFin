@@ -16,14 +16,14 @@ namespace ProFin.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BudgetViewModel>>> GetAll()
         {
-            var budgets = await budgetService.GetAllBudgetsAsync();
+            var budgets = await budgetService.GetAll();
             return Ok(mapper.Map<IEnumerable<BudgetViewModel>>(budgets));
         }
 
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<BudgetViewModel>> GetById(Guid id)
         {
-            var budget = await budgetService.GetBudgetByIdAsync(id);
+            var budget = await budgetService.GetById(id);
             if (budget == null)
             {
                 return NotFound();

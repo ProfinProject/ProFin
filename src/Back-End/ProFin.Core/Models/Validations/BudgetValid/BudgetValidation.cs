@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 
 
-namespace ProFin.Core.Models.Validations
+namespace ProFin.Core.Models.Validations.BudgetValid
 {
     public class BudgetValidation : AbstractValidator<Budget>
     {

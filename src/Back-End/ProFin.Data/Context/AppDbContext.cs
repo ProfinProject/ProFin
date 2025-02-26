@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ProFin.Core.Interfaces;
 using ProFin.Core.Models;
 using System.Security.Claims;
 
@@ -11,10 +12,12 @@ namespace ProFin.Data.Context
     public class AppDbContext : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IAppUserService _userService;
 
-        public AppDbContext(DbContextOptions<AppDbContext> options, IHttpContextAccessor httpContextAccessor) : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options, IHttpContextAccessor httpContextAccessor, IAppUserService userService) : base(options)
         {
             _httpContextAccessor = httpContextAccessor;
+            _userService = userService;
         }
 
         public DbSet<FinancialTransaction> FinancialTransactions { get; set; }
@@ -31,8 +34,8 @@ namespace ProFin.Data.Context
             builder.ApplyConfiguration(new BudgetConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
 
-            var userId = GetUserId();
-            if (userId != Guid.Empty)
+            var userId = _userService.GetId();
+            if (userId.HasValue && userId.Value != Guid.Empty)
             {
                 builder.Entity<FinancialTransaction>().HasQueryFilter(ft => ft.UserId == userId);
                 builder.Entity<CategoryFinancialTransaction>().HasQueryFilter(ct => ct.UserId == userId);

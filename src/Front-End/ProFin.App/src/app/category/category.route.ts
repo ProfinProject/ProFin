@@ -11,8 +11,8 @@ export const CategoryRoutes: Routes = [
     component: CategoryAppComponent,
     children: [
       { path: '', component: ListCategoryComponent, canActivate: [CategoriesGuard] },
-      { path: 'create', component: CreateCategoryComponent, canActivate: [CategoriesGuard]  },
-      { path: 'edit/:id', component: EditCategoryComponent, canActivate: [CategoriesGuard]  }
+      { path: 'create', component: CreateCategoryComponent, canActivate: [CategoriesGuard], canDeactivate: [CategoriesGuard] },
+      { path: 'edit/:id', component: EditCategoryComponent, canActivate: [CategoriesGuard], canDeactivate: [CategoriesGuard] }
     ]
   }
 ];

@@ -8,6 +8,7 @@ import { FinancialTransactionService } from '../../services/financial-transactio
 import { CategoryService } from '../../../category/services/categories.service';
 import { FinancialTransaction } from '../../models/financial-transaction.model';
 import { CategoryTransaction } from '../../models/category-transaction.model';
+import { FormBaseComponent } from '../../../base-components/form-base.component';
 
 @Component({
   selector: 'app-financial-transaction-form',
@@ -19,7 +20,7 @@ import { CategoryTransaction } from '../../models/category-transaction.model';
     RouterModule
   ]
 })
-export class FinancialTransactionFormComponent implements OnInit {
+export class FinancialTransactionFormComponent extends FormBaseComponent implements OnInit {
   financialTransactionForm: FormGroup;
   isEditing = false;
   financialTransactionId: string | null = null;
@@ -33,11 +34,14 @@ export class FinancialTransactionFormComponent implements OnInit {
     private route: ActivatedRoute,
     private categoryService: CategoryService
   ) {
+
+    super();
     this.financialTransactionForm = this.fb.group({
       description: ['', Validators.required],
       categoryFinancialTransactionId: ['', Validators.required],
       value: [0]
     });
+
   }
 
   ngOnInit(): void {
@@ -50,6 +54,7 @@ export class FinancialTransactionFormComponent implements OnInit {
 
     }
 
+    this.unsavedChanges = true;
     //Todo: Colocar duas casas decimais no campo de valor
     // this.financialTransactionForm.get('value')?.valueChanges.subscribe(value => {
     //   if (value !== null && value !== undefined) {
@@ -122,6 +127,8 @@ export class FinancialTransactionFormComponent implements OnInit {
           }
         });
       }
+
+      this.unsavedChanges = false;
     }
   }
 }

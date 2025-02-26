@@ -3,6 +3,21 @@
 html,
 body {
     height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+app-root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Garante que a altura mínima seja 100% da tela */
+}
+
+.content-container {
+    flex: 1;
+    /* Faz com que o conteúdo principal ocupe o espaço disponível */
 }
 
 body {
@@ -10,45 +25,51 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 
 }
-.logo{
+
+.logo {
     width: 4%;
     margin: 9px;
 }
-.logo-fin{
- color:#02a102;
+
+.logo-fin {
+    color: #02a102;
 }
-.btn-entrar{
+
+.btn-entrar {
     background-color: white !important;
     border: none !important;
-    outline: none!important;
-    border: 2px solid #00800080!important;
+    outline: none !important;
+    border: 2px solid #00800080 !important;
     color: #008000 !important;
     width: 125px !important;
     margin: 0px !important;
 }
-.btn-entrar:hover{
- background-color: #279c27 !important;
- color: white !important;
- border: 2px solid #88f08880!important;
+
+.btn-entrar:hover {
+    background-color: #279c27 !important;
+    color: white !important;
+    border: 2px solid #88f08880 !important;
 
 }
-.icon-default-color{
+
+.icon-default-color {
     color: #279c27 !important;
 }
-.banner{
+
+.banner {
     height: 500px !important;
     background-color: #00000017 !important;
 
 }
 
-.banner-logo{
+.banner-logo {
     height: 254px;
     border-radius: 1px 53px 3px 53px;
     box-shadow: 16px 13px 10px rgb(13 89 47 / 20%);
 }
 
 
-.plus-and-equals{
+.plus-and-equals {
     margin: auto;
     font-size: 81pt;
     margin: 0px;
@@ -56,29 +77,35 @@ body {
     margin-top: 48px;
     color: #0b9b0b87;
 }
-.frase-banner{
+
+.frase-banner {
     text-align: center;
     font-size: 17pt;
 }
 
-.frasedestaque{
+.frasedestaque {
     color: #23c723;
 }
 
-.footer {
-    background-color:#04a5097d;
+
+
+app-footer {
+    background-color: #04a5097d;
     color: white;
     padding: 20px 0;
     text-align: center;
-  }
-  
-  .footer .footer-content {
+    margin-top: auto;
+    /* Empurra o footer para o final */
+}
+
+
+.footer .footer-content {
     max-width: 1200px;
     margin: 0 auto;
     padding: 10px;
-  }
-  
-  .footer .footer-links {
+}
+
+.footer .footer-links {
     list-style: none;
     padding: 0;
-  }
+}

@@ -22,7 +22,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let budget of budgets">
-        <td>{{ budget.categoryTransactionId }}</td>
+        <td>{{ budget.categoryTransaction.name }}</td>
         <td>{{ budget.limit | currency:'BRL' }}</td>
         <td>{{ budget.currentSpending | currency:'BRL' }}</td>
         <td>

@@ -12,6 +12,12 @@ namespace ProFin.Core.Models.Validations.BudgetValid
 
             RuleFor(b => b.Limit)
                 .GreaterThan(0).WithMessage("O campo {PropertyName} deve ser maior que zero.");
+
+            RuleFor(b => b.Limit)
+              .GreaterThanOrEqualTo(b => b.CurrentSpending).WithMessage("O limite deve ser maior ou igual que o gasto atual.");
+
+            RuleFor(b => b.CurrentSpending)
+            .GreaterThan(0).WithMessage("O campo {PropertyName} deve ser maior que zero.");
         }
     }
 }

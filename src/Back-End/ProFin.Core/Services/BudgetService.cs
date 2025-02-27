@@ -82,11 +82,10 @@ namespace ProFin.Core.Services
         {
             var budget = await _budgetRepository.GetById(id);
 
-            if (!_userService.IsAuthenticated())
-            {
-                Notifie("Categoria só pode ser alterada por um usuário autenticado");
-                return;
-            }
+        public async Task<IEnumerable<Budget>> GetAllBudgetsAsync()
+        {
+            return await _budgetRepository.GetAll(includes: "CategoryTransaction");
+        }
 
             if (budget == null)
             {

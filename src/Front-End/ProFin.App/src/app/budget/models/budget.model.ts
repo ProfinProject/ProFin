@@ -4,4 +4,9 @@ export interface Budget {
   limit: number;
   currentSpending: number;
   remainingBudget: number;
+  categoryTransaction: Category;
+}
+
+export interface Category {
+  name: string;
 }

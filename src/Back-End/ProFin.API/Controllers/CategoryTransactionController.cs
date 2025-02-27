@@ -76,4 +76,12 @@ public class CategoryTransactionController(
 
         return CustomResponse();
     }
+
+    [HttpGet("HasTransaction/{id:guid}")]
+    public async Task<bool> HasTransaction(Guid id)
+    {
+        bool hasTransaction = await categoryCategoryRepository.HasTransactionsAsync(id);
+
+        return hasTransaction;
+    }
 }

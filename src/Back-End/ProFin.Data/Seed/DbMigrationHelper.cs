@@ -139,7 +139,16 @@ namespace ProFin.Data.Seed
                         Deleted = false,
                         UpdatedDate = DateTime.Now,
                         IsPattern = true
-                    }
+                    },
+                    new()
+                    {
+                        Name = "Outros",
+                        Description = "Gastos não específicos",
+                        CreatedDate = DateTime.Now,
+                        Deleted = false,
+                        UpdatedDate = DateTime.Now,
+                        IsPattern = true
+                    },
                 ];
 
                 await context.CategoryTransactions.AddRangeAsync(categories);

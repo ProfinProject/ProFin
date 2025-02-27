@@ -1,0 +1,13 @@
+<div class="card shadow-sm">
+    <div class="nav-link text-dark" class="panel-header" [routerLink]="['/category' ]"><i class="fa-solid fa-layer-group p-1 icon-white-color"></i>{{ panel.titlePlural }}</div>
+    <div class="card-body">
+    <p class="card-text">Em <b>{{ panel.quantity }}</b> {{ panel.titlePlural }}</p>
+    <p class="card-text"><b>R$ {{ panel.totalValue }}</b> gastos entre elas</p>
+    <p class="card-text"><b>{{panel.mostConsumed}}</b> {{ panel.description }}</p>
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group">
+        <button type="button" class="btn btn-sm btn-outline-secondary" [routerLink]="['/category']">View</button>
+        </div>
+    </div>
+    </div>
+</div>

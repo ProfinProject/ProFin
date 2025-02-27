@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ProFin.API.ViewModel;
-using ProFin.API.ViewModels;
 using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
@@ -68,5 +67,21 @@ public class CategoryTransactionController(
         await categoryService.Delete(id);
 
         return CustomResponse(transactionViewModel);
+    }
+
+    [HttpPut("Move/{id:guid}")]
+    public async Task<ActionResult> MoveForOthers(Guid id)
+    {
+        await categoryCategoryRepository.MoveTransactionsToCategoryAsync(id);
+
+        return CustomResponse();
+    }
+
+    [HttpGet("HasTransaction/{id:guid}")]
+    public async Task<bool> HasTransaction(Guid id)
+    {
+        bool hasTransaction = await categoryCategoryRepository.HasTransactionsAsync(id);
+
+        return hasTransaction;
     }
 }

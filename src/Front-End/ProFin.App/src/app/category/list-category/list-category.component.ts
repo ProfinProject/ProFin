@@ -10,6 +10,7 @@ import { Router, RouterLink } from '@angular/router';
   templateUrl: './list-category.component.html',
   imports: [CommonModule, RouterLink]
 })
+
 export class ListCategoryComponent implements OnInit {
   constructor(private categoryService: CategoryService, private router:Router) {}
 
@@ -39,7 +40,31 @@ export class ListCategoryComponent implements OnInit {
   }
 
   onDelete(id: string): void {
+    this.categoryService.hasTransactions(id).subscribe({
+      next: (hasTransaction) => {
+        if(hasTransaction)
+        {
+          if (confirm('Essa categoria possui transações, se você deletar as transações serão movidas para a categoria "Outros" deseja continuar?')) {
+            this.delete(id);
+          };
+        }
+      },
+      error: (error) => {
+        console.error('Erro ao excluir categoria:', error);
+        this.errorMessage = 'Erro ao excluir categoria:' + error;
+      }
+    })
+
+  
+  }
+
+  popupDeleQuestion(id: string): void{
     if (confirm('Tem certeza que deseja excluir esta categoria?')) {
+        this.delete(id);
+      };
+   }
+
+    delete(id: string): void{
       this.categoryService.deleteCategory(id).subscribe({
         next: () => {
           console.log('Categoria excluído com sucesso');
@@ -47,9 +72,8 @@ export class ListCategoryComponent implements OnInit {
         },
         error: (error) => {
           console.error('Erro ao excluir categoria:', error);
-          this.errorMessage = 'Erro ao excluir categoria. Por favor, tente novamente.';
+          this.errorMessage = 'Erro ao excluir categoria:' + error;
         }
       });
     }
-  }
 }

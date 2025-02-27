@@ -1,0 +1,10 @@
+.panel-header{
+    background: #5eb256;
+    height: 50px;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    line-height: 45px;
+    color: white;
+    cursor: pointer;
+}

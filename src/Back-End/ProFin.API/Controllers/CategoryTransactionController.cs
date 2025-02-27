@@ -74,4 +74,20 @@ public class CategoryTransactionController(
 
         return CustomResponse(mapper.Map<CategoryTransactionViewModel>(transaction));
     }
+
+    [HttpPut("Move/{id:guid}")]
+    public async Task<ActionResult> MoveForOthers(Guid id)
+    {
+        await categoryCategoryRepository.MoveTransactionsToCategoryAsync(id);
+
+        return CustomResponse();
+    }
+
+    [HttpGet("HasTransaction/{id:guid}")]
+    public async Task<bool> HasTransaction(Guid id)
+    {
+        bool hasTransaction = await categoryCategoryRepository.HasTransactionsAsync(id);
+
+        return hasTransaction;
+    }
 }

@@ -79,16 +79,15 @@ namespace ProFin.Core.Services
         {
             var entity = await _categoryTransactionRepository.GetById(id);
 
-            if (_userService.IsAuthenticated() == false)
+            if (entity == null)
+                Notifie("Registro não encontrado!");
+            else if (entity.IsPattern)
+                Notifie("Você não pode deletar uma categoria padrão");
+            else if (entity != null && entity.CreatedDate != DateTime.MinValue && !entity.IsPattern)
             {
-                Notifie("Categoria só pode ser alterada por um usuário autenticado");
-                return;
+                await categoryTransactionRepository.Delete(entity);
+                await categoryTransactionRepository.MoveTransactionsToCategoryAsync(entity.Id);
             }
-
-            if (!ExecuteValidation(new UpdateCategoryFinancialTransactionEntityValidation(_userService.GetId().GetValueOrDefault()),
-                entity)) return;
-
-            await _categoryTransactionRepository.Delete(entity);
         }
 
         public void Dispose()

@@ -99,57 +99,61 @@ namespace ProFin.Data.Seed
 
             if (!context.CategoryTransactions.Any())
             {
-                IEnumerable<CategoryFinancialTransaction> categories = new[]
-                {
-            new CategoryFinancialTransaction
-            {
-                Name = "Alimentação",
-                Description = "Gastos com alimentação e restaurantes",
-                CreatedDate = DateTime.Now,
-                Deleted = false,
-                UpdatedDate = DateTime.Now,
-                IsPattern = true,
-                UserId = adminUser.Id
-            },
-            new CategoryFinancialTransaction
-            {
-                Name = "Transporte",
-                Description = "Gastos com locomoção, combustível e transporte público",
-                CreatedDate = DateTime.Now,
-                Deleted = false,
-                UpdatedDate = DateTime.Now,
-                IsPattern = true,
-                UserId = adminUser.Id
-            },
-            new CategoryFinancialTransaction
-            {
-                Name = "Salário",
-                Description = "Recebimento de salário",
-                CreatedDate = DateTime.Now,
-                Deleted = false,
-                UpdatedDate = DateTime.Now,
-                UserId = adminUser.Id
-            },
-            new CategoryFinancialTransaction
-            {
-                Name = "Moradia",
-                Description = "Gastos com aluguel, contas de água, luz, etc",
-                CreatedDate = DateTime.Now,
-                Deleted = false,
-                UpdatedDate = DateTime.Now,
-                UserId = adminUser.Id
-            },
-            new CategoryFinancialTransaction
-            {
-                Name = "Lazer",
-                Description = "Gastos com entretenimento",
-                CreatedDate = DateTime.Now,
-                Deleted = false,
-                UpdatedDate = DateTime.Now,
-                IsPattern = true,
-                UserId = adminUser.Id
-            }
-        };
+                IEnumerable<CategoryFinancialTransaction> categories =
+                [
+                    new()
+                    {
+                        Name = "Alimentação",
+                        Description = "Gastos com alimentação e restaurantes",
+                        CreatedDate = DateTime.Now,
+                        Deleted = false,
+                        UpdatedDate = DateTime.Now,
+                        IsPattern = true
+                    },
+                    new()
+                    {
+                        Name = "Transporte",
+                        Description = "Gastos com locomoção, combustível e transporte público",
+                        CreatedDate = DateTime.Now,
+                        Deleted = false,
+                        UpdatedDate = DateTime.Now,
+                        IsPattern = true
+                    },
+                    new()
+                    {
+                        Name = "Salário",
+                        Description = "Recebimento de salário",
+                        CreatedDate = DateTime.Now,
+                        Deleted = false,
+                        UpdatedDate = DateTime.Now,
+                    },
+                    new()
+                    {
+                        Name = "Moradia",
+                        Description = "Gastos com aluguel, contas de água, luz, etc",
+                        CreatedDate = DateTime.Now,
+                        Deleted = false,
+                        UpdatedDate = DateTime.Now,
+                    },
+                    new()
+                    {
+                        Name = "Lazer",
+                        Description = "Gastos com entretenimento",
+                        CreatedDate = DateTime.Now,
+                        Deleted = false,
+                        UpdatedDate = DateTime.Now,
+                        IsPattern = true
+                    },
+                    new()
+                    {
+                        Name = "Outros",
+                        Description = "Gastos não específicos",
+                        CreatedDate = DateTime.Now,
+                        Deleted = false,
+                        UpdatedDate = DateTime.Now,
+                        IsPattern = true
+                    },
+                ];
 
                 await context.CategoryTransactions.AddRangeAsync(categories);
                 context.SaveChanges();

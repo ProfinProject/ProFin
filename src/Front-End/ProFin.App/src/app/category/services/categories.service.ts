@@ -29,4 +29,8 @@ export class CategoryService extends BaseService {
     deleteCategory(id: string) {
         return this.http.delete(environment.apiUrlv1 + "CategoryTransaction/" + id, this.getAuthHeaderJson());
     }
+
+    hasTransactions(id: string) : Observable<boolean> {
+        return this.http.get<boolean>(environment.apiUrlv1 + "CategoryTransaction/HasTransaction/" + id, this.getAuthHeaderJson());
+    }
 }

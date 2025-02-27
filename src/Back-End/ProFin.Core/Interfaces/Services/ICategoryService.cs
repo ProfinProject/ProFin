@@ -1,9 +1,4 @@
 ﻿using ProFin.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProFin.Core.Interfaces.Services
 {
@@ -12,5 +7,7 @@ namespace ProFin.Core.Interfaces.Services
         Task Insert(CategoryFinancialTransaction categoryFinancialTransaction);
         Task Update(CategoryFinancialTransaction categoryFinancialTransaction);
         Task Delete(Guid id);
+        Task<IEnumerable<CategoryFinancialTransaction>> GetAll();
+        Task<CategoryFinancialTransaction> GetById(Guid id);
     }
 }

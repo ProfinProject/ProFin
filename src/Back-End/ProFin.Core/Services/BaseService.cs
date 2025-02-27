@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using ProFin.Core.Interfaces;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
 using ProFin.Core.Notifications;
@@ -9,10 +10,12 @@ namespace ProFin.Core.Services
     public abstract class BaseService
     {
         private readonly INotifier _notifier;
+        protected readonly IAppUserService _userService;
 
-        protected BaseService(INotifier notifier)
+        protected BaseService(INotifier notifier, IAppUserService userService)
         {
             _notifier = notifier;
+            _userService = userService;
         }
 
         protected void Notifie(ValidationResult validationResult)
@@ -38,5 +41,11 @@ namespace ProFin.Core.Services
 
             return false;
         }
+
+        protected bool CanEdit(Guid userId)
+        {
+            return _userService.IsAdmin() == true || _userService.GetId() == userId;
+        }
+
     }
 }

@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProFin.API.ViewModel;
-using ProFin.API.ViewModels;
 using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
@@ -40,11 +38,12 @@ namespace ProFin.API.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            await financialTransactionService.Insert(mapper.Map<FinancialTransaction>(transactionViewModel));
+            var transaction = mapper.Map<FinancialTransaction>(transactionViewModel);
+
+            await financialTransactionService.Insert(transaction);
 
             return CustomResponse(transactionViewModel);
         }
-
 
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<TransactionViewModel>> Update(Guid id, TransactionViewModel transactionViewModel)
@@ -95,7 +94,7 @@ namespace ProFin.API.Controllers
                 return CustomResponse();
             }
 
-            var result = mapper.Map<IEnumerable<TransactionViewModel>>(await  financialTransactionService.GetSince(parsedDate));
+            var result = mapper.Map<IEnumerable<TransactionViewModel>>(await financialTransactionService.GetSince(parsedDate));
             return CustomResponse(result);
         }
     }

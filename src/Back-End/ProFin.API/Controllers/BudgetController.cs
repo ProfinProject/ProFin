@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProFin.API.ViewModel;
-using ProFin.API.ViewModels;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
 
@@ -14,23 +12,24 @@ namespace ProFin.API.Controllers
                                   IMapper mapper,
                                   INotifier notifier) : MainController(notifier)
     {
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BudgetViewModel>>> GetAll()
         {
-            var budgets = await budgetService.GetAllBudgetsAsync();
-            return mapper.Map<IEnumerable<BudgetViewModel>>(budgets).ToList();
+            var budgets = await budgetService.GetAll();
+            return Ok(mapper.Map<IEnumerable<BudgetViewModel>>(budgets));
         }
 
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<BudgetViewModel>> GetById(Guid id)
         {
-            var budget = await GetBudget(id);
+            var budget = await budgetService.GetById(id);
             if (budget == null)
             {
                 return NotFound();
             }
 
-            return budget;
+            return Ok(mapper.Map<BudgetViewModel>(budget));
         }
 
         [HttpPost]
@@ -38,13 +37,13 @@ namespace ProFin.API.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return CustomResponse(ModelState);
             }
 
             var budget = mapper.Map<Budget>(budgetViewModel);
             await budgetService.Insert(budget);
 
-            return CustomResponse(budgetViewModel);
+            return CreatedAtAction(nameof(GetById), new { id = budget.Id }, budgetViewModel);
         }
 
         [HttpPut("{id:guid}")]
@@ -62,6 +61,7 @@ namespace ProFin.API.Controllers
             }
 
             var budget = mapper.Map<Budget>(budgetViewModel);
+
             await budgetService.Update(budget);
 
             return CustomResponse(budgetViewModel);
@@ -70,20 +70,8 @@ namespace ProFin.API.Controllers
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var budget = GetBudget(id);
-            if (budget == null)
-            {
-                return NotFound();
-            }
-
             await budgetService.Delete(id);
-            return CustomResponse(budget);
-        }
-
-        [NonAction]
-        private async Task<BudgetViewModel> GetBudget(Guid id)
-        {
-            return mapper.Map<BudgetViewModel>(await budgetService.GetBudgetByIdAsync(id));
+            return CustomResponse();
         }
     }
 }

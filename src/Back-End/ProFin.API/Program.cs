@@ -1,10 +1,5 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.OpenApi.Models;
 using ProFin.API.Configurations;
 using ProFin.Core.Enumeradores;
-using ProFin.Core.Interfaces.Services;
-using ProFin.Core.Notifications;
-using ProFin.Data.Context;
 using ProFin.Data.IoC;
 using ProFin.Data.Seed;
 
@@ -19,6 +14,7 @@ internal class Program
         builder
             .AddJwt()
             .AddEF(EDatabases.SQLite)
+            .AddAPIServices()
             .AddRepositories()
             .AddServices()
             .AddAutoMapperConfig()

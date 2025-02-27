@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ProFin.Core.Models
+﻿namespace ProFin.Core.Models
 {
     public abstract class Entity
     {
@@ -15,8 +13,11 @@ namespace ProFin.Core.Models
         }
 
         public Guid Id { get; set; }
+
         public DateTime CreatedDate { get; set; }
+
         public DateTime UpdatedDate { get; set; }
+
         public bool Deleted { get; set; }
     }
 }

@@ -13,12 +13,15 @@
 
         public User()
         {
-                
+
         }
 
         public string FistName { get; private set; }
+
         public string Email { get; private set; }
+
         public string LastName { get; private set; }
+
         public DateTime Birthdate { get; private set; }
 
         public static User Create(Guid id, string email, string firstName, string lastName, DateTime birhdate)

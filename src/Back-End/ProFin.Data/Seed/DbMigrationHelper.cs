@@ -91,8 +91,12 @@ namespace ProFin.Data.Seed
 
             #endregion
         }
+
         public static async Task SeedCategories(AppDbContext context)
         {
+            var adminUser = context.SystemUsers.FirstOrDefault(u => u.Email == "admin@profin.com");
+            if (adminUser == null) return;
+
             if (!context.CategoryTransactions.Any())
             {
                 IEnumerable<CategoryFinancialTransaction> categories =
@@ -158,6 +162,9 @@ namespace ProFin.Data.Seed
 
         public static async Task SeedTransactions(AppDbContext context)
         {
+            var adminUser = context.SystemUsers.FirstOrDefault(u => u.Email == "admin@profin.com");
+            if (adminUser == null) return;
+
             var categories = context.CategoryTransactions.ToList();
             if (!context.FinancialTransactions.Any())
             {
@@ -171,7 +178,7 @@ namespace ProFin.Data.Seed
                 {
                     var category = categories[random.Next(categories.Count)];
                     int randomDays = random.Next((today - fourMonthsAgo).Days + 1);
-                    transactionsModel.Add(new()
+                    transactionsModel.Add(new FinancialTransaction
                     {
                         Value = min + (random.NextDouble() * (max - min)),
                         Description = $"Gastos com {category.Name} {i}",
@@ -179,6 +186,7 @@ namespace ProFin.Data.Seed
                         Deleted = false,
                         UpdatedDate = fourMonthsAgo.AddDays(randomDays),
                         CategoryFinancialTransaction = category,
+                        UserId = adminUser.Id
                     });
                 }
 
@@ -189,6 +197,9 @@ namespace ProFin.Data.Seed
 
         public static async Task SeedBudgets(AppDbContext context)
         {
+            var adminUser = context.SystemUsers.FirstOrDefault(u => u.Email == "admin@profin.com");
+            if (adminUser == null) return;
+
             var category = context.CategoryTransactions.FirstOrDefault();
             if (!context.Budgets.Any() && category != null)
             {
@@ -201,7 +212,8 @@ namespace ProFin.Data.Seed
                         CurrentSpending = 0,
                         CreatedDate = DateTime.Now,
                         UpdatedDate = DateTime.Now,
-                        Deleted = false
+                        Deleted = false,
+                        UserId = adminUser.Id
                     }
                 };
 

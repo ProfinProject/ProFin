@@ -5,8 +5,12 @@ using ProFin.Data.Context;
 
 namespace ProFin.Data.Repositories
 {
-    public class FinancialTransactionRepository(AppDbContext db) : Repository<FinancialTransaction>(db), IFinancialTransactionRepository
+    public class FinancialTransactionRepository : Repository<FinancialTransaction>, IFinancialTransactionRepository
     {
+        public FinancialTransactionRepository(AppDbContext db) : base(db)
+        {
+        }
+
         public async Task<FinancialTransaction> GetFinancialTransactionCategoryAsync(Guid id)
         {
             return await AppDbContext.FinancialTransactions

@@ -63,6 +63,7 @@ namespace ProFin.Data.IoC
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IBudgetService, BudgetService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddHttpContextAccessor();
 
             return builder;
         }

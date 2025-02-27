@@ -1,4 +1,5 @@
-﻿using ProFin.Core.Interfaces.Repositories;
+﻿using ProFin.Core.Interfaces;
+using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
 using ProFin.Core.Models.Validations;
@@ -9,8 +10,8 @@ namespace ProFin.Core.Services
     {
         private readonly IUserRepository _userRepository;
 
-        public UserService(IUserRepository userRepository, INotifier notifier)
-            : base(notifier)
+        public UserService(IUserRepository userRepository, INotifier notifier, IAppUserService userService)
+            : base(notifier, userService)
         {
             _userRepository = userRepository;
         }
@@ -32,6 +33,11 @@ namespace ProFin.Core.Services
         public void Dispose()
         {
             _userRepository.Dispose();
+        }
+
+        public void ValidateUser(User user)
+        {
+            if (ExecuteValidation(new UserValidation(), user) == false) return;
         }
     }
 }

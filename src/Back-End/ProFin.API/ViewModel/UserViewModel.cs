@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProFin.API.ViewModels
+namespace ProFin.API.ViewModel
 {
     public class UserViewModel
     {

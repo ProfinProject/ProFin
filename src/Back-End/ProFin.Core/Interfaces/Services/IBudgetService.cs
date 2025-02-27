@@ -7,8 +7,8 @@ namespace ProFin.Core.Interfaces.Services
         Task Insert(Budget budget);
         Task Update(Budget budget);
         Task Delete(Guid id);
-        Task<IEnumerable<Budget>> GetAllBudgetsAsync();
-        Task<Budget> GetBudgetByIdAsync(Guid id);
+        Task<IEnumerable<Budget>> GetAll();
+        Task<Budget> GetById(Guid id);
     }
 }
 

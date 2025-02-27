@@ -10,6 +10,7 @@ namespace ProFin.Data.Repositories
     {
         protected readonly AppDbContext AppDbContext;
         protected readonly DbSet<TEntity> DbSet;
+        private bool _disposed = false;
 
         public Repository(AppDbContext appDbContext)
         {
@@ -34,7 +35,7 @@ namespace ProFin.Data.Repositories
             if (expression != null)
                 query = query.Where(expression);
 
-            if (includes != null)
+            if (!string.IsNullOrEmpty(includes))
             {
                 foreach (var includeProp in includes.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
@@ -62,7 +63,7 @@ namespace ProFin.Data.Repositories
                 }
             }
 
-            return await query.FirstOrDefaultAsync(e => EF.Property<Guid>(e, "Id") == id);
+            return await query.FirstOrDefaultAsync(e => EF.Property<Guid>(e, nameof(Entity.Id)) == id);
         }
 
         public async Task Delete(TEntity entity)
@@ -80,13 +81,27 @@ namespace ProFin.Data.Repositories
         public async Task<TEntity> Add(TEntity entity)
         {
             await DbSet.AddAsync(entity);
-
             await AppDbContext.SaveChangesAsync();
 
             return entity;
         }
 
-        public void Dispose() => AppDbContext?.Dispose();
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    AppDbContext?.Dispose();
+                }
+                _disposed = true;
+            }
+        }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
     }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -37,8 +37,10 @@ export class BudgetFormComponent extends FormBaseComponent implements OnInit {
     this.budgetForm = this.fb.group({
       categoryTransactionId: ['', Validators.required],
       limit: ['', [Validators.required, Validators.min(0)]],
-      currentSpending: [0]
-    });
+      currentSpending: ['', [Validators.required, Validators.min(0)]],
+    },
+      { validator: this.currentSpendingLimitValidator }
+    );
   }
 
   ngOnInit(): void {
@@ -67,13 +69,14 @@ export class BudgetFormComponent extends FormBaseComponent implements OnInit {
       }
     });
   }
+
   private loadBudget(id: string): void {
     this.budgetService.getBudgetById(id).subscribe({
       next: (budget) => {
         this.budgetForm.patchValue({
           categoryTransactionId: budget.categoryTransactionId,
           limit: budget.limit,
-          currentSpending: budget.currentSpending
+          currentSpending: budget.currentSpending,
         });
       },
       error: (error) => {
@@ -89,7 +92,9 @@ export class BudgetFormComponent extends FormBaseComponent implements OnInit {
         categoryTransactionId: this.budgetForm.get('categoryTransactionId')?.value
       };
 
+      console.log("test");
       if (this.isEditing && this.budgetId) {
+        budgetData.id = this.budgetId;
         this.budgetService.updateBudget(this.budgetId, budgetData).subscribe({
           next: () => {
             console.log('Orçamento atualizado com sucesso');
@@ -115,5 +120,16 @@ export class BudgetFormComponent extends FormBaseComponent implements OnInit {
 
       this.unsavedChanges = false;
     }
+  }
+
+  currentSpendingLimitValidator(form: AbstractControl): ValidationErrors | null {
+    const limit = form.get('limit')?.value;
+    const currentSpending = form.get('currentSpending')?.value;
+
+    if (limit !== null && currentSpending !== null && currentSpending > limit) {
+      return { currentSpendingExceeded: true }; // Define um erro no form
+    }
+
+    return null; // Se não houver erro, retorna null
   }
 }

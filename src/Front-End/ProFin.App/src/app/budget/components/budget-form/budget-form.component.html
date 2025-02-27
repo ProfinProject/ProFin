@@ -22,7 +22,8 @@
 
     <div class="form-group mb-3">
       <label for="limit">Limite</label>
-      <input type="number" class="form-control" id="limit" formControlName="limit"
+      <input [currencyMask]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" class="form-control" id="limit"
+        formControlName="limit"
         [class.is-invalid]="budgetForm.get('limit')?.invalid && budgetForm.get('limit')?.touched">
       <div class="invalid-feedback">
         Limite é obrigatório e deve ser maior que zero
@@ -31,7 +32,8 @@
 
     <div class="form-group mb-3">
       <label for="currentSpending">Gasto Atual</label>
-      <input type="number" class="form-control" id="currentSpending" formControlName="currentSpending"
+      <input [currencyMask]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" class="form-control" id="currentSpending"
+        formControlName="currentSpending"
         [class.is-invalid]="budgetForm.get('currentSpending')?.invalid && budgetForm.get('currentSpending')?.touched">
       <div class="invalid-feedback">
         Gasto Atual é obrigatório e deve ser maior que zero </div>

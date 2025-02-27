@@ -8,6 +8,7 @@ import { BudgetService } from '../../services/budget.service';
 import { CategoryTransaction } from '../../models/category-transaction.model';
 import { CategoryService } from '../../../category/services/categories.service';
 import { FormBaseComponent } from '../../../base-components/form-base.component';
+import { NgxCurrencyDirective } from 'ngx-currency';
 
 @Component({
   selector: 'app-budget-form',
@@ -16,7 +17,8 @@ import { FormBaseComponent } from '../../../base-components/form-base.component'
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    NgxCurrencyDirective
   ]
 })
 export class BudgetFormComponent extends FormBaseComponent implements OnInit {

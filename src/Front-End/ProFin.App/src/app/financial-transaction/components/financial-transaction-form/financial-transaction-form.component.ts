@@ -9,6 +9,8 @@ import { CategoryService } from '../../../category/services/categories.service';
 import { FinancialTransaction } from '../../models/financial-transaction.model';
 import { CategoryTransaction } from '../../models/category-transaction.model';
 import { FormBaseComponent } from '../../../base-components/form-base.component';
+import { NgxCurrencyDirective } from 'ngx-currency';
+
 
 @Component({
   selector: 'app-financial-transaction-form',
@@ -17,7 +19,8 @@ import { FormBaseComponent } from '../../../base-components/form-base.component'
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    NgxCurrencyDirective
   ]
 })
 export class FinancialTransactionFormComponent extends FormBaseComponent implements OnInit {

@@ -33,7 +33,8 @@
 
     <div class="form-group mb-3">
       <label for="value">Valor</label>
-      <input type="number" class="form-control" id="value" formControlName="value"
+      <input [currencyMask]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" class="form-control" id="value"
+        formControlName="value"
         [class.is-invalid]="financialTransactionForm.get('value')?.invalid && financialTransactionForm.get('value')?.touched">
       <div class="invalid-feedback">
         Limite é obrigatório e deve ser maior que zero

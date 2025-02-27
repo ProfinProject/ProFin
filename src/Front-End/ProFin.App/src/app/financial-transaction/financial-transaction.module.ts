@@ -9,6 +9,7 @@ import { FinancialTransactionListComponent } from './components/financial-transa
 import { FinancialTransactionFormComponent } from './components/financial-transaction-form/financial-transaction-form.component';
 import { FinancialTransactionService } from './services/financial-transaction.service';
 import { FinancialTransactionsGuard } from './services/financial-transactions.guard';
+import { NgxCurrencyDirective, NgxCurrencyInputMode, provideEnvironmentNgxCurrency } from 'ngx-currency';
 
 @NgModule({
   declarations: [

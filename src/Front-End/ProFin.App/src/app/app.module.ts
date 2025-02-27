@@ -20,6 +20,8 @@ import { FinancialTransactionService } from './financial-transaction/services/fi
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { PanelService } from './panel/services/panel.service';
 import { ErrorInterceptor } from './Utils/ErrorInterceptor';
+import { provideEnvironmentNgxCurrency, NgxCurrencyInputMode, NgxCurrencyDirective } from 'ngx-currency';
+
 
 export const httpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
@@ -42,7 +44,8 @@ export const httpInterceptorProviders = [
     BaseChartDirective,
     MatTableModule,
     MatPaginatorModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    NgxCurrencyDirective
   ],
   providers: [
     CategoryService,
@@ -51,8 +54,11 @@ export const httpInterceptorProviders = [
     FinancialTransactionService,
     PanelService,
     provideAnimationsAsync(),
-    httpInterceptorProviders
-
+    httpInterceptorProviders,
+    provideEnvironmentNgxCurrency({
+      align: "left",
+      inputMode: NgxCurrencyInputMode.Financial
+    })
   ],
   bootstrap: [AppComponent]
 })

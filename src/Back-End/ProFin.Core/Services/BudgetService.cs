@@ -26,7 +26,7 @@ namespace ProFin.Core.Services
                 return await _budgetRepository.GetAll();
 
             Expression<Func<Budget, bool>> filter = x => x.UserId >= _userService.GetId().Value;
-            return await _budgetRepository.GetAll(expression: filter);
+            return await _budgetRepository.GetAll(includes: "CategoryTransaction", expression: filter);
         }
 
         public async Task<Budget> GetById(Guid id)

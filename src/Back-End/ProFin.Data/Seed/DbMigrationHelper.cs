@@ -200,8 +200,8 @@ namespace ProFin.Data.Seed
             var adminUser = context.SystemUsers.FirstOrDefault(u => u.Email == "admin@profin.com");
             if (adminUser == null) return;
 
-            var categories = context.CategoryTransactions.ToList();
-            foreach (var category in categories)
+            var category = context.CategoryTransactions.FirstOrDefault();
+            if (!context.Budgets.Any() && category != null)
             {
                 if (!context.Budgets.Any(b => b.CategoryTransactionId == category.Id))
                 {
@@ -213,7 +213,8 @@ namespace ProFin.Data.Seed
                         UpdatedDate = DateTime.Now,
                         Deleted = false,
                         UserId = adminUser.Id
-                    };
+                    }
+                };
 
                     await context.Budgets.AddAsync(budget);
                 }

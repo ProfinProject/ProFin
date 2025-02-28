@@ -88,7 +88,7 @@ namespace ProFin.Data.Seed
                 UserId = ADMIN_ID
             });
 
-
+            context.SaveChanges();
             #endregion
         }
 
@@ -108,7 +108,8 @@ namespace ProFin.Data.Seed
                         CreatedDate = DateTime.Now,
                         Deleted = false,
                         UpdatedDate = DateTime.Now,
-                        IsPattern = true
+                        IsPattern = true,
+                        UserId= adminUser.Id
                     },
                     new()
                     {
@@ -117,7 +118,8 @@ namespace ProFin.Data.Seed
                         CreatedDate = DateTime.Now,
                         Deleted = false,
                         UpdatedDate = DateTime.Now,
-                        IsPattern = true
+                        IsPattern = true,
+                        UserId= adminUser.Id
                     },
                     new()
                     {
@@ -126,6 +128,7 @@ namespace ProFin.Data.Seed
                         CreatedDate = DateTime.Now,
                         Deleted = false,
                         UpdatedDate = DateTime.Now,
+                        UserId= adminUser.Id
                     },
                     new()
                     {
@@ -134,6 +137,7 @@ namespace ProFin.Data.Seed
                         CreatedDate = DateTime.Now,
                         Deleted = false,
                         UpdatedDate = DateTime.Now,
+                        UserId= adminUser.Id
                     },
                     new()
                     {
@@ -142,7 +146,8 @@ namespace ProFin.Data.Seed
                         CreatedDate = DateTime.Now,
                         Deleted = false,
                         UpdatedDate = DateTime.Now,
-                        IsPattern = true
+                        IsPattern = true,
+                        UserId= adminUser.Id
                     },
                     new()
                     {
@@ -151,7 +156,8 @@ namespace ProFin.Data.Seed
                         CreatedDate = DateTime.Now,
                         Deleted = false,
                         UpdatedDate = DateTime.Now,
-                        IsPattern = true
+                        IsPattern = true,
+                        UserId= adminUser.Id
                     },
                 ];
 

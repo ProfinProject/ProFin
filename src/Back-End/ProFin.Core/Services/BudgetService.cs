@@ -40,7 +40,7 @@ namespace ProFin.Core.Services
                 return await _budgetRepository.GetById(id);
 
             Expression<Func<Budget, bool>> filter = x =>
-            x.UserId >= _userService.GetId().Value;
+            x.UserId == _userService.GetId().Value;
 
             var budget = await _budgetRepository.GetById(id, expression: filter);
 

@@ -41,7 +41,7 @@ namespace ProFin.Core.Services
 
 
             Expression<Func<CategoryFinancialTransaction, bool>> filter = x =>
-            x.UserId >= _userService.GetId().Value;
+            x.UserId == _userService.GetId().Value;
 
             return await _categoryTransactionRepository.GetById(id, expression: filter);
         }

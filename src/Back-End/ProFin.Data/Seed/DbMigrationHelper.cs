@@ -200,26 +200,26 @@ namespace ProFin.Data.Seed
             var adminUser = context.SystemUsers.FirstOrDefault(u => u.Email == "admin@profin.com");
             if (adminUser == null) return;
 
-            var category = context.CategoryTransactions.FirstOrDefault();
-            if (!context.Budgets.Any() && category != null)
+            var categories = context.CategoryTransactions.ToList();
+            foreach (var category in categories)
             {
-                var budgets = new List<Budget>
+                if (!context.Budgets.Any(b => b.CategoryTransactionId == category.Id))
                 {
-                    new Budget
+                    var budget = new Budget
                     {
                         CategoryTransactionId = category.Id,
                         Limit = 5000,
-                        CurrentSpending = 0,
                         CreatedDate = DateTime.Now,
                         UpdatedDate = DateTime.Now,
                         Deleted = false,
                         UserId = adminUser.Id
-                    }
-                };
+                    };
 
-                await context.Budgets.AddRangeAsync(budgets);
-                context.SaveChanges();
+                    await context.Budgets.AddAsync(budget);
+                }
             }
+
+            await context.SaveChangesAsync();
         }
     }
 }

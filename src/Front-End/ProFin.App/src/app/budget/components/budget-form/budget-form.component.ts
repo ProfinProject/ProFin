@@ -39,7 +39,6 @@ export class BudgetFormComponent extends FormBaseComponent implements OnInit {
     this.budgetForm = this.fb.group({
       categoryTransactionId: ['', Validators.required],
       limit: ['', [Validators.required, Validators.min(0)]],
-      currentSpending: ['', [Validators.required, Validators.min(0)]],
     },
       { validator: this.currentSpendingLimitValidator }
     );

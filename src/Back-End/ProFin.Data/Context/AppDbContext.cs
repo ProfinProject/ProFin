@@ -41,6 +41,10 @@ namespace ProFin.Data.Context
                 builder.Entity<CategoryFinancialTransaction>().HasQueryFilter(ct => ct.UserId == userId);
                 builder.Entity<Budget>().HasQueryFilter(b => b.UserId == userId);
             }
+
+            builder.Entity<Budget>()
+                .HasIndex(b => b.CategoryTransactionId)
+                .IsUnique();
         }
 
         private Guid GetUserId()

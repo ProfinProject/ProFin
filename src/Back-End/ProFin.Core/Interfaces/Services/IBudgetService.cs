@@ -9,6 +9,7 @@ namespace ProFin.Core.Interfaces.Services
         Task Delete(Guid id);
         Task<IEnumerable<Budget>> GetAll();
         Task<Budget> GetById(Guid id);
+        Task<Budget> GetByCategoryId(Guid categoryId);
     }
 }
 

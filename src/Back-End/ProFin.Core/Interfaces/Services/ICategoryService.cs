@@ -9,5 +9,6 @@ namespace ProFin.Core.Interfaces.Services
         Task Delete(Guid id);
         Task<IEnumerable<CategoryFinancialTransaction>> GetAll();
         Task<CategoryFinancialTransaction> GetById(Guid id);
+        Task<bool> EnsureValidPermissionCategory(Guid categoryId);
     }
 }

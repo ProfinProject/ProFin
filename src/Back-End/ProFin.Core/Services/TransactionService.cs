@@ -99,6 +99,16 @@ namespace ProFin.Core.Services
             _transactionRepository.Dispose();
         }
 
+        public async Task<IEnumerable<FinancialTransaction>> GetAll()
+        {
+            if (!_userService.IsAuthenticated())
+                return Enumerable.Empty<FinancialTransaction>();
 
+            if (_userService.IsAdmin())
+                return await _transactionRepository.GetAll();
+
+            Expression<Func<FinancialTransaction, bool>> filter = x => x.UserId >= _userService.GetId().Value;
+            return await _transactionRepository.GetAll(includes: "CategoryFinancialTransaction", expression: filter);
+        }
     }
 }

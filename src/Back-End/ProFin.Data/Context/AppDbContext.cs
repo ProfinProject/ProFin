@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ProFin.Core.Enums;
 using ProFin.Core.Interfaces;
 using ProFin.Core.Models;
 
@@ -97,6 +98,9 @@ namespace ProFin.Data.Context
                   .WithMany()
                   .HasForeignKey(ft => ft.UserId)
                   .OnDelete(DeleteBehavior.Cascade);
+            builder.Property(p => p.TransactionType)
+                  .HasConversion<string>()
+                  .HasMaxLength(1);
         }
     }
 

@@ -2,7 +2,7 @@ namespace ProFin.Core.Enums
 {
     public enum TransactionType
     {
-        Income,     // Receita
-        Expense     // Despesa
+        E = 'E', //Entrada
+        S = 'S' //Saida
     }
 }

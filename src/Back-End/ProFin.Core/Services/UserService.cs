@@ -35,9 +35,12 @@ namespace ProFin.Core.Services
             _userRepository.Dispose();
         }
 
-        public void ValidateUser(User user)
+        public async void ValidateUser(User user)
         {
             if (ExecuteValidation(new UserValidation(), user) == false) return;
+
+            if (await _userRepository.GetByEmail(user.Email) != null)
+                Notifie("Já existe um usuário cadastrado com esse e-mail");
         }
     }
 }

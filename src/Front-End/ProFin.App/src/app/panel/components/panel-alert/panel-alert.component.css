@@ -1,0 +1,20 @@
+.panel-header{
+    background: #892525;
+    height: 50px;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    line-height: 45px;
+    color: white;
+    cursor: pointer;
+}
+
+.text-exceed-budget{
+    color: red;
+    font-weight: bold;
+}
+
+.text-budget{
+    color: black;
+    font-weight: normal;
+}

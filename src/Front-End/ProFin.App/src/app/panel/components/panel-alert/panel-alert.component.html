@@ -1,0 +1,14 @@
+<div class="card shadow-sm">
+    <div class="nav-link text-dark" class="panel-header" [routerLink]="['/budget' ]"><i class="fa-solid fa-layer-group p-1 icon-white-color"></i>{{ alert.budget }}</div>
+    <div class="card-body">
+    <p class="card-text">Orçamento <b> {{ alert.budgetValue | currency:'BRL' }}</b> 
+    <p class="card-text">Total já consumido: <b>{{ alert.totalValueUsed | currency:'BRL' }}</b> gastos entre elas</p>
+    <p class="card-text">Percentual: <b>{{ alert.percentageBudget | number : '1.2-2' }}%</b> </p>
+    <p class="card-text" [ngClass]="(alert.percentageBudget > 100) ? 'text-exceed-budget' : 'text-budget'">{{ alert.description }}</p>
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group">
+        <button type="button" class="btn btn-sm btn-outline-secondary" [routerLink]="['/budget']">View</button>
+        </div>
+    </div>
+    </div>
+</div>

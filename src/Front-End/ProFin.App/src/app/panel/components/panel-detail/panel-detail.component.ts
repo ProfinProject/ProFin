@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Panel } from '../models/panel.model';
+import { CommonModule } from '@angular/common';
 
 
 @Component({

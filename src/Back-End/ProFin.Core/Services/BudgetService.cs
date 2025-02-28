@@ -10,11 +10,13 @@ namespace ProFin.Core.Services
     public class BudgetService : BaseService, IBudgetService
     {
         private readonly IBudgetRepository _budgetRepository;
+        private readonly ICategoryService _categoryService;
 
         public BudgetService(IBudgetRepository budgetRepository,
-                             INotifier notifier, IAppUserService userService) : base(notifier, userService)
+                             INotifier notifier, IAppUserService userService, ICategoryService categoryService) : base(notifier, userService)
         {
             _budgetRepository = budgetRepository;
+            _categoryService = categoryService;
         }
 
         public async Task<IEnumerable<Budget>> GetAll()
@@ -61,6 +63,12 @@ namespace ProFin.Core.Services
 
             if (!ExecuteValidation(new BudgetValidation(), budget)) return;
 
+            if (await _categoryService.EnsureValidPermissionCategory(budget.CategoryTransactionId) == false)
+            {
+                Notifie("Categoria inexistente");
+                return;
+            }
+
             budget.SetUset(_userService.GetId().Value);
             await _budgetRepository.Add(budget);
         }
@@ -74,6 +82,12 @@ namespace ProFin.Core.Services
             }
 
             if (!ExecuteValidation(new BudgetValidation(), budget)) return;
+
+            if (await _categoryService.EnsureValidPermissionCategory(budget.CategoryTransactionId) == false)
+            {
+                Notifie("Categoria inexistente");
+                return;
+            }
 
             await _budgetRepository.Update(budget);
         }
@@ -99,7 +113,11 @@ namespace ProFin.Core.Services
             return await _budgetRepository.GetAll(includes: "CategoryTransaction");
         }
 
+        public async Task<Budget> GetByCategoryId(Guid categoryId)
+        {            
+            return await _budgetRepository.GetByCategoryId(categoryId);
 
+        }
 
         public void Dispose()
         {

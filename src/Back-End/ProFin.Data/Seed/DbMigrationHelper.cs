@@ -197,13 +197,13 @@ namespace ProFin.Data.Seed
 
         public static async Task SeedBudgets(AppDbContext context)
         {
-            var adminUser = context.SystemUsers.FirstOrDefault(u => u.Email == "admin@profin.com");
+            var adminUser = await context.SystemUsers.FirstOrDefaultAsync(u => u.Email == "admin@profin.com");
             if (adminUser == null) return;
 
-            var category = context.CategoryTransactions.FirstOrDefault();
-            if (!context.Budgets.Any() && category != null)
+            var category = await context.CategoryTransactions.FirstOrDefaultAsync();
+            if (!await context.Budgets.AnyAsync() && category != null)
             {
-                if (!context.Budgets.Any(b => b.CategoryTransactionId == category.Id))
+                if (!await context.Budgets.AnyAsync(b => b.CategoryTransactionId == category.Id))
                 {
                     var budget = new Budget
                     {
@@ -213,8 +213,7 @@ namespace ProFin.Data.Seed
                         UpdatedDate = DateTime.Now,
                         Deleted = false,
                         UserId = adminUser.Id
-                    }
-                };
+                    };
 
                     await context.Budgets.AddAsync(budget);
                 }

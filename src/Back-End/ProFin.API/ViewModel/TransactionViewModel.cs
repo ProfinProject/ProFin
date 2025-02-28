@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ProFin.Core.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace ProFin.API.ViewModel
 {
@@ -13,6 +15,9 @@ namespace ProFin.API.ViewModel
         
         public virtual CategoryTransactionViewModel CategoryFinancialTransaction { get; set; }
 
-        public string CategoryFinancialTransactionId { get; set; }
+        public Guid CategoryFinancialTransactionId { get; set; }
+
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public TransactionType TransactionType { get; set; }
     }
 }

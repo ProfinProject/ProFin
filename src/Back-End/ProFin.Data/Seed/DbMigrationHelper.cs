@@ -192,7 +192,8 @@ namespace ProFin.Data.Seed
                         Deleted = false,
                         UpdatedDate = fourMonthsAgo.AddDays(randomDays),
                         CategoryFinancialTransaction = category,
-                        UserId = adminUser.Id
+                        UserId = adminUser.Id,
+                        TransactionType = i < 25 ? Core.Enums.TransactionType.E : Core.Enums.TransactionType.S
                     });
                 }
 

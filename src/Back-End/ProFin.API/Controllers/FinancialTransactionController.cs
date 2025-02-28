@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProFin.API.ViewModel;
 using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
+using ProFin.Core.Services;
 
 namespace ProFin.API.Controllers
 {
@@ -16,10 +18,9 @@ namespace ProFin.API.Controllers
         ) : MainController(notifier)
     {
         [HttpGet]
-
         public async Task<ActionResult<IEnumerable<TransactionViewModel>>> GetAll()
         {
-            var result = mapper.Map<IEnumerable<TransactionViewModel>>(await transactionRepository.GetAll(includes: "CategoryFinancialTransaction"));
+            var result = mapper.Map<IEnumerable<TransactionViewModel>>(await financialTransactionService.GetAll());
             return CustomResponse(result.ToList());
         }
 

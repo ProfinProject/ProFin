@@ -1,4 +1,6 @@
-﻿namespace ProFin.Core.Models
+﻿using ProFin.Core.Enums;
+
+namespace ProFin.Core.Models
 {
     public class FinancialTransaction : Entity
     {
@@ -9,6 +11,8 @@
         public Guid CategoryFinancialTransactionId { get; set; }
 
         public CategoryFinancialTransaction CategoryFinancialTransaction { get; set; }
+
+        public TransactionType TransactionType { get; set; }
 
         public Guid UserId { get; set; }
 

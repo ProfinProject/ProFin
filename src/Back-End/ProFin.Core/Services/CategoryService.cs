@@ -40,7 +40,7 @@ namespace ProFin.Core.Services
                 return await _categoryTransactionRepository.GetById(id);
 
 
-            Expression<Func<CategoryFinancialTransaction, bool>> filter = x =>             
+            Expression<Func<CategoryFinancialTransaction, bool>> filter = x =>
             x.UserId >= _userService.GetId().Value;
 
             return await _categoryTransactionRepository.GetById(id, expression: filter);
@@ -85,8 +85,8 @@ namespace ProFin.Core.Services
                 Notifie("Você não pode deletar uma categoria padrão");
             else if (entity != null && entity.CreatedDate != DateTime.MinValue && !entity.IsPattern)
             {
-                await categoryTransactionRepository.Delete(entity);
-                await categoryTransactionRepository.MoveTransactionsToCategoryAsync(entity.Id);
+                await _categoryTransactionRepository.Delete(entity);
+                await _categoryTransactionRepository.MoveTransactionsToCategoryAsync(entity.Id);
             }
         }
 

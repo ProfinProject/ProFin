@@ -26,7 +26,7 @@ namespace ProFin.Core.Services
                 return await _budgetRepository.GetAll();
 
             Expression<Func<Budget, bool>> filter = x => x.UserId >= _userService.GetId().Value;
-            return await _budgetRepository.GetAll(expression: filter);
+            return await _budgetRepository.GetAll(includes: "CategoryTransaction", expression: filter);
         }
 
         public async Task<Budget> GetById(Guid id)
@@ -82,11 +82,6 @@ namespace ProFin.Core.Services
         {
             var budget = await _budgetRepository.GetById(id);
 
-        public async Task<IEnumerable<Budget>> GetAllBudgetsAsync()
-        {
-            return await _budgetRepository.GetAll(includes: "CategoryTransaction");
-        }
-
             if (budget == null)
             {
                 Notifie("Orçamento não encontrado.");
@@ -98,6 +93,13 @@ namespace ProFin.Core.Services
 
             await _budgetRepository.Delete(budget);
         }
+
+        public async Task<IEnumerable<Budget>> GetAllBudgetsAsync()
+        {
+            return await _budgetRepository.GetAll(includes: "CategoryTransaction");
+        }
+
+
 
         public void Dispose()
         {

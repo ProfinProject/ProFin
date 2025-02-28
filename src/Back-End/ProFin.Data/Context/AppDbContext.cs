@@ -1,22 +1,18 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ProFin.Core.Interfaces;
 using ProFin.Core.Models;
-using System.Security.Claims;
 
 namespace ProFin.Data.Context
 {
     public class AppDbContext : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IAppUserService _userService;
 
-        public AppDbContext(DbContextOptions<AppDbContext> options, IHttpContextAccessor httpContextAccessor, IAppUserService userService) : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options, IAppUserService userService) : base(options)
         {
-            _httpContextAccessor = httpContextAccessor;
             _userService = userService;
         }
 
@@ -41,12 +37,10 @@ namespace ProFin.Data.Context
                 builder.Entity<CategoryFinancialTransaction>().HasQueryFilter(ct => ct.UserId == userId);
                 builder.Entity<Budget>().HasQueryFilter(b => b.UserId == userId);
             }
-        }
 
-        private Guid GetUserId()
-        {
-            var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            return Guid.TryParse(userIdClaim, out var userId) ? userId : Guid.Empty;
+            builder.Entity<Budget>()
+                .HasIndex(b => b.CategoryTransactionId)
+                .IsUnique();
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellation = default)
@@ -137,6 +131,4 @@ namespace ProFin.Data.Context
                    .OnDelete(DeleteBehavior.Cascade);
         }
     }
-
-
 }

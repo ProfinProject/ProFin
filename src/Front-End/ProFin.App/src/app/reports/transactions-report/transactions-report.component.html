@@ -31,7 +31,7 @@
         </div>
 
         <div class="row">
-            <h2>Transações desde {{startedDate}}</h2>
+            <h2>Transações desde {{ startedDate | date:'dd/MM/yyyy' }}</h2>
             <canvas baseChart [datasets]="lineChartData.datasets" [labels]="lineChartData.labels"
                 [options]="lineChartOptions" [type]="'line'">
             </canvas>

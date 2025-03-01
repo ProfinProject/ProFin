@@ -50,7 +50,9 @@ export class CategoriesReportComponent implements OnInit {
   };
 
   groupedReports: { [key: string]: { category: CategoryTransactionReport; transactions: TransactionReport[]; totalValue: number } } = {};
+  groupedReportsFiltered: { [key: string]: { category: CategoryTransactionReport; transactions: TransactionReport[]; totalValue: number } } = {};
   startedDate: string;
+  selectedType: string = 'S';
 
   constructor(
     private reportsService: ReportsService
@@ -96,13 +98,14 @@ export class CategoriesReportComponent implements OnInit {
       this.groupedReports[categoryName].totalValue += transaction.value;
     });
 
+    this.groupedReportsFiltered = this.getFilteredByType();
     this.generatePieChartData();
   }
 
   generatePieChartData(): void {
-    for (const categoryName in this.groupedReports) {
-      if (this.groupedReports.hasOwnProperty(categoryName)) {
-        const report = this.groupedReports[categoryName];
+    for (const categoryName in this.groupedReportsFiltered) {
+      if (this.groupedReportsFiltered.hasOwnProperty(categoryName)) {
+        const report = this.groupedReportsFiltered[categoryName];
         this.chartData.push({
           category: report.category.name,
           totalValue: report.totalValue
@@ -114,17 +117,17 @@ export class CategoriesReportComponent implements OnInit {
     this.chartValues = this.chartData.map(item => item.totalValue);
 
     this.pieChartData = {
-      labels: Object.keys(this.groupedReports).map((categoryName) => {
-        const report = this.groupedReports[categoryName as keyof GroupedReports];
+      labels: Object.keys(this.groupedReportsFiltered).map((categoryName) => {
+        const report = this.groupedReportsFiltered[categoryName as keyof GroupedReports];
         return report.category.name;
       }),
       datasets: [{
-        data: Object.keys(this.groupedReports).map((categoryName) => {
-          const report = this.groupedReports[categoryName as keyof GroupedReports];
+        data: Object.keys(this.groupedReportsFiltered).map((categoryName) => {
+          const report = this.groupedReportsFiltered[categoryName as keyof GroupedReports];
           return report.totalValue;
         }),
-        backgroundColor: Object.keys(this.groupedReports).map(() => this.generateRandomColor()),
-        hoverBackgroundColor: Object.keys(this.groupedReports).map(() => this.generateRandomColor())
+        backgroundColor: Object.keys(this.groupedReportsFiltered).map(() => this.generateRandomColor()),
+        hoverBackgroundColor: Object.keys(this.groupedReportsFiltered).map(() => this.generateRandomColor())
       }]
     };
   }
@@ -145,6 +148,42 @@ export class CategoriesReportComponent implements OnInit {
 
   printPage() {
     window.print(); // Chama a impressão após o tempo para garantir a renderização
+  }
+
+  onSelectionChange(event: any) {
+    console.log('aqui');
+    this.groupedReportsFiltered = this.getFilteredByType();
+    this.generatePieChartData();
+  }
+
+  // Define a função que filtra as transações de acordo com o tipo (S ou E)
+  getFilteredByType() {
+    // Retorna um novo objeto com as transações filtradas
+    const filteredReports: { [key: string]: { category: CategoryTransactionReport; transactions: TransactionReport[]; totalValue: number } } = {};
+
+    // Percorre cada grupo de relatórios
+    for (const key in this.groupedReports) {
+      if (this.groupedReports.hasOwnProperty(key)) {
+        const group = this.groupedReports[key];
+
+        // Filtra as transações de acordo com o transactionType fornecido
+        const filteredTransactions = group.transactions.filter(transaction => transaction.transactionType === this.selectedType);
+
+        // Se houver transações filtradas, calcula o total e adiciona ao objeto de resultados filtrados
+        if (filteredTransactions.length > 0) {
+          // Calcula o totalValue das transações filtradas
+          const totalValue = filteredTransactions.reduce((sum, transaction) => sum + transaction.value, 0);
+
+          filteredReports[key] = {
+            category: group.category,
+            transactions: filteredTransactions,
+            totalValue: totalValue // Atualiza o total com as transações filtradas
+          };
+        }
+      }
+    }
+
+    return filteredReports;
   }
 
   ngAfterViewInit() { }

@@ -4,6 +4,14 @@
             <label for="dateFilter" class="form-label">Filtrar por Data:</label>
             <input type="date" class="form-control" id="dateFilter" [(ngModel)]="startedDate" (change)="onDateChange()">
         </div>
+        <div class="col-4">
+            <label for="transactionType" class="form-label">Tipo de Transação</label>
+            <select id="transactionType" class="form-select" [(ngModel)]="selectedType"
+                (change)="onSelectionChange($event)">
+                <option value="S">Saída</option>
+                <option value="E">Entrada</option>
+            </select>
+        </div>
     </div>
 </div>
 <div class="container">

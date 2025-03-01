@@ -3,28 +3,38 @@ using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
 using ProFin.Core.Models.Validations.Transaction;
+using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
+using System.Security;
 
 namespace ProFin.Core.Services
 {
     public class FinancialTransactionService : BaseService, IFinancialTransactionService
     {
         private readonly IFinancialTransactionRepository _transactionRepository;
-        public FinancialTransactionService(IFinancialTransactionRepository transactionRepository, INotifier notifier, IAppUserService userService)
+        private readonly ICategoryService _categoryService;
+        public FinancialTransactionService(IFinancialTransactionRepository transactionRepository, INotifier notifier, IAppUserService userService, ICategoryService categoryService)
             : base(notifier, userService)
         {
             _transactionRepository = transactionRepository;
+            _categoryService = categoryService;
         }
 
         public async Task Insert(FinancialTransaction transactionEntity)
         {
             if (!_userService.IsAuthenticated())
             {
-                Notifie("Categoria só pode ser adcionada por um usuário autenticado");
+                Notifie("Transação só pode ser adcionada por um usuário autenticado");
                 return;
             }
 
             if (!ExecuteValidation(new TransactionEntityValidation(), transactionEntity)) return;
+
+            if (await _categoryService.EnsureValidPermissionCategory(transactionEntity.CategoryFinancialTransactionId) == false)
+            {
+                Notifie("Categoria inexistente");
+                return;
+            }
 
             transactionEntity.SetUset(_userService.GetId().Value);
             await _transactionRepository.Add(transactionEntity);
@@ -35,13 +45,18 @@ namespace ProFin.Core.Services
 
             if (!_userService.IsAuthenticated())
             {
-                Notifie("Categoria só pode ser alterada por um usuário autenticado");
+                Notifie("Transação só pode ser alterada por um usuário autenticado");
                 return;
             }
 
             if (!ExecuteValidation(new UpdateTransactionValidation(_userService.GetId().GetValueOrDefault()),
                 transactionEntity)) return;
 
+            if (await _categoryService.EnsureValidPermissionCategory(transactionEntity.CategoryFinancialTransactionId) == false)
+            {
+                Notifie("Categoria inexistente");
+                return;
+            }
 
             await _transactionRepository.Update(transactionEntity);
         }
@@ -52,7 +67,7 @@ namespace ProFin.Core.Services
 
             if (!_userService.IsAuthenticated())
             {
-                Notifie("Categoria só pode ser alterada por um usuário autenticado");
+                Notifie("Transação só pode ser alterada por um usuário autenticado");
                 return;
             }
 
@@ -73,7 +88,6 @@ namespace ProFin.Core.Services
                 Expression<Func<FinancialTransaction, bool>> filters = x => x.CreatedDate.Date >= startedDate;
                 return await _transactionRepository.GetAll(includes: "CategoryFinancialTransaction", filters);
             }
-
 
             Expression<Func<FinancialTransaction, bool>> filter = x => x.CreatedDate.Date >= startedDate && x.UserId == _userService.GetId().Value;
             var data = await _transactionRepository.GetAll(includes: "CategoryFinancialTransaction", filter);

@@ -4,5 +4,6 @@ namespace ProFin.Core.Interfaces.Repositories
 {
     public interface IBudgetRepository : IRepository<Budget>
     {
+        Task<Budget> GetByCategoryId(Guid categoryId);
     }
 }

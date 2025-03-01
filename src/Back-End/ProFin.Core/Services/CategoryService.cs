@@ -26,7 +26,7 @@ namespace ProFin.Core.Services
                 return await _categoryTransactionRepository.GetAll();
 
 
-            Expression<Func<CategoryFinancialTransaction, bool>> filter = x => x.UserId >= _userService.GetId().Value;
+            Expression<Func<CategoryFinancialTransaction, bool>> filter = x => x.UserId == _userService.GetId().Value || x.IsPattern;
             return await _categoryTransactionRepository.GetAll(expression: filter);
         }
 
@@ -41,7 +41,7 @@ namespace ProFin.Core.Services
 
 
             Expression<Func<CategoryFinancialTransaction, bool>> filter = x =>
-            x.UserId >= _userService.GetId().Value;
+            x.UserId == _userService.GetId().Value;
 
             return await _categoryTransactionRepository.GetById(id, expression: filter);
         }
@@ -88,6 +88,14 @@ namespace ProFin.Core.Services
                 await _categoryTransactionRepository.Delete(entity);
                 await _categoryTransactionRepository.MoveTransactionsToCategoryAsync(entity.Id);
             }
+        }
+
+        public async Task<bool> EnsureValidPermissionCategory(Guid categoryId)
+        {
+            Expression<Func<CategoryFinancialTransaction, bool>> filter = x => x.UserId == _userService.GetId().Value || x.IsPattern;
+            var category = await _categoryTransactionRepository.GetById(categoryId, expression: filter);
+
+            return category != null;
         }
 
         public void Dispose()

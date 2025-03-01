@@ -78,7 +78,7 @@ export class TransactionsReportComponent implements OnInit {
   startedDate: string;
 
 
-  displayedColumns: string[] = ['description', 'value', 'createdDate'];
+  displayedColumns: string[] = ['description', 'value', 'createdDate', 'categoryDescription', 'transactionType'];
   dataSource = new MatTableDataSource<TransactionReport>([]);
 
   filteredTransactions = [...this.transactions];

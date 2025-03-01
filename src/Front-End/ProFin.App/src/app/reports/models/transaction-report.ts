@@ -2,6 +2,7 @@ export interface TransactionReport {
     value: number;
     description: string;
     createdDate: string;
+    transactionType: string;
     categoryFinancialTransaction: CategoryTransactionReport;
 }
 

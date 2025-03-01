@@ -110,11 +110,12 @@ export class BudgetFormComponent extends FormBaseComponent implements OnInit {
         this.budgetService.createBudget(budgetData).subscribe({
           next: () => {
             console.log('Orçamento criado com sucesso');
+            this.errorMessage = '';
             this.router.navigate(['/budget']);
           },
           error: (error) => {
-            console.error('Erro ao criar orçamento:', error);
-            this.errorMessage = 'Erro ao criar orçamento. Por favor, tente novamente.';
+            console.error('Erro ao criar orçamento', error);
+            this.errorMessage = error.error.errors.join(', '); // Define a mensagem de erro
           }
         });
       }

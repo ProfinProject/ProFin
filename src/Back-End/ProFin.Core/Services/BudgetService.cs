@@ -57,7 +57,7 @@ namespace ProFin.Core.Services
         {
             if (!_userService.IsAuthenticated())
             {
-                Notifie("Orçamento só pode ser adcionada por um usuário autenticado");
+                Notifie("Orçamento só pode ser adicionado por um usuário autenticado");
                 return;
             }
 
@@ -70,8 +70,21 @@ namespace ProFin.Core.Services
             }
 
             budget.SetUset(_userService.GetId().Value);
+
+            // Verifica se já existe um orçamento para a mesma categoria e usuário
+            var existingBudget = await _budgetRepository
+                .FindAsync(b => b.UserId == budget.UserId && b.CategoryTransactionId == budget.CategoryTransactionId && !b.Deleted);
+
+            if (existingBudget != null)
+            {
+                Notifie("Já existe um orçamento para esta categoria e usuário.");
+                return;
+            }
+
             await _budgetRepository.Add(budget);
         }
+
+
 
         public async Task Update(Budget budget)
         {
@@ -114,7 +127,7 @@ namespace ProFin.Core.Services
         }
 
         public async Task<Budget> GetByCategoryId(Guid categoryId)
-        {            
+        {
             return await _budgetRepository.GetByCategoryId(categoryId);
 
         }

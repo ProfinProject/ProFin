@@ -5,7 +5,6 @@ import { Budget } from '../models/budget.model';
 import { Alert } from '../models/alert.model';
 import { CategoryTransaction } from '../models/category-transaction.model';
 import { environment } from '../../../environments/environment';
-import { LocalStorageUtils } from '../../Utils/localstorage';
 import { BaseService } from '../../services/base.service';
 
 @Injectable({
@@ -13,7 +12,6 @@ import { BaseService } from '../../services/base.service';
 })
 export class BudgetService extends BaseService {
   private apiUrl = `${environment.apiUrlv1}Budget`;
-  private budgets = new BehaviorSubject<Budget[]>([]);
   private alertsSubject = new BehaviorSubject<Alert[]>([]);
 
   constructor(private http: HttpClient) {
@@ -22,11 +20,17 @@ export class BudgetService extends BaseService {
   }
 
   getBudgets(): Observable<Budget[]> {
-    return this.http.get<Budget[]>(this.apiUrl, this.getAuthHeaderJson());
+    return this.http.get<Budget[]>(this.apiUrl, this.getAuthHeaderJson())
+      .pipe(
+        catchError(this.serviceError)
+      );
   }
 
   getBudgetById(id: string): Observable<Budget> {
-    return this.http.get<Budget>(`${this.apiUrl}/${id}`, this.getAuthHeaderJson());
+    return this.http.get<Budget>(`${this.apiUrl}/${id}`, this.getAuthHeaderJson())
+      .pipe(
+        catchError(this.serviceError)
+      );
   }
 
   createBudget(budget: Budget): Observable<Budget> {
@@ -34,19 +38,22 @@ export class BudgetService extends BaseService {
     return this.http.post<Budget>(this.apiUrl, budget, this.getAuthHeader())
       .pipe(
         tap(response => console.log('Resposta do create:', response)),
-        catchError(error => {
-          console.error('Erro ao criar budget:', error);
-          return throwError(() => error);
-        })
+        catchError(this.serviceError)
       );
   }
 
   updateBudget(id: string, budget: Budget): Observable<Budget> {
-    return this.http.put<Budget>(`${this.apiUrl}/${id}`, budget, this.getAuthHeaderJson());
+    return this.http.put<Budget>(`${this.apiUrl}/${id}`, budget, this.getAuthHeaderJson())
+      .pipe(
+        catchError(this.serviceError)
+      );
   }
 
   deleteBudget(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`, this.getAuthHeaderJson());
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, this.getAuthHeaderJson())
+      .pipe(
+        catchError(this.serviceError)
+      );
   }
 
   getAlerts(): Observable<Alert[]> {
@@ -54,16 +61,12 @@ export class BudgetService extends BaseService {
   }
 
   getCategories(): Observable<CategoryTransaction[]> {
-
     return this.http.get<CategoryTransaction[]>(
       `${environment.apiUrlv1}/CategoryTransaction`,
       this.getAuthHeaderJson()
     ).pipe(
       tap(response => console.log('Resposta da API:', response)),
-      catchError(error => {
-        console.error('Erro na requisição:', error);
-        return throwError(() => error);
-      })
+      catchError(this.serviceError)
     );
   }
 

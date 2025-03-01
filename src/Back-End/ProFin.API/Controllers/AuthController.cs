@@ -26,7 +26,7 @@ namespace ProFin.API.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterUserViewModel model)
         {
-            if (!ModelState.IsValid) return ValidationProblem(ModelState);           
+            if (!ModelState.IsValid) return ValidationProblem(ModelState);
 
             //Valida primeiro que todos os dados obrigatorios foram informados, antes de gerar um usuario invalido no identity
             _userService.ValidateUser(Core.Models.User.Create(Guid.Empty, model.Email, model.FirstName, model.LastName, model.Birthdate));

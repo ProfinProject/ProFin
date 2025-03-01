@@ -3,9 +3,7 @@ using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
 using ProFin.Core.Models.Validations.Transaction;
-using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
-using System.Security;
 
 namespace ProFin.Core.Services
 {

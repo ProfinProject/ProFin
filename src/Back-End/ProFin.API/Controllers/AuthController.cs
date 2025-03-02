@@ -72,11 +72,11 @@ namespace ProFin.API.Controllers
 
             if (result.IsLockedOut)
             {
-                NotifieError("This user is temporarily blocked");
+                NotifieError("Este usuário está temporariamente bloqueado");
                 return CustomResponse(loginUser);
             }
 
-            NotifieError("Incorrect user or password");
+            NotifieError("Usuário ou senha incorretos");
             return CustomResponse(loginUser);
         }
 

@@ -9,4 +9,4 @@ export class Category {
     name: string;
     description: string;
     isPattern: boolean;
-}   
+  }

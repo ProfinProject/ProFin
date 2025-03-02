@@ -5,9 +5,7 @@ using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
 using ProFin.Core.Models.Validations.Transaction;
-using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
-using System.Security;
 
 namespace ProFin.Core.Services
 {
@@ -50,6 +48,8 @@ namespace ProFin.Core.Services
                 Notifie("Transação só pode ser alterada por um usuário autenticado");
                 return;
             }
+
+            transactionEntity.SetUset(_userService.GetId().Value);
 
             if (!ExecuteValidation(new UpdateTransactionValidation(_userService.GetId().GetValueOrDefault()),
                 transactionEntity)) return;
@@ -134,9 +134,8 @@ namespace ProFin.Core.Services
             if (_userService.IsAdmin())
                 return await _transactionRepository.GetAll(includes: "CategoryFinancialTransaction", expression);
 
-            expression.And(x => x.UserId >= _userService.GetId().Value);
-
-            return await _transactionRepository.GetAll(includes: "CategoryFinancialTransaction", expression);
+            Expression<Func<FinancialTransaction, bool>> filter = x => x.UserId == _userService.GetId().Value;
+            return await _transactionRepository.GetAll(includes: "CategoryFinancialTransaction", expression: filter);
         }
     }
 }

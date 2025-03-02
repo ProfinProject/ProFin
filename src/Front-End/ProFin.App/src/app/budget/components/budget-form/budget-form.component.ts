@@ -38,9 +38,8 @@ export class BudgetFormComponent extends FormBaseComponent implements OnInit {
     super();
     this.budgetForm = this.fb.group({
       categoryTransactionId: ['', Validators.required],
-      limit: ['', [Validators.required, Validators.min(0)]],
-    },
-      { validator: this.currentSpendingLimitValidator }
+      limit: ['', [Validators.required, Validators.min(0)]]
+    }
     );
   }
 
@@ -73,15 +72,20 @@ export class BudgetFormComponent extends FormBaseComponent implements OnInit {
 
   private loadBudget(id: string): void {
     this.budgetService.getBudgetById(id).subscribe({
-      next: (budget) => {
-        this.budgetForm.patchValue({
-          categoryTransactionId: budget.categoryTransactionId,
-          limit: budget.limit,
-          currentSpending: budget.currentSpending,
-        });
+      next: (response: any) => {
+        if (response.success) {
+          const budget = response.data;
+          this.budgetForm.patchValue({
+            categoryTransactionId: budget.categoryTransactionId,
+            limit: budget.limit,
+          });
+        } else {
+          this.errorMessage = 'Erro ao carregar orçamento.';
+        }
       },
       error: (error) => {
         console.error('Erro ao carregar orçamento:', error);
+        this.errorMessage = error.error.errors.join(', '); // Define a mensagem de erro
       }
     });
   }
@@ -93,7 +97,6 @@ export class BudgetFormComponent extends FormBaseComponent implements OnInit {
         categoryTransactionId: this.budgetForm.get('categoryTransactionId')?.value
       };
 
-      console.log("test");
       if (this.isEditing && this.budgetId) {
         budgetData.id = this.budgetId;
         this.budgetService.updateBudget(this.budgetId, budgetData).subscribe({
@@ -103,7 +106,7 @@ export class BudgetFormComponent extends FormBaseComponent implements OnInit {
           },
           error: (error) => {
             console.error('Erro ao atualizar orçamento:', error);
-            this.errorMessage = 'Erro ao atualizar orçamento. Por favor, tente novamente.';
+            this.errorMessage = error.error.errors.join(', '); // Define a mensagem de erro
           }
         });
       } else {
@@ -122,16 +125,5 @@ export class BudgetFormComponent extends FormBaseComponent implements OnInit {
 
       this.unsavedChanges = false;
     }
-  }
-
-  currentSpendingLimitValidator(form: AbstractControl): ValidationErrors | null {
-    const limit = form.get('limit')?.value;
-    const currentSpending = form.get('currentSpending')?.value;
-
-    if (limit !== null && currentSpending !== null && currentSpending > limit) {
-      return { currentSpendingExceeded: true }; // Define um erro no form
-    }
-
-    return null; // Se não houver erro, retorna null
   }
 }

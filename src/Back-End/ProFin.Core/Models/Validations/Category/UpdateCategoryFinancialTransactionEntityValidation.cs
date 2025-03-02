@@ -13,10 +13,6 @@ namespace ProFin.Core.Models.Validations
             RuleFor(c => c.IsPattern)
                 .Equal(false).WithMessage("Não é possível alterar uma categoria padrão do sistema");
 
-            RuleFor(usuario => usuario.CreatedDate)
-                .NotEqual(DateTime.MinValue)
-                .WithMessage("A data de criação é inválida.");
-
             RuleFor(c => c.UserId)
               .Equal(userId).WithMessage("Este usuário não pode alterar esta categoria");
         }

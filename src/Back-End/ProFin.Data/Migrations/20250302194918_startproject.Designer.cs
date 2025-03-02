@@ -11,13 +11,8 @@ using ProFin.Data.Context;
 namespace ProFin.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-<<<<<<<< HEAD:src/Back-End/ProFin.Data/Migrations/20250302142018_InitialCreate.Designer.cs
-    [Migration("20250302142018_InitialCreate")]
-    partial class InitialCreate
-========
-    [Migration("20250302193112_startproject")]
+    [Migration("20250302194918_startproject")]
     partial class startproject
->>>>>>>> ajusteretorno:src/Back-End/ProFin.Data/Migrations/20250302193112_startproject.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

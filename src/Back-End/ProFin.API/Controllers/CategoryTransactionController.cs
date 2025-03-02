@@ -4,7 +4,6 @@ using ProFin.API.ViewModel;
 using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
-using System.Security.Claims;
 
 namespace ProFin.API.Controllers;
 

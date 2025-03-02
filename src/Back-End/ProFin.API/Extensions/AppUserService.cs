@@ -18,7 +18,7 @@ namespace ProFin.API.Extensions
                 return null;
 
             var id = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if(Guid.TryParse(id, out var idValue) == true) 
+            if (Guid.TryParse(id, out var idValue) == true)
                 return idValue;
 
             return null;
@@ -40,7 +40,7 @@ namespace ProFin.API.Extensions
         public bool IsLoggedUser(string userId)
         {
             if (Guid.TryParse(userId, out var idValue) == false)
-                return false;         
+                return false;
 
             return idValue == GetId();
         }

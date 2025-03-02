@@ -11,8 +11,13 @@ using ProFin.Data.Context;
 namespace ProFin.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250302124523_initial")]
-    partial class initial
+<<<<<<<< HEAD:src/Back-End/ProFin.Data/Migrations/20250302142018_InitialCreate.Designer.cs
+    [Migration("20250302142018_InitialCreate")]
+    partial class InitialCreate
+========
+    [Migration("20250302193112_startproject")]
+    partial class startproject
+>>>>>>>> ajusteretorno:src/Back-End/ProFin.Data/Migrations/20250302193112_startproject.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -227,9 +232,6 @@ namespace ProFin.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("CurrentSpending")
-                        .HasColumnType("TEXT");
-
                     b.Property<bool>("Deleted")
                         .HasColumnType("INTEGER");
 
@@ -244,8 +246,7 @@ namespace ProFin.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryTransactionId")
-                        .IsUnique();
+                    b.HasIndex("CategoryTransactionId");
 
                     b.HasIndex("UserId");
 

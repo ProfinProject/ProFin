@@ -69,6 +69,8 @@ namespace ProFin.Core.Services
                 return;
             }
 
+            categoryFinancialTransaction.SetUset(_userService.GetId().Value);
+
             if (!ExecuteValidation(new UpdateCategoryFinancialTransactionEntityValidation(_userService.GetId().GetValueOrDefault()),
                 categoryFinancialTransaction)) return;
 

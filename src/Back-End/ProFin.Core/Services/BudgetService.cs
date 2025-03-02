@@ -96,7 +96,9 @@ namespace ProFin.Core.Services
                 return;
             }
 
-            if (!ExecuteValidation(new BudgetValidation(), budget)) return;
+            budget.SetUset(_userService.GetId().Value);
+
+            if (!ExecuteValidation(new UpdateBudgetValidation(_userService.GetId().Value), budget)) return;
 
             // Verifica se a categoria existe
             var category = await _categoryService.GetById(budget.CategoryTransactionId);

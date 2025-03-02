@@ -392,4 +392,3 @@ namespace ProFin.Data.Seed
         }
     }
 }
-

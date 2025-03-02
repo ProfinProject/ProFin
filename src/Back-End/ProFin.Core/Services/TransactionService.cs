@@ -1,9 +1,13 @@
-﻿using ProFin.Core.Interfaces;
+﻿using ProFin.Core.Enums;
+using ProFin.Core.Extensions;
+using ProFin.Core.Interfaces;
 using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
 using ProFin.Core.Models.Validations.Transaction;
+using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
+using System.Security;
 
 namespace ProFin.Core.Services
 {
@@ -97,16 +101,42 @@ namespace ProFin.Core.Services
             _transactionRepository.Dispose();
         }
 
-        public async Task<IEnumerable<FinancialTransaction>> GetAll()
+        private Expression<Func<FinancialTransaction, bool>> GetExpresionFilter(Dictionary<string, string> filters)
         {
+            Expression<Func<FinancialTransaction, bool>> expression = x => true;
+            if (filters is not null)
+                foreach (var key in filters.Keys)
+                {
+                    if (!string.IsNullOrEmpty(filters[key]))
+                    {
+                        switch (key)
+                        {
+                            case "filterByCategoryFinancialTransactionId":
+                                expression = expression.And(a => a.CategoryFinancialTransactionId == Guid.Parse(filters[key])); //And(x => x.CategoryFinancialTransactionId == filters.Values);
+                                break;
+                            case "filterByTransactionDate":
+                                expression = expression.And(a => a.CreatedDate.Date == Convert.ToDateTime(filters[key]).Date); //And(x => x.CategoryFinancialTransactionId == filters.Values);
+                                break;
+                            case "filterByType":
+                                expression = expression.And(a => a.TransactionType == Enum.Parse<TransactionType>(filters[key])); //And(x => x.CategoryFinancialTransactionId == filters.Values);
+                                break;
+                        }
+                    }
+                }
+            return expression;
+        }
+        public async Task<IEnumerable<FinancialTransaction>> GetAll(Dictionary<string, string> filters)
+        {
+            Expression<Func<FinancialTransaction, bool>> expression = GetExpresionFilter(filters);
             if (!_userService.IsAuthenticated())
                 return Enumerable.Empty<FinancialTransaction>();
 
             if (_userService.IsAdmin())
-                return await _transactionRepository.GetAll();
+                return await _transactionRepository.GetAll(includes: "CategoryFinancialTransaction", expression);
 
-            Expression<Func<FinancialTransaction, bool>> filter = x => x.UserId >= _userService.GetId().Value;
-            return await _transactionRepository.GetAll(includes: "CategoryFinancialTransaction", expression: filter);
+            expression.And(x => x.UserId >= _userService.GetId().Value);
+
+            return await _transactionRepository.GetAll(includes: "CategoryFinancialTransaction", expression);
         }
     }
 }

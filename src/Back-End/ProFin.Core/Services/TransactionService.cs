@@ -49,6 +49,8 @@ namespace ProFin.Core.Services
                 return;
             }
 
+            transactionEntity.SetUset(_userService.GetId().Value);
+
             if (!ExecuteValidation(new UpdateTransactionValidation(_userService.GetId().GetValueOrDefault()),
                 transactionEntity)) return;
 

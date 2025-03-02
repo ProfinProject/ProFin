@@ -5,26 +5,58 @@ import { FinancialTransactionService } from '../../services/financial-transactio
 import { FinancialTransaction } from '../../models/financial-transaction.model';
 import { Alert } from '../../models/alert.model';
 import { ApiResponse } from '../../../Utils/api-response-model';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { CategoryService } from '../../../category/services/categories.service';
+import { CategoryTransaction } from '../../models/category-transaction.model';
+import { ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-financial-transaction-list',
   templateUrl: './financial-transaction-list.component.html',
   styleUrls: ['./financial-transaction-list.component.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule,
+    ReactiveFormsModule]
 })
 export class FinancialTransactionListComponent implements OnInit {
+  filterForm: FormGroup;
   financialTransactions: FinancialTransaction[] = [];
   alerts: Alert[] = [];
   errorMessage: string = '';
+  categories: CategoryTransaction[] = [];
 
   constructor(
+    private fb: FormBuilder,
     private financialTransactionService: FinancialTransactionService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private categoryService: CategoryService
+  ) {
+    this.filterForm = this.fb.group({
+      filterByCategoryFinancialTransactionId: '',
+      filterByType: '',
+      filterByTransactionDate: ""
+      // value: [0]
+    });
+  }
 
   ngOnInit(): void {
     this.loadFinancialTransactions();
     this.loadAlerts();
+    this.loadCategories();
+  }
+
+  private loadCategories(): void {
+    this.categoryService.getCategories().subscribe({
+      next: (categories) => {
+        this.categories = categories;
+        if (categories.length === 0) {
+          this.errorMessage = 'Nenhuma categoria encontrada.';
+        }
+      },
+      error: (error) => {
+        console.error('Erro ao carregar categorias:', error);
+        this.errorMessage = 'Erro ao carregar categorias. Por favor, tente novamente.';
+      }
+    });
   }
 
   loadFinancialTransactions(): void {
@@ -32,17 +64,15 @@ export class FinancialTransactionListComponent implements OnInit {
       next: (response: ApiResponse<FinancialTransaction[]>) => {
         if (response.success) {
           this.financialTransactions = response.data;
-
+          console.log(response.data)
         } else {
           console.error("Erro na resposta da API:", response);
-          this.errorMessage = "Erro ao carregar transações financeiras.";
         }
       },
       error: (error) => {
         if (error.status === 401) {
           this.router.navigate(['/account/login']);
         } else {
-          console.error('Erro ao carregar transações financeiras:', error);
           this.errorMessage = 'Erro ao carregar transações financeiras.';
         }
       }
@@ -63,7 +93,6 @@ export class FinancialTransactionListComponent implements OnInit {
     if (confirm('Tem certeza que deseja excluir esta transação financeira?')) {
       this.financialTransactionService.deleteFinancialTransaction(id).subscribe({
         next: () => {
-          console.log('Orçamento excluído com sucesso');
           this.loadFinancialTransactions(); // Recarrega a lista após excluir
         },
         error: (error) => {
@@ -77,4 +106,41 @@ export class FinancialTransactionListComponent implements OnInit {
   onAdd(): void {
     this.router.navigate(['/financial-transaction/create']);
   }
+
+  clearFilters() {
+    this.filterForm.reset();
+    this.filterForm = this.fb.group({
+      filterByCategoryFinancialTransactionId: '',
+      filterByType: '',
+      filterByTransactionDate: ''
+    });
+    this.loadFinancialTransactions();
+  }
+
+  searchFinancialTransactions() {
+    const filterFormParams = {
+      ...this.filterForm.value,
+    };
+
+    console.log("PARAMNS", filterFormParams);
+
+    this.financialTransactionService.searchFinancialTransaction(filterFormParams).subscribe({
+      next: (response: ApiResponse<FinancialTransaction[]>) => {
+        if (response.success) {
+          this.financialTransactions = response.data;
+          console.log(response.data)
+        } else {
+          console.error("Erro na resposta da API:", response);
+        }
+      },
+      error: (error) => {
+        if (error.status === 401) {
+          this.router.navigate(['/account/login']);
+        } else {
+          this.errorMessage = 'Erro ao carregar transações financeiras.';
+        }
+      }
+    });
+  }
+
 }

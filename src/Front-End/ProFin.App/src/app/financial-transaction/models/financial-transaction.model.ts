@@ -5,5 +5,7 @@ export interface FinancialTransaction {
   description: string;
   categoryFinancialTransaction: CategoryTransaction;
   value: number;
-  categoryFinancialTransactionId: string
+  categoryFinancialTransactionId: string,
+  transactionType: string,
+  createdDate: string
 }

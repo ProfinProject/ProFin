@@ -9,7 +9,7 @@ namespace ProFin.Core.Interfaces.Services
         Task Delete(Guid id);
         Task<IEnumerable<FinancialTransaction>> GetSince(DateTime startedDate);
 
-        Task<IEnumerable<FinancialTransaction>> GetAll();
+        Task<IEnumerable<FinancialTransaction>> GetAll(Dictionary<string,string> filters);
 
     }
 }

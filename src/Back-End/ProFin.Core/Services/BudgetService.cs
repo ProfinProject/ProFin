@@ -86,6 +86,8 @@ namespace ProFin.Core.Services
             await _budgetRepository.Add(budget);
         }
 
+
+
         public async Task Update(Budget budget)
         {
             if (!_userService.IsAuthenticated())

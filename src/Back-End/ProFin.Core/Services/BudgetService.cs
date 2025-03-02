@@ -63,7 +63,9 @@ namespace ProFin.Core.Services
 
             if (!ExecuteValidation(new BudgetValidation(), budget)) return;
 
-            if (await _categoryService.EnsureValidPermissionCategory(budget.CategoryTransactionId) == false)
+            // Verifica se a categoria existe
+            var category = await _categoryService.GetById(budget.CategoryTransactionId);
+            if (category == null)
             {
                 Notifie("Categoria inexistente");
                 return;
@@ -84,19 +86,19 @@ namespace ProFin.Core.Services
             await _budgetRepository.Add(budget);
         }
 
-
-
         public async Task Update(Budget budget)
         {
             if (!_userService.IsAuthenticated())
             {
-                Notifie("Orçamento só pode ser alterada por um usuário autenticado");
+                Notifie("Orçamento só pode ser alterado por um usuário autenticado");
                 return;
             }
 
             if (!ExecuteValidation(new BudgetValidation(), budget)) return;
 
-            if (await _categoryService.EnsureValidPermissionCategory(budget.CategoryTransactionId) == false)
+            // Verifica se a categoria existe
+            var category = await _categoryService.GetById(budget.CategoryTransactionId);
+            if (category == null)
             {
                 Notifie("Categoria inexistente");
                 return;

@@ -1,5 +1,6 @@
 ﻿namespace ProFin.Core.Interfaces
-{    public interface IAppUserService
+{
+    public interface IAppUserService
     {
         public bool IsAuthenticated();
         public Guid? GetId();

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using ProFin.API.ViewModel;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
-using ProFin.Core.Notifications;
 
 namespace ProFin.API.Controllers
 {
@@ -15,22 +14,25 @@ namespace ProFin.API.Controllers
     {
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BudgetViewModel>>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
             var budgets = await budgetService.GetAll();
-            return Ok(mapper.Map<IEnumerable<BudgetViewModel>>(budgets));
+            var budgetViewModels = mapper.Map<IEnumerable<BudgetViewModel>>(budgets);
+            return CustomResponse(budgetViewModels);
         }
 
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<BudgetViewModel>> GetById(Guid id)
+        public async Task<IActionResult> GetById(Guid id)
         {
             var budget = await budgetService.GetById(id);
             if (budget == null)
             {
-                return NotFound();
+                NotifieError("Orçamento não encontrado.");
+                return CustomResponse();
             }
 
-            return Ok(mapper.Map<BudgetViewModel>(budget));
+            var budgetViewModel = mapper.Map<BudgetViewModel>(budget);
+            return CustomResponse(budgetViewModel);
         }
 
         [HttpPost]

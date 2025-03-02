@@ -12,8 +12,6 @@ namespace ProFin.API.ViewModel
         [Required(ErrorMessage = "The field {0} is required.")]
         public decimal Limit { get; set; }
 
-        public decimal CurrentSpending { get; set; }
-
         public DateTime CreatedDate { get; set; }
 
         public DateTime UpdatedDate { get; set; }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProFin.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class startproject : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,22 +48,6 @@ namespace ProFin.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CategoriesTransaction",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "TEXT", maxLength: 250, nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Deleted = table.Column<bool>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CategoriesTransaction", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -130,8 +114,8 @@ namespace ProFin.Data.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "TEXT", nullable: false),
-                    ProviderKey = table.Column<string>(type: "TEXT", nullable: false),
+                    LoginProvider = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "TEXT", nullable: true),
                     UserId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
@@ -175,8 +159,8 @@ namespace ProFin.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    LoginProvider = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    LoginProvider = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
                     Value = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -191,15 +175,37 @@ namespace ProFin.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CategoriesTransaction",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "TEXT", maxLength: 250, nullable: true),
+                    IsPattern = table.Column<bool>(type: "INTEGER", nullable: false),
+                    UserId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Deleted = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CategoriesTransaction", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CategoriesTransaction_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Budgets",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     CategoryTransactionId = table.Column<Guid>(type: "TEXT", nullable: false),
                     Limit = table.Column<decimal>(type: "TEXT", nullable: false),
-                    CurrentSpending = table.Column<decimal>(type: "TEXT", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UserId = table.Column<Guid>(type: "TEXT", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Deleted = table.Column<bool>(type: "INTEGER", nullable: false)
@@ -213,6 +219,12 @@ namespace ProFin.Data.Migrations
                         principalTable: "CategoriesTransaction",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Budgets_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -222,7 +234,9 @@ namespace ProFin.Data.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Value = table.Column<double>(type: "REAL", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
-                    CategoryFinancialTransactionId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    CategoryFinancialTransactionId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    TransactionType = table.Column<string>(type: "TEXT", maxLength: 1, nullable: false),
+                    UserId = table.Column<Guid>(type: "TEXT", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Deleted = table.Column<bool>(type: "INTEGER", nullable: false)
@@ -234,7 +248,14 @@ namespace ProFin.Data.Migrations
                         name: "FK_FinancialTransactions_CategoriesTransaction_CategoryFinancialTransactionId",
                         column: x => x.CategoryFinancialTransactionId,
                         principalTable: "CategoriesTransaction",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FinancialTransactions_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -280,9 +301,24 @@ namespace ProFin.Data.Migrations
                 column: "CategoryTransactionId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Budgets_UserId",
+                table: "Budgets",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CategoriesTransaction_UserId",
+                table: "CategoriesTransaction",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_FinancialTransactions_CategoryFinancialTransactionId",
                 table: "FinancialTransactions",
                 column: "CategoryFinancialTransactionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FinancialTransactions_UserId",
+                table: "FinancialTransactions",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -310,9 +346,6 @@ namespace ProFin.Data.Migrations
                 name: "FinancialTransactions");
 
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -320,6 +353,9 @@ namespace ProFin.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "CategoriesTransaction");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

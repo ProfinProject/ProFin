@@ -105,7 +105,7 @@ namespace ProFin.Core.Services
             if (_userService.IsAdmin())
                 return await _transactionRepository.GetAll();
 
-            Expression<Func<FinancialTransaction, bool>> filter = x => x.UserId >= _userService.GetId().Value;
+            Expression<Func<FinancialTransaction, bool>> filter = x => x.UserId == _userService.GetId().Value;
             return await _transactionRepository.GetAll(includes: "CategoryFinancialTransaction", expression: filter);
         }
     }

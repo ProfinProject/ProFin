@@ -11,8 +11,8 @@ using ProFin.Data.Context;
 namespace ProFin.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250302124523_initial")]
-    partial class initial
+    [Migration("20250302193112_startproject")]
+    partial class startproject
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -227,9 +227,6 @@ namespace ProFin.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("CurrentSpending")
-                        .HasColumnType("TEXT");
-
                     b.Property<bool>("Deleted")
                         .HasColumnType("INTEGER");
 
@@ -244,8 +241,7 @@ namespace ProFin.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryTransactionId")
-                        .IsUnique();
+                    b.HasIndex("CategoryTransactionId");
 
                     b.HasIndex("UserId");
 

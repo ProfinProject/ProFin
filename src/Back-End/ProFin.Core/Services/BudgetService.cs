@@ -94,7 +94,9 @@ namespace ProFin.Core.Services
                 return;
             }
 
-            if (!ExecuteValidation(new BudgetValidation(), budget)) return;
+            budget.SetUset(_userService.GetId().Value);
+
+            if (!ExecuteValidation(new UpdateBudgetValidation(_userService.GetId().Value), budget)) return;
 
             if (await _categoryService.EnsureValidPermissionCategory(budget.CategoryTransactionId) == false)
             {

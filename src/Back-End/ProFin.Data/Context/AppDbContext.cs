@@ -30,18 +30,6 @@ namespace ProFin.Data.Context
             builder.ApplyConfiguration(new CategoryFinancialTransactionConfiguration());
             builder.ApplyConfiguration(new BudgetConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
-
-            var userId = _userService.GetId();
-            if (userId.HasValue && userId.Value != Guid.Empty)
-            {
-                builder.Entity<FinancialTransaction>().HasQueryFilter(ft => ft.UserId == userId);
-                builder.Entity<CategoryFinancialTransaction>().HasQueryFilter(ct => ct.UserId == userId);
-                builder.Entity<Budget>().HasQueryFilter(b => b.UserId == userId);
-            }
-
-            builder.Entity<Budget>()
-                .HasIndex(b => b.CategoryTransactionId)
-                .IsUnique();
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellation = default)
@@ -117,6 +105,7 @@ namespace ProFin.Data.Context
                  .OnDelete(DeleteBehavior.Cascade);
         }
     }
+
     public class BudgetConfiguration : IEntityTypeConfiguration<Budget>
     {
         public void Configure(EntityTypeBuilder<Budget> builder)

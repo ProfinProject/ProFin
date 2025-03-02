@@ -30,19 +30,6 @@
       </div>
     </div>
 
-    <!-- <div class="form-group mb-3">
-      <label for="currentSpending">Gasto Atual</label>
-      <input [currencyMask]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" class="form-control" id="currentSpending"
-        formControlName="currentSpending"
-        [class.is-invalid]="budgetForm.get('currentSpending')?.invalid && budgetForm.get('currentSpending')?.touched">
-      <div class="invalid-feedback">
-        Gasto Atual é obrigatório e deve ser maior que zero </div>
-
-      <div *ngIf="budgetForm.hasError('currentSpendingExceeded')">
-        <span class="text-danger">O gasto atual não pode ser maior que o limite!</span>
-      </div>
-    </div> -->
-
     <div class="d-flex gap-2">
       <button type="submit" class="btn btn-primary" [disabled]="budgetForm.invalid">
         {{ isEditing ? 'Atualizar' : 'Criar' }}

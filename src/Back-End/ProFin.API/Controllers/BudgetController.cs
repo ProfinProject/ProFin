@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProFin.API.ViewModel;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
+using ProFin.Core.Notifications;
 
 namespace ProFin.API.Controllers
 {
@@ -43,7 +44,12 @@ namespace ProFin.API.Controllers
             var budget = mapper.Map<Budget>(budgetViewModel);
             await budgetService.Insert(budget);
 
-            return CreatedAtAction(nameof(GetById), new { id = budget.Id }, budgetViewModel);
+            if (notifier.HasNotification())
+            {
+                return CustomResponse();
+            }
+
+            return CustomResponse(budgetViewModel);
         }
 
         [HttpPut("{id:guid}")]
@@ -64,8 +70,17 @@ namespace ProFin.API.Controllers
 
             await budgetService.Update(budget);
 
-            return CustomResponse(budgetViewModel);
+            if (notifier.HasNotification())
+            {
+                return CustomResponse();
+            }
+
+            var updatedBudget = await budgetService.GetById(id);
+            var updatedBudgetViewModel = mapper.Map<BudgetViewModel>(updatedBudget);
+
+            return CustomResponse(updatedBudgetViewModel);
         }
+
 
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)

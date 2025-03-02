@@ -5,6 +5,49 @@
     {{ errorMessage }}
   </div>
 
+
+  <form [formGroup]="filterForm">
+    <div class="row mb-3">
+      <div class="col-md-3">
+        <label for="filterByTransactionDate">Filtrar por Data</label>
+        <input type="date" id="filterByTransactionDate" class="form-control"
+          formControlName="filterByTransactionDate" />
+      </div>
+
+      <!-- Filtro por categoria -->
+      <div class="col-md-3">
+        <label for="filterByCategoryFinancialTransactionId">Filtrar por Categoria</label>
+        <select class="form-control" id="filterByCategoryFinancialTransactionId"
+          formControlName="filterByCategoryFinancialTransactionId">
+          <option value="">Todas as Categorias</option>
+          <option *ngFor="let category of categories" [value]="category.id">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Filtro por tipo -->
+      <div class="col-md-3">
+        <label for="filterByType">Filtrar por Tipo</label>
+        <select class="form-control" id="filterByType" formControlName="filterByType">
+          <option value="">Todos os Tipos</option>
+          <option value="E">Entrada</option>
+          <option value="S">Saída</option>
+        </select>
+      </div>
+
+      <!-- Botão de limpar filtros -->
+      <div class="col-md-3">
+        <button class="btn btn-success mt-4 me-2" type="button" (click)="searchFinancialTransactions()">
+          Pesquisar
+        </button>
+        <button class="btn btn-secondary mt-4" type="button" (click)="clearFilters()">
+          Limpar Filtros
+        </button>
+      </div>
+    </div>
+  </form>
+
   <div class="mb-3">
     <button class="btn btn-primary" (click)="onAdd()">
       Nova Transação
@@ -17,6 +60,8 @@
         <th>Descrição</th>
         <th>Categoria</th>
         <th>Valor</th>
+        <th>Tipo</th>
+        <th>Data</th>
         <th>Ações</th>
       </tr>
     </thead>
@@ -25,6 +70,8 @@
         <td>{{ financialTransaction.description }}</td>
         <td>{{ financialTransaction.categoryFinancialTransaction.name }}</td>
         <td>{{ financialTransaction.value | currency:'BRL':'symbol':'1.2-2' }}</td>
+        <td>{{ financialTransaction.transactionType === 'E' ? 'Entrada' : 'Saída' }}</td>
+        <td>{{ financialTransaction.createdDate }}</td>
         <td>
           <button class="btn btn-sm btn-primary me-2" (click)="onEdit(financialTransaction.id!)">
             Editar

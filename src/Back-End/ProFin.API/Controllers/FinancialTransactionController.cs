@@ -18,9 +18,9 @@ namespace ProFin.API.Controllers
         ) : MainController(notifier)
     {
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TransactionViewModel>>> GetAll()
+        public async Task<ActionResult<IEnumerable<TransactionViewModel>>> GetAll([FromQuery]Dictionary<string, string> filters = null)
         {
-            var result = mapper.Map<IEnumerable<TransactionViewModel>>(await financialTransactionService.GetAll());
+            var result = mapper.Map<IEnumerable<TransactionViewModel>>(await financialTransactionService.GetAll(filters));
             return CustomResponse(result.ToList());
         }
 

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, tap, catchError, throwError } from 'rxjs';
 import { FinancialTransaction } from '../models/financial-transaction.model';
+import { FinancialTransactionSearch } from '../models/financial-transaction-search-model';
+
 import { Alert } from '../models/alert.model';
 import { CategoryTransaction } from '../models/category-transaction.model';
 import { environment } from '../../../environments/environment';
@@ -66,6 +68,38 @@ export class FinancialTransactionService extends BaseService {
         return throwError(() => error);
       })
     );
+  }
+
+  // searchFinancialTransaction(financialTransactionSearch: FinancialTransactionSearch): Observable<FinancialTransaction[]> {
+  //   return this.http.get<FinancialTransaction[]>(`${this.apiUrl}`, financialTransactionSearch, this.getAuthHeaderJson());
+  // }
+
+  toDictionary(search: FinancialTransactionSearch): { [key: string]: string } {
+    let dictionary: { [key: string]: string } = {};
+    let params = new HttpParams();
+
+    Object.keys(search).forEach(key => {
+      const value = search[key as keyof FinancialTransactionSearch];
+      if (value) {
+        dictionary[key] = value;
+      }
+    });
+
+    return dictionary;
+  }
+
+  searchFinancialTransaction(financialTransactionSearch: FinancialTransactionSearch): Observable<ApiResponse<FinancialTransaction[]>> {
+    const searchDictionary = this.toDictionary(financialTransactionSearch);
+
+    let params = new HttpParams();
+    Object.keys(searchDictionary).forEach(key => {
+      params = params.set(key, searchDictionary[key]);
+    });
+    return this.http.get<ApiResponse<FinancialTransaction[]>>(this.apiUrl,
+      {
+        params,
+        ...this.getAuthHeaderJson()
+      });
   }
 
   // private checkFinancialTransactionsLimits() {

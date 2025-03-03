@@ -1,4 +1,5 @@
-﻿using ProFin.Core.Models;
+﻿using ProFin.API.ViewModel;
+using ProFin.Core.Models;
 
 namespace ProFin.Core.Interfaces.Repositories;
 
@@ -7,4 +8,5 @@ public interface ICategoryTransactionRepository : IRepository<CategoryFinancialT
     Task<List<FinancialTransaction>> GetTransactionsByCategoryAsync(Guid categoryId);
     Task<bool> HasTransactionsAsync(Guid categoryId);
     Task MoveTransactionsToCategoryAsync(Guid categoryId);
+    Task<List<Panel>> GetPanel();
 }

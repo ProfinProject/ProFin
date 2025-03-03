@@ -9,9 +9,9 @@ namespace ProFin.Core.Models
 
         public CategoryFinancialTransaction CategoryTransaction { get; set; }
 
-        public decimal Limit { get; set; }
+        public double Limit { get; set; }
 
-        public decimal CurrentSpending { get; set; }
+        public double CurrentSpending { get; set; }
 
         public Guid UserId { get; set; }
 

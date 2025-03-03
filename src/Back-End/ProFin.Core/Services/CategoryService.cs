@@ -26,7 +26,7 @@ namespace ProFin.Core.Services
                 return await _categoryTransactionRepository.GetAll();
 
 
-            Expression<Func<CategoryFinancialTransaction, bool>> filter = x => x.UserId == _userService.GetId().Value || x.IsPattern;
+            Expression<Func<CategoryFinancialTransaction, bool>> filter = x => x.UserId == _userService.GetId().Value;
             return await _categoryTransactionRepository.GetAll(expression: filter);
         }
 
@@ -68,6 +68,8 @@ namespace ProFin.Core.Services
                 Notifie("Categoria só pode ser alterada por um usuário autenticado");
                 return;
             }
+
+            categoryFinancialTransaction.SetUset(_userService.GetId().Value);
 
             if (!ExecuteValidation(new UpdateCategoryFinancialTransactionEntityValidation(_userService.GetId().GetValueOrDefault()),
                 categoryFinancialTransaction)) return;

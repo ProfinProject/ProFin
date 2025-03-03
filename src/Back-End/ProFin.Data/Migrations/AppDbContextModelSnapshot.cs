@@ -224,9 +224,6 @@ namespace ProFin.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("CurrentSpending")
-                        .HasColumnType("TEXT");
-
                     b.Property<bool>("Deleted")
                         .HasColumnType("INTEGER");
 
@@ -301,6 +298,11 @@ namespace ProFin.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TransactionType")
+                        .IsRequired()
+                        .HasMaxLength(1)
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("UpdatedDate")

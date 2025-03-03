@@ -16,7 +16,6 @@ export class BudgetService extends BaseService {
 
   constructor(private http: HttpClient) {
     super();
-    this.checkBudgetLimits();
   }
 
   getBudgets(): Observable<Budget[]> {
@@ -68,31 +67,5 @@ export class BudgetService extends BaseService {
       tap(response => console.log('Resposta da API:', response)),
       catchError(this.serviceError)
     );
-  }
-
-  private checkBudgetLimits() {
-    this.getBudgets().subscribe(budgets => {
-      const alerts: Alert[] = [];
-
-      budgets.forEach(budget => {
-        const percentageUsed = (budget.currentSpending / budget.limit) * 100;
-
-        if (percentageUsed >= 100) {
-          alerts.push({
-            type: 'danger',
-            message: `Orçamento ultrapassado na categoria ${budget.categoryTransactionId}!`,
-            timestamp: new Date()
-          });
-        } else if (percentageUsed >= 80) {
-          alerts.push({
-            type: 'warning',
-            message: `Categoria ${budget.categoryTransactionId} está próxima do limite (${percentageUsed.toFixed(1)}%)`,
-            timestamp: new Date()
-          });
-        }
-      });
-
-      this.alertsSubject.next(alerts);
-    });
   }
 }

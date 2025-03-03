@@ -18,7 +18,7 @@ public class CategoryFinancialTransaction : Entity
 
     public User User { get; set; }
 
-    internal void SetUset(Guid userId)
+    internal void SetUser(Guid userId)
     {
         UserId = userId;
     }

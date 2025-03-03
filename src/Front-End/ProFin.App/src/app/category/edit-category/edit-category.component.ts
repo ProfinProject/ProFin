@@ -60,9 +60,13 @@ export class EditCategoryComponent extends FormBaseComponent implements OnInit, 
     this.categoryService.getCategoryById(this.id)
       .subscribe({
         next: response => {
+          this.category.description = response.description;
+          this.category.name = response.name;
+          this.category.userId = response.userId;
+
           this.editionForm = this.fb.group({
-            name: [response.name, Validators.required],
-            description: [response.description, Validators.required]
+            name: [this.category.description, Validators.required],
+            description: [this.category.name, Validators.required]
           });
         },
         error: e => {
@@ -82,7 +86,8 @@ export class EditCategoryComponent extends FormBaseComponent implements OnInit, 
 
   editCategory() {
     if (this.editionForm.dirty && this.editionForm.valid) {
-      this.category = Object.assign({}, this.category, this.editionForm.value);
+      this.category.description = this.editionForm.value.description;
+      this.category.name = this.editionForm.value.name;
       this.updateCategory();
     }
   }

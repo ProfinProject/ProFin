@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace ProFin.API.ViewModel;
 
 public class Panel
@@ -13,4 +11,6 @@ public class Panel
     public double TotalValue { get; set; }
 
     public string MostConsumed { get; set; }
+
+    public string Description { get; set; }
 }

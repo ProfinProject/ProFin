@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProFin.API.ViewModel;
 using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Models;
 using ProFin.Data.Context;
@@ -39,57 +38,5 @@ namespace ProFin.Data.Repositories
 
             await AppDbContext.SaveChangesAsync();
         }
-
-        public async Task<List<Panel>> GetPanel()
-        {
-            List<Panel> panels = new List<Panel>();
-            var transactions = await AppDbContext.FinancialTransactions.Include(a => a.CategoryFinancialTransaction).Select(a => new EntityResume() { Category = a.CategoryFinancialTransaction.Name, TotalValue = a.Value }).ToListAsync();
-
-            var categoryPanel = transactions.GroupBy(a => a.Category).Select(a =>
-                new Panel()
-                {
-                    TotalValue = Math.Round(a.Sum(b => b.TotalValue), 2),
-                    Quantity = a.Count(),
-                    MostConsumed = a.Key,
-                    Title = "Categoria",
-                    TitlePlural = "Categorias",
-                }).OrderByDescending(a => a.TotalValue).FirstOrDefault();
-
-            panels.Add(categoryPanel);
-
-            var biggestBudget = AppDbContext.Budgets.Include(a => a.CategoryTransaction).OrderByDescending(a => a.Limit).FirstOrDefault();
-            var panelBudget = new Panel()
-            {
-                Title = "Orçamento",
-                TitlePlural = "Orçamentos",
-                TotalValue = AppDbContext.Budgets.Sum(a => a.Limit),
-                MostConsumed = biggestBudget.CategoryTransaction.Name,
-                Quantity = AppDbContext.Budgets.Count()
-            };
-
-            panels.Add(panelBudget);
-
-            var mostTransacted = AppDbContext.FinancialTransactions.Include(a => a.CategoryFinancialTransaction).GroupBy(a => a.CategoryFinancialTransaction.Name).Select(a => new { Category = a.Key, Quantity = a.Count() }).OrderByDescending(a => a.Quantity).FirstOrDefault();
-            var panelTransactions = new Panel()
-            {
-                Title = "Transação",
-                TitlePlural = "Transações",
-                TotalValue = Math.Round(AppDbContext.FinancialTransactions.Sum(a => a.Value), 2),
-                MostConsumed = mostTransacted.Category,
-                Quantity = mostTransacted.Quantity
-            };
-
-            panels.Add(panelTransactions);
-
-            return panels;
-        }
     }
-
-    public class EntityResume
-    {
-        public double TotalValue { get; set; }
-        public string Category { get; set; }
-
-    }
-
 }

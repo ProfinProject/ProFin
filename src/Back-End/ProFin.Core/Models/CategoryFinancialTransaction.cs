@@ -4,7 +4,6 @@ namespace ProFin.Core.Models;
 
 public class CategoryFinancialTransaction : Entity
 {
-
     [Required]
     [StringLength(100)]
     public string Name { get; set; }

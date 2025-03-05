@@ -48,6 +48,10 @@ export class ListCategoryComponent implements OnInit {
             this.delete(id);
           };
         }
+        else
+        {
+          this.popupDeleQuestion(id);
+        }
       },
       error: (error) => {
         console.error('Erro ao excluir categoria:', error);

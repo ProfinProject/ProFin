@@ -1,11 +1,12 @@
 export class Panel {
     constructor() {
-        this.title = 'Categoria';
-        this.titlePlural = 'Categorias';
-        this.description = 'foi a ' + this.title + ' que mais consumiu.';
-        this.quantity = 8;
-        this.totalValue = 550.00;
-        this.mostConsumed = 'Lazer'
+        this.title = '';
+        this.titlePlural = '';
+        this.description = '';
+        this.quantity = 0;
+        this.totalValue = 0;
+        this.mostConsumed = '';
+        this.classIcon = '';
     }
 
     quantity: number;
@@ -14,4 +15,5 @@ export class Panel {
     description: string;
     titlePlural: string;
     mostConsumed: string;
+    classIcon: string;
 }   

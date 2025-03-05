@@ -13,4 +13,6 @@ public class Panel
     public string MostConsumed { get; set; }
 
     public string Description { get; set; }
+
+    public string ClassIcon { get; set; }
 }

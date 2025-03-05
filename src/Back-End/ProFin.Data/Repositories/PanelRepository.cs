@@ -27,7 +27,8 @@ namespace ProFin.Data.Repositories
                     MostConsumed = a.Key,
                     Title = "Categoria",
                     TitlePlural = "Categorias",
-                    Description = "foi a categoria que mais consumiu."
+                    Description = "foi a categoria que mais consumiu.",
+                    ClassIcon = "fa-solid fa-layer-group p-1 icon-white-color"
                 }).OrderByDescending(a => a.TotalValue).FirstOrDefault();
 
             panels.Add(categoryPanel);
@@ -39,7 +40,8 @@ namespace ProFin.Data.Repositories
                 TitlePlural = "Orçamentos",
                 TotalValue = _appDbContext.Budgets.Sum(a => a.Limit),
                 MostConsumed = biggestBudget.CategoryTransaction.Name,
-                Quantity = _appDbContext.Budgets.Count()
+                Quantity = _appDbContext.Budgets.Count(),
+                ClassIcon = "fa-solid fa-money-bill-trend-up p-1 icon-white-color"
             };
 
             panelBudget.Description = panelBudget.MostConsumed + " é o seu maior orçamento, com um montante de " + biggestBudget.Limit;
@@ -53,7 +55,8 @@ namespace ProFin.Data.Repositories
                 TitlePlural = "Transações",
                 TotalValue = Math.Round(_appDbContext.FinancialTransactions.Sum(a => a.Value), 2),
                 MostConsumed = mostTransacted.Category,
-                Quantity = mostTransacted.Quantity
+                Quantity = mostTransacted.Quantity,
+                ClassIcon = "fa-solid fa-money-bill-transfer p-1 icon-white-color"
             };
 
             panelTransactions.Description = panelTransactions.MostConsumed + " foi a categoria que teve mais transações com um total de " + panelTransactions.Quantity;
@@ -80,6 +83,8 @@ namespace ProFin.Data.Repositories
                 budget.TotalValueUsed = Math.Round(_appDbContext.FinancialTransactions.Where(a => a.CategoryFinancialTransactionId == budget.CategoryId).Sum(a => a.Value), 2);
                 budget.PercentageBudget = Math.Round(budget.TotalValueUsed / budget.BudgetValue * 100, 2);
                 budget.Description = "O orçamento para " + budget.Budget + " é de " + budget.BudgetValue + " e já foi consumido " + budget.TotalValueUsed;
+
+                budget.ClassIcon = budget.PercentageBudget > 100 ? "fa-solid fa-radiation icon-white-color" : "fa-solid fa-bell icon-white-color";
             }
 
             return budgets.OrderByDescending(a => a.PercentageBudget).Take(3).ToList();

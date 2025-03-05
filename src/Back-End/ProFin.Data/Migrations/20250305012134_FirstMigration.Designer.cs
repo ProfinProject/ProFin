@@ -11,8 +11,8 @@ using ProFin.Data.Context;
 namespace ProFin.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250302124523_initial")]
-    partial class initial
+    [Migration("20250305012134_FirstMigration")]
+    partial class FirstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -318,8 +318,8 @@ namespace ProFin.Data.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("Value")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Value")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 

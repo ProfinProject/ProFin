@@ -186,7 +186,7 @@ namespace ProFin.Data.Seed
                     int randomDays = random.Next((today - fourMonthsAgo).Days + 1);
                     transactionsModel.Add(new FinancialTransaction
                     {
-                        Value = min + (random.NextDouble() * (max - min)),
+                        Value = (decimal)(min + (random.NextDouble() * (max - min))),
                         Description = $"Gastos com {category.Name} {i}",
                         CreatedDate = fourMonthsAgo.AddDays(randomDays),
                         Deleted = false,

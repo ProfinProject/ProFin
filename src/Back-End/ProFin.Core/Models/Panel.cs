@@ -8,7 +8,7 @@ public class Panel
 
     public int Quantity { get; set; }
 
-    public double TotalValue { get; set; }
+    public decimal TotalValue { get; set; }
 
     public string MostConsumed { get; set; }
 

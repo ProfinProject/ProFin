@@ -31,7 +31,7 @@ namespace ProFin.Data.Repositories
             //Por enquanto move tudo para outros
             var categoryOther = await AppDbContext.CategoryTransactions.FirstOrDefaultAsync(a => a.Name.Equals("Outros") && a.IsPattern);
 
-            foreach (var transaction in transactions)   
+            foreach (var transaction in transactions)
             {
                 transaction.CategoryFinancialTransactionId = categoryOther.Id;
             }

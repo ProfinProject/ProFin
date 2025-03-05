@@ -241,7 +241,8 @@ namespace ProFin.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryTransactionId");
+                    b.HasIndex("CategoryTransactionId")
+                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -303,14 +304,19 @@ namespace ProFin.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("TransactionType")
+                        .IsRequired()
+                        .HasMaxLength(1)
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("Value")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Value")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 

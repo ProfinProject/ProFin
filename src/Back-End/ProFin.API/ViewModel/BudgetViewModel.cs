@@ -10,9 +10,9 @@ namespace ProFin.API.ViewModel
         public Guid CategoryTransactionId { get; set; }
 
         [Required(ErrorMessage = "The field {0} is required.")]
-        public decimal Limit { get; set; }
+        public double Limit { get; set; }
 
-        public decimal CurrentSpending { get; set; }
+        public double CurrentSpending { get; set; }
 
         public DateTime CreatedDate { get; set; }
 

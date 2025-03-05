@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { PanelAlert } from '../models/panel-alert.model';
 import { CommonModule } from '@angular/common';
@@ -13,14 +13,15 @@ import { CommonModule } from '@angular/common';
 })
 
 export class PanelAlertComponent implements OnInit {
+  @Input()
   alert: PanelAlert;
 
-    constructor(private router: Router) {
-      this.alert = new PanelAlert();
+  constructor(private router: Router) {
+    this.alert = new PanelAlert();
 
-    }
+  }
 
-    ngOnInit(): void {
+  ngOnInit(): void {
 
-    }
+  }
 }

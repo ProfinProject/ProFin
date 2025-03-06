@@ -49,8 +49,6 @@ namespace ProFin.Core.Services
                 return;
             }
 
-            transactionEntity.SetUset(_userService.GetId().Value);
-
             if (!ExecuteValidation(new UpdateTransactionValidation(_userService.GetId().GetValueOrDefault()),
                 transactionEntity)) return;
 
@@ -125,6 +123,7 @@ namespace ProFin.Core.Services
                 }
             return expression;
         }
+
         public async Task<IEnumerable<FinancialTransaction>> GetAll(Dictionary<string, string> filters)
         {
             Expression<Func<FinancialTransaction, bool>> expression = GetExpresionFilter(filters);
@@ -134,8 +133,9 @@ namespace ProFin.Core.Services
             if (_userService.IsAdmin())
                 return await _transactionRepository.GetAll(includes: "CategoryFinancialTransaction", expression);
 
-            Expression<Func<FinancialTransaction, bool>> filter = x => x.UserId == _userService.GetId().Value;
-            return await _transactionRepository.GetAll(includes: "CategoryFinancialTransaction", expression: filter);
+            expression.And(x => x.UserId >= _userService.GetId().Value);
+
+            return await _transactionRepository.GetAll(includes: "CategoryFinancialTransaction", expression);
         }
     }
 }

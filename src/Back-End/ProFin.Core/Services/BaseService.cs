@@ -44,7 +44,7 @@ namespace ProFin.Core.Services
 
         protected bool CanEdit(Guid userId)
         {
-            return _userService.IsAdmin() == true || _userService.GetId() == userId;
+            return _userService.IsAdmin() || _userService.GetId() == userId;
         }
 
     }

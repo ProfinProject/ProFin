@@ -4,7 +4,7 @@ namespace ProFin.Core.Models
 {
     public class FinancialTransaction : Entity
     {
-        public double Value { get; set; }
+        public decimal Value { get; set; }
 
         public string Description { get; set; }
 

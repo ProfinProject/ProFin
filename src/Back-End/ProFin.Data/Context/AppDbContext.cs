@@ -9,12 +9,7 @@ namespace ProFin.Data.Context
 {
     public class AppDbContext : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>
     {
-        private readonly IAppUserService _userService;
-
-        public AppDbContext(DbContextOptions<AppDbContext> options, IAppUserService userService) : base(options)
-        {
-            _userService = userService;
-        }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<FinancialTransaction> FinancialTransactions { get; set; }
         public DbSet<CategoryFinancialTransaction> CategoryTransactions { get; set; }

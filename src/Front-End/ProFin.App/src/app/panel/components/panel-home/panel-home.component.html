@@ -1,31 +1,12 @@
 <html>
-    <style>
-
-    </style>
     <body class="bd-light">
         <div class="container" style="margin-top: 50px; margin-bottom: 230px;">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <div class="col">
-                    <app-panel-alert></app-panel-alert>
-                </div>
-                <div class="col">
-                    <app-panel-alert></app-panel-alert>
-                </div>
-                <div class="col">
-                    <app-panel-alert></app-panel-alert>
-                </div>
+                <app-panel-alert *ngFor="let alert of alerts" [alert]="alert"></app-panel-alert>
             </div>
             <div class="mb-4"></div>
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <div class="col">
-                    <app-panel-detail></app-panel-detail>
-                </div>
-                <div class="col">
-                    <app-panel-detail></app-panel-detail>
-                </div>
-                <div class="col">
-                    <app-panel-detail></app-panel-detail>
-                </div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"> 
+                <app-panel-detail *ngFor="let panel of panels;" [panel]="panel"></app-panel-detail>
             </div>
         </div>
     </body>

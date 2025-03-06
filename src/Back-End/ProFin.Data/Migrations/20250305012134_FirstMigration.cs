@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProFin.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class startproject : Migration
+    public partial class FirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -232,7 +232,7 @@ namespace ProFin.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Value = table.Column<double>(type: "REAL", nullable: false),
+                    Value = table.Column<decimal>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     CategoryFinancialTransactionId = table.Column<Guid>(type: "TEXT", nullable: false),
                     TransactionType = table.Column<string>(type: "TEXT", maxLength: 1, nullable: false),
@@ -298,7 +298,8 @@ namespace ProFin.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Budgets_CategoryTransactionId",
                 table: "Budgets",
-                column: "CategoryTransactionId");
+                column: "CategoryTransactionId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Budgets_UserId",

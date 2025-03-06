@@ -4,6 +4,7 @@ export interface Budget {
   limit: number;
   remainingBudget: number;
   categoryTransaction: Category;
+  userId: string;
 }
 
 export interface Category {

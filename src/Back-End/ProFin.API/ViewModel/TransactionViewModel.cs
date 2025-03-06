@@ -19,5 +19,7 @@ namespace ProFin.API.ViewModel
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public TransactionType TransactionType { get; set; }
+
+        public string UserId { get; set; }
     }
 }

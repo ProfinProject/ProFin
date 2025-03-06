@@ -18,14 +18,14 @@ namespace ProFin.Core.Services
 
         public async Task Create(User user)
         {
-            if (ExecuteValidation(new UserValidation(), user) == false) return;
+            if (!ExecuteValidation(new UserValidation(), user)) return;
 
             await _userRepository.Add(user);
         }
 
         public async Task Update(User user)
         {
-            if (ExecuteValidation(new UserValidation(), user) == false) return;
+            if (!ExecuteValidation(new UserValidation(), user)) return;
 
             await _userRepository.Update(user);
         }
@@ -37,7 +37,7 @@ namespace ProFin.Core.Services
 
         public async void ValidateUser(User user)
         {
-            if (ExecuteValidation(new UserValidation(), user) == false) return;
+            if (!ExecuteValidation(new UserValidation(), user)) return;
 
             if (await _userRepository.GetByEmail(user.Email) != null)
                 Notifie("Já existe um usuário cadastrado com esse e-mail");

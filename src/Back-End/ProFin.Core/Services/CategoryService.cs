@@ -32,7 +32,6 @@ namespace ProFin.Core.Services
 
         public async Task<CategoryFinancialTransaction> GetById(Guid id)
         {
-
             if (_userService.IsAuthenticated() == false)
                 return null;
 
@@ -57,7 +56,7 @@ namespace ProFin.Core.Services
             if (!ExecuteValidation(new CategoryFinancialTransactionEntityValidation(), categoryFinancialTransaction)) return;
 
 
-            categoryFinancialTransaction.SetUset(_userService.GetId().Value);
+            categoryFinancialTransaction.SetUser(_userService.GetId().Value);
             await _categoryTransactionRepository.Add(categoryFinancialTransaction);
         }
 
@@ -68,8 +67,6 @@ namespace ProFin.Core.Services
                 Notifie("Categoria só pode ser alterada por um usuário autenticado");
                 return;
             }
-
-            categoryFinancialTransaction.SetUset(_userService.GetId().Value);
 
             if (!ExecuteValidation(new UpdateCategoryFinancialTransactionEntityValidation(_userService.GetId().GetValueOrDefault()),
                 categoryFinancialTransaction)) return;

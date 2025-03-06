@@ -26,7 +26,7 @@ public class CategoryTransactionController(
 
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<CategoryTransactionViewModel>> GetById(Guid id)
-    {
+        {
         var transaction = mapper.Map<CategoryTransactionViewModel>(await categoryService.GetById(id));
 
         if (transaction == null) return NotFound();

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AbstractControl, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -38,7 +38,8 @@ export class BudgetFormComponent extends FormBaseComponent implements OnInit {
     super();
     this.budgetForm = this.fb.group({
       categoryTransactionId: ['', Validators.required],
-      limit: ['', [Validators.required, Validators.min(0)]]
+      limit: ['', [Validators.required, Validators.min(0)]],
+      userId: ['']
     }
     );
   }
@@ -78,6 +79,7 @@ export class BudgetFormComponent extends FormBaseComponent implements OnInit {
           this.budgetForm.patchValue({
             categoryTransactionId: budget.categoryTransactionId,
             limit: budget.limit,
+            userId: budget.userId
           });
         } else {
           this.errorMessage = 'Erro ao carregar orçamento.';
@@ -94,11 +96,13 @@ export class BudgetFormComponent extends FormBaseComponent implements OnInit {
     if (this.budgetForm.valid) {
       const budgetData = {
         ...this.budgetForm.value,
-        categoryTransactionId: this.budgetForm.get('categoryTransactionId')?.value
+        categoryTransactionId: this.budgetForm.get('categoryTransactionId')?.value,
+        userId: this.budgetForm.get('userId')?.value
       };
 
       if (this.isEditing && this.budgetId) {
         budgetData.id = this.budgetId;
+        budgetData.userId = budgetData.userId;
         this.budgetService.updateBudget(this.budgetId, budgetData).subscribe({
           next: () => {
             console.log('Orçamento atualizado com sucesso');

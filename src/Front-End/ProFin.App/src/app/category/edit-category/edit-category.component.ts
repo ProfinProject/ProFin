@@ -65,8 +65,8 @@ export class EditCategoryComponent extends FormBaseComponent implements OnInit, 
           this.category.userId = response.userId;
 
           this.editionForm = this.fb.group({
-            name: [this.category.description, Validators.required],
-            description: [this.category.name, Validators.required]
+            name: [this.category.name, Validators.required],
+            description: [this.category.description, Validators.required]
           });
         },
         error: e => {

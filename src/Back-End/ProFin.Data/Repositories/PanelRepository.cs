@@ -33,33 +33,36 @@ namespace ProFin.Data.Repositories
 
             panels.Add(categoryPanel);
 
-            var biggestBudget = _appDbContext.Budgets.Include(a => a.CategoryTransaction).OrderByDescending(a => a.Limit).FirstOrDefault();
+            var budgets = await _appDbContext.Budgets.Include(a => a.CategoryTransaction).ToListAsync();
+            var biggestBudget = budgets.OrderByDescending(a => a.Limit).FirstOrDefault();
             var panelBudget = new Panel()
             {
                 Title = "Orçamento",
                 TitlePlural = "Orçamentos",
-                TotalValue = _appDbContext.Budgets.Sum(a => a.Limit),
+                TotalValue = budgets.Sum(a => a.Limit),
                 MostConsumed = biggestBudget.CategoryTransaction.Name,
                 Quantity = _appDbContext.Budgets.Count(),
                 ClassIcon = "fa-solid fa-money-bill-trend-up p-1 icon-white-color"
             };
 
-            panelBudget.Description = panelBudget.MostConsumed + " é o seu maior orçamento, com um montante de " + biggestBudget.Limit;
+            panelBudget.Description = " é o seu maior orçamento, com um montante de " + biggestBudget.Limit;
 
             panels.Add(panelBudget);
 
             var mostTransacted = _appDbContext.FinancialTransactions.Include(a => a.CategoryFinancialTransaction).GroupBy(a => a.CategoryFinancialTransaction.Name).Select(a => new { Category = a.Key, Quantity = a.Count() }).OrderByDescending(a => a.Quantity).FirstOrDefault();
+            var allTransactions = await _appDbContext.FinancialTransactions.ToListAsync();
             var panelTransactions = new Panel()
             {
+                
                 Title = "Transação",
                 TitlePlural = "Transações",
-                TotalValue = Math.Round(_appDbContext.FinancialTransactions.Sum(a => a.Value), 2),
+                TotalValue = Math.Round(allTransactions.Sum(a => a.Value), 2),
                 MostConsumed = mostTransacted.Category,
                 Quantity = mostTransacted.Quantity,
                 ClassIcon = "fa-solid fa-money-bill-transfer p-1 icon-white-color"
             };
 
-            panelTransactions.Description = panelTransactions.MostConsumed + " foi a categoria que teve mais transações com um total de " + panelTransactions.Quantity;
+            panelTransactions.Description = " foi a categoria que teve mais transações com um total de " + panelTransactions.Quantity;
             panels.Add(panelTransactions);
 
             return panels;
@@ -80,7 +83,8 @@ namespace ProFin.Data.Repositories
 
             foreach (var budget in budgets)
             {
-                budget.TotalValueUsed = Math.Round(_appDbContext.FinancialTransactions.Where(a => a.CategoryFinancialTransactionId == budget.CategoryId).Sum(a => a.Value), 2);
+                var transactiosByCategory = await _appDbContext.FinancialTransactions.Where(a => a.CategoryFinancialTransactionId == budget.CategoryId).ToListAsync();
+                budget.TotalValueUsed = Math.Round(transactiosByCategory.Sum(a => a.Value), 2);
                 budget.PercentageBudget = Math.Round(budget.TotalValueUsed / budget.BudgetValue * 100, 2);
                 budget.Description = "O orçamento para " + budget.Budget + " é de " + budget.BudgetValue + " e já foi consumido " + budget.TotalValueUsed;
 

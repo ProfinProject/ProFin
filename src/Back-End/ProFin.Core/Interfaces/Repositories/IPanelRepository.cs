@@ -1,5 +1,4 @@
-﻿using ProFin.API.ViewModel;
-using ProFin.Core.Models;
+﻿using ProFin.Core.Models;
 
 namespace ProFin.Core.Interfaces.Repositories;
 

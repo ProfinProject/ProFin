@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ProFin.Core.Enums;
 using ProFin.Core.Interfaces;
 using ProFin.Core.Models;
 
@@ -10,12 +9,7 @@ namespace ProFin.Data.Context
 {
     public class AppDbContext : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>
     {
-        private readonly IAppUserService _userService;
-
-        public AppDbContext(DbContextOptions<AppDbContext> options, IAppUserService userService) : base(options)
-        {
-            _userService = userService;
-        }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<FinancialTransaction> FinancialTransactions { get; set; }
         public DbSet<CategoryFinancialTransaction> CategoryTransactions { get; set; }
@@ -30,42 +24,29 @@ namespace ProFin.Data.Context
             builder.ApplyConfiguration(new CategoryFinancialTransactionConfiguration());
             builder.ApplyConfiguration(new BudgetConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
-
-            var userId = _userService.GetId();
-            if (userId.HasValue && userId.Value != Guid.Empty)
-            {
-                builder.Entity<FinancialTransaction>().HasQueryFilter(ft => ft.UserId == userId);
-                builder.Entity<CategoryFinancialTransaction>().HasQueryFilter(ct => ct.UserId == userId);
-                builder.Entity<Budget>().HasQueryFilter(b => b.UserId == userId);
-            }
-
-            builder.Entity<Budget>()
-                .HasIndex(b => b.CategoryTransactionId)
-                .IsUnique();
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellation = default)
         {
             foreach (var entry in ChangeTracker.Entries())
             {
-                if (entry.Entity is Entity)
+                if (entry.Entity is Entity entity)
                 {
-                    if (entry.State == EntityState.Added)
+                    switch (entry.State)
                     {
-                        entry.Property("CreatedDate").CurrentValue = DateTime.Now;
-                    }
-                    if (entry.State == EntityState.Modified)
-                    {
-                        entry.Property("UpdatedDate").CurrentValue = DateTime.Now;
-                        entry.Property("CreatedDate").IsModified = false;
-                    }
-
-                    if (entry.State == EntityState.Deleted)
-                    {
-                        entry.Property("Deleted").CurrentValue = true;
-                        entry.Property("UpdatedDate").CurrentValue = DateTime.Now;
-                        entry.Property("CreatedDate").IsModified = false;
-                        entry.State = EntityState.Modified;
+                        case EntityState.Added:
+                            entity.CreatedDate = DateTime.Now;
+                            break;
+                        case EntityState.Modified:
+                            entity.UpdatedDate = DateTime.Now;
+                            entry.Property("CreatedDate").IsModified = false;
+                            break;
+                        case EntityState.Deleted:
+                            entity.Deleted = true;
+                            entity.UpdatedDate = DateTime.Now;
+                            entry.Property("CreatedDate").IsModified = false;
+                            entry.State = EntityState.Modified;
+                            break;
                     }
                 }
             }
@@ -98,6 +79,7 @@ namespace ProFin.Data.Context
                   .WithMany()
                   .HasForeignKey(ft => ft.UserId)
                   .OnDelete(DeleteBehavior.Cascade);
+
             builder.Property(p => p.TransactionType)
                   .HasConversion<string>()
                   .HasMaxLength(1);
@@ -117,6 +99,7 @@ namespace ProFin.Data.Context
                  .OnDelete(DeleteBehavior.Cascade);
         }
     }
+
     public class BudgetConfiguration : IEntityTypeConfiguration<Budget>
     {
         public void Configure(EntityTypeBuilder<Budget> builder)

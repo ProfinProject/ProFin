@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace ProFin.API.ViewModel;
 
 public class PanelViewModel : GenericViewModel
@@ -10,7 +8,7 @@ public class PanelViewModel : GenericViewModel
 
     public int Quantity { get; set; }
 
-    public double TotalValue { get; set; }
+    public decimal TotalValue { get; set; }
 
     public string MostConsumed { get; set; }
 }

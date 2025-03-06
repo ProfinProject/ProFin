@@ -29,9 +29,13 @@ export class BudgetListComponent implements OnInit {
 
   loadBudgets(): void {
     this.budgetService.getBudgets().subscribe({
-      next: (budgets: Budget[]) => {
-        this.budgets = budgets;
-        console.log(this.budgets);
+      next: (response: any) => {
+        if (response.success) {
+          this.budgets = response.data;
+          console.log(this.budgets);
+        } else {
+          this.errorMessage = 'Erro ao carregar orçamentos.';
+        }
       },
       error: (error) => {
         if (error.status == 401)

@@ -21,7 +21,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let budget of budgets">
-        <td>{{ budget.categoryTransaction?.name }}</td>
+        <td>{{ budget.categoryTransaction.name }}</td>
         <td>{{ budget.limit | currency:'BRL' }}</td>
         <td>
           <button class="btn btn-sm btn-primary me-2" (click)="onEdit(budget.id!)">

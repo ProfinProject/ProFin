@@ -26,7 +26,7 @@ namespace ProFin.Core.Services
                 return await _categoryTransactionRepository.GetAll();
 
 
-            Expression<Func<CategoryFinancialTransaction, bool>> filter = x => x.UserId == _userService.GetId().Value || x.IsPattern;
+            Expression<Func<CategoryFinancialTransaction, bool>> filter = x => x.UserId == _userService.GetId().Value;
             return await _categoryTransactionRepository.GetAll(expression: filter);
         }
 

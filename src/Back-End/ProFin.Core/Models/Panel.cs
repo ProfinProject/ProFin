@@ -1,4 +1,4 @@
-namespace ProFin.API.ViewModel;
+namespace ProFin.Core.Models;
 
 public class Panel
 {

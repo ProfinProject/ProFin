@@ -2,17 +2,13 @@
 
 namespace ProFin.API.ViewModel
 {
-    public class BudgetViewModel
+    public class BudgetViewModel : GenericViewModel
     {
-        public Guid Id { get; set; }
-
         [Required(ErrorMessage = "The field {0} is required.")]
         public Guid CategoryTransactionId { get; set; }
 
         [Required(ErrorMessage = "The field {0} is required.")]
-        public double Limit { get; set; }
-
-        public double CurrentSpending { get; set; }
+        public decimal Limit { get; set; }
 
         public DateTime CreatedDate { get; set; }
 
@@ -21,5 +17,7 @@ namespace ProFin.API.ViewModel
         public bool Deleted { get; set; }
 
         public CategoryFinancialTransactionViewModel CategoryTransaction { get; set; }
+
+        public string UserId { get; set; }
     }
 }

@@ -63,7 +63,7 @@ namespace ProFin.Core.Services
 
             if (!ExecuteValidation(new BudgetValidation(), budget)) return;
 
-            if (await _categoryService.EnsureValidPermissionCategory(budget.CategoryTransactionId) == false)
+            if (!await _categoryService.EnsureValidPermissionCategory(budget.CategoryTransactionId))
             {
                 Notifie("Categoria inexistente");
                 return;
@@ -84,8 +84,6 @@ namespace ProFin.Core.Services
             await _budgetRepository.Add(budget);
         }
 
-
-
         public async Task Update(Budget budget)
         {
             if (!_userService.IsAuthenticated())
@@ -96,7 +94,7 @@ namespace ProFin.Core.Services
 
             if (!ExecuteValidation(new BudgetValidation(), budget)) return;
 
-            if (await _categoryService.EnsureValidPermissionCategory(budget.CategoryTransactionId) == false)
+            if (!await _categoryService.EnsureValidPermissionCategory(budget.CategoryTransactionId))
             {
                 Notifie("Categoria inexistente");
                 return;

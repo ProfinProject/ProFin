@@ -14,5 +14,7 @@ namespace ProFin.API.ViewModel
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public bool Deleted { get; set; }
+
+        public string UserId { get; set; }
     }
 }

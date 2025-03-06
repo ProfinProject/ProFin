@@ -7,5 +7,6 @@ export interface FinancialTransaction {
   value: number;
   categoryFinancialTransactionId: string,
   transactionType: string,
-  createdDate: string
+  createdDate: string,
+  userId: string
 }

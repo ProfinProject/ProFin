@@ -11,4 +11,4 @@ export class Category {
     description: string;
     userId: string;
     isPattern: boolean;
-}   
+  }

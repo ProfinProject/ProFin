@@ -17,8 +17,8 @@ import { PanelAlert } from '../models/panel-alert.model';
 export class PanelHomeComponent implements OnInit {
   panels: Panel[] = [];
   alerts: PanelAlert[] = [];
-  
-  constructor(private panelService: PanelService) {} 
+
+  constructor(private panelService: PanelService) {}
 
   ngOnInit(): void {
     this.loadPanels();

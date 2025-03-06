@@ -5,9 +5,7 @@ using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
 using ProFin.Core.Models.Validations.Transaction;
-using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
-using System.Security;
 
 namespace ProFin.Core.Services
 {
@@ -125,6 +123,7 @@ namespace ProFin.Core.Services
                 }
             return expression;
         }
+
         public async Task<IEnumerable<FinancialTransaction>> GetAll(Dictionary<string, string> filters)
         {
             Expression<Func<FinancialTransaction, bool>> expression = GetExpresionFilter(filters);

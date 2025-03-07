@@ -2,9 +2,6 @@
 using ProFin.Core.Interfaces.Repositories;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
-using ProFin.Core.Models.Validations;
-using ProFin.Core.Models.Validations.Category;
-using System.Linq.Expressions;
 
 namespace ProFin.Core.Services
 {
@@ -96,6 +93,7 @@ namespace ProFin.Core.Services
             foreach (var budget in budgets)
             {
                 var transactiosByCategory = await _financialTransactionRepository.GetTransactionByCategory(budget.CategoryId);
+                budget.TotalValueUsed = Math.Round(transactiosByCategory.Sum(a => a.Value), 2);
                 budget.PercentageBudget = Math.Round(budget.TotalValueUsed / budget.BudgetValue * 100, 2);
                 budget.Description = "O orçamento para " + budget.Budget + " é de " + budget.BudgetValue + " e já foi consumido " + budget.TotalValueUsed;
 

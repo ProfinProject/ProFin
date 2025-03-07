@@ -59,20 +59,26 @@ export class EditCategoryComponent extends FormBaseComponent implements OnInit, 
   loadCategory(): void {
     this.categoryService.getCategoryById(this.id)
       .subscribe({
-        next: response => {
-          this.category.description = response.description;
-          this.category.name = response.name;
-          this.category.userId = response.userId;
+        next: (response: any) => {
+          if (response.success) {
+            const categoryData = response.data;
+            this.category.description = categoryData.description;
+            this.category.name = categoryData.name;
+            this.category.userId = categoryData.userId;
+            this.category.isPattern = categoryData.isPattern;
 
-          this.editionForm = this.fb.group({
-            name: [this.category.name, Validators.required],
-            description: [this.category.description, Validators.required]
-          });
+            this.editionForm.patchValue({
+              name: this.category.name,
+              description: this.category.description
+            });
+          } else {
+            this.errorMessage = 'Erro ao carregar categoria.';
+          }
         },
         error: e => {
-          if (e.status === 401)
+          if (e.status === 401) {
             this.router.navigate(['/account/login']);
-          else {
+          } else {
             console.error('Erro ao carregar categoria:', e);
             this.errorMessage = 'Erro ao carregar categoria.';
           }

@@ -9,15 +9,14 @@ namespace ProFin.API.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class PanelsController(
-        IPanelRepository panelRepository,
-        IMapper mapper,
+        IPanelService panelService,
         INotifier notifier
         ) : MainController(notifier)
 {
     [HttpGet("Panels")]
     public async Task<ActionResult<List<Panel>>> GetPanels()
     {
-        var panel = await panelRepository.GetPanels();
+        var panel = await panelService.GetPanels();
 
         return Ok(panel);
     }
@@ -25,7 +24,7 @@ public class PanelsController(
     [HttpGet("Alerts")]
     public async Task<ActionResult<List<Panel>>> GetAlerts()
     {
-        var panel = await panelRepository.GetAlerts();
+        var panel = await panelService.GetAlerts();
 
         return Ok(panel);
     }

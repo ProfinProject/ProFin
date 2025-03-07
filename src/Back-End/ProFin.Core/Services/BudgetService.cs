@@ -25,7 +25,7 @@ namespace ProFin.Core.Services
                 return Enumerable.Empty<Budget>();
 
             if (_userService.IsAdmin())
-                return await _budgetRepository.GetAll();
+                return await _budgetRepository.GetAll(includes: "CategoryTransaction");
 
             Expression<Func<Budget, bool>> filter = x => x.UserId == _userService.GetId().Value;
             return await _budgetRepository.GetAll(includes: "CategoryTransaction", expression: filter);

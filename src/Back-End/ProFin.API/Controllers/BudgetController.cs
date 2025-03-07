@@ -43,6 +43,8 @@ namespace ProFin.API.Controllers
                 return CustomResponse(ModelState);
             }
 
+            budgetViewModel.UserId = new Guid().ToString();
+
             var budget = mapper.Map<Budget>(budgetViewModel);
             await budgetService.Insert(budget);
 

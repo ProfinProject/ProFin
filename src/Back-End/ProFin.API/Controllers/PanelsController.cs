@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using ProFin.Core.Interfaces.Repositories;
+﻿using Microsoft.AspNetCore.Mvc;
 using ProFin.Core.Interfaces.Services;
 using ProFin.Core.Models;
 

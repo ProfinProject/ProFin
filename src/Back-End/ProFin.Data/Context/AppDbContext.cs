@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ProFin.Core.Interfaces;
 using ProFin.Core.Models;
 
 namespace ProFin.Data.Context

@@ -19,7 +19,7 @@ namespace ProFin.API.Controllers
 
         protected bool IsValid()
         {
-            return _notifier.HasNotification() == false;
+            return !_notifier.HasNotification();
         }
 
         protected ActionResult CustomResponse(object result = null)

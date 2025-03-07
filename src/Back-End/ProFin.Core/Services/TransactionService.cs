@@ -30,7 +30,7 @@ namespace ProFin.Core.Services
 
             if (!ExecuteValidation(new TransactionEntityValidation(), transactionEntity)) return;
 
-            if (await _categoryService.EnsureValidPermissionCategory(transactionEntity.CategoryFinancialTransactionId) == false)
+            if (!await _categoryService.EnsureValidPermissionCategory(transactionEntity.CategoryFinancialTransactionId))
             {
                 Notifie("Categoria inexistente");
                 return;
@@ -49,10 +49,10 @@ namespace ProFin.Core.Services
                 return;
             }
 
-            if (!ExecuteValidation(new UpdateTransactionValidation(_userService.GetId().GetValueOrDefault()),
+            if (!ExecuteValidation(new UpdateTransactionValidation(_userService.GetId().GetValueOrDefault(), _userService.IsAdmin()),
                 transactionEntity)) return;
 
-            if (await _categoryService.EnsureValidPermissionCategory(transactionEntity.CategoryFinancialTransactionId) == false)
+            if (!await _categoryService.EnsureValidPermissionCategory(transactionEntity.CategoryFinancialTransactionId))
             {
                 Notifie("Categoria inexistente");
                 return;
@@ -80,7 +80,7 @@ namespace ProFin.Core.Services
 
         public async Task<IEnumerable<FinancialTransaction>> GetSince(DateTime startedDate)
         {
-            if (_userService.IsAuthenticated() == false)
+            if (!_userService.IsAuthenticated())
                 return Enumerable.Empty<FinancialTransaction>();
 
             if (_userService.IsAdmin())

@@ -69,8 +69,8 @@ export class FinancialTransactionFormComponent extends FormBaseComponent impleme
 
   private loadCategories(): void {
     this.categoryService.getCategories().subscribe({
-      next: (categories) => {
-        this.categories = categories;
+      next: (categories: any) => {
+        this.categories = categories.data;
         if (categories.length === 0) {
           this.errorMessage = 'Nenhuma categoria encontrada.';
         }

@@ -101,7 +101,7 @@ export class TransactionsReportComponent implements OnInit {
 
     this.categoryService.getCategories()
       .subscribe({
-        next: (response) => this.processCategories(response),
+        next: (response: any) => this.processCategories(response.data),
         error: (error) => this.processFail(error) // Passa o erro para processFail
       })
 

@@ -18,10 +18,10 @@ public class CategoryTransactionController(
         ) : MainController(notifier)
 {
     [HttpGet]
-    public async Task<IEnumerable<CategoryTransactionViewModel>> GetAll()
+    public async Task<ActionResult<IEnumerable<CategoryTransactionViewModel>>> GetAll()
     {
         var result = mapper.Map<IEnumerable<CategoryTransactionViewModel>>(await categoryService.GetAll());
-        return result; //TODO alterar para custom response
+        return CustomResponse(result);
     }
 
     [HttpGet("{id:guid}")]
@@ -31,7 +31,7 @@ public class CategoryTransactionController(
 
         if (transaction == null) return NotFound();
 
-        return transaction; //TODO alterar para custom response
+        return CustomResponse(transaction);
     }
 
     [HttpPost]

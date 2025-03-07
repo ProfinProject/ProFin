@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartData, ChartOptions, ChartType } from 'chart.js';
+import { ChartOptions, ChartType } from 'chart.js';
 import { ReportsService } from '../services/reports.service';
-import { CategoryService } from '../../category/services/categories.service';
-import { ToastrService } from 'ngx-toastr';
 import { CategoryTransactionReport, TransactionReport } from '../models/transaction-report';
 import { GroupedReports } from '../models/grouped-reports';
 import { ValueFormater } from '../../pipes/ValueFormater.pipe';

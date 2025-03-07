@@ -124,9 +124,12 @@ namespace ProFin.Core.Services
             return expression;
         }
 
-        public async Task<IEnumerable<FinancialTransaction>> GetAll(Dictionary<string, string> filters)
+        public async Task<IEnumerable<FinancialTransaction>> GetAll(Dictionary<string, string> filters = null)
         {
-            Expression<Func<FinancialTransaction, bool>> expression = GetExpresionFilter(filters);
+            Expression<Func<FinancialTransaction, bool>> expression = null;
+            if (filters is not null)
+                expression = GetExpresionFilter(filters);
+
             if (!_userService.IsAuthenticated())
                 return Enumerable.Empty<FinancialTransaction>();
 

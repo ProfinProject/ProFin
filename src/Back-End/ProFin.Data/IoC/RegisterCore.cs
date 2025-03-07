@@ -51,7 +51,6 @@ namespace ProFin.Data.IoC
             builder.Services.AddScoped<IBudgetRepository, BudgetRepository>();
             builder.Services.AddScoped<ICategoryTransactionRepository, CategoryTransactionRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
-            builder.Services.AddScoped<IPanelRepository, PanelRepository>();
 
             return builder;
         }
@@ -63,6 +62,7 @@ namespace ProFin.Data.IoC
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IBudgetService, BudgetService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IPanelService, PanelService>();
             builder.Services.AddHttpContextAccessor();
 
             return builder;

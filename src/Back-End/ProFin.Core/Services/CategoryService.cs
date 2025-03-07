@@ -19,7 +19,7 @@ namespace ProFin.Core.Services
         }
         public async Task<IEnumerable<CategoryFinancialTransaction>> GetAll()
         {
-            if (_userService.IsAuthenticated() == false)
+            if (!_userService.IsAuthenticated())
                 return Enumerable.Empty<CategoryFinancialTransaction>();
 
             if (_userService.IsAdmin())
@@ -32,7 +32,7 @@ namespace ProFin.Core.Services
 
         public async Task<CategoryFinancialTransaction> GetById(Guid id)
         {
-            if (_userService.IsAuthenticated() == false)
+            if (!_userService.IsAuthenticated())
                 return null;
 
             if (_userService.IsAdmin())
@@ -47,7 +47,7 @@ namespace ProFin.Core.Services
 
         public async Task Insert(CategoryFinancialTransaction categoryFinancialTransaction)
         {
-            if (_userService.IsAuthenticated() == false)
+            if (!_userService.IsAuthenticated())
             {
                 Notifie("Categoria só pode ser adcionada por um usuário autenticado");
                 return;
@@ -62,13 +62,13 @@ namespace ProFin.Core.Services
 
         public async Task Update(CategoryFinancialTransaction categoryFinancialTransaction)
         {
-            if (_userService.IsAuthenticated() == false)
+            if (!_userService.IsAuthenticated())
             {
                 Notifie("Categoria só pode ser alterada por um usuário autenticado");
                 return;
             }
 
-            if (!ExecuteValidation(new UpdateCategoryFinancialTransactionEntityValidation(_userService.GetId().GetValueOrDefault()),
+            if (!ExecuteValidation(new UpdateCategoryFinancialTransactionEntityValidation(_userService.GetId().GetValueOrDefault(), _userService.IsAdmin()),
                 categoryFinancialTransaction)) return;
 
             await _categoryTransactionRepository.Update(categoryFinancialTransaction);
@@ -91,10 +91,16 @@ namespace ProFin.Core.Services
 
         public async Task<bool> EnsureValidPermissionCategory(Guid categoryId)
         {
-            Expression<Func<CategoryFinancialTransaction, bool>> filter = x => x.UserId == _userService.GetId().Value || x.IsPattern;
-            var category = await _categoryTransactionRepository.GetById(categoryId, expression: filter);
+            if (_userService.IsAdmin())
+            {
+                var category = await _categoryTransactionRepository.GetById(categoryId);
+                return category != null;
+            }
 
-            return category != null;
+            Expression<Func<CategoryFinancialTransaction, bool>> filter = x => x.UserId == _userService.GetId().Value;
+            var userCategory = await _categoryTransactionRepository.GetById(categoryId, expression: filter);
+
+            return userCategory != null;
         }
 
         public void Dispose()

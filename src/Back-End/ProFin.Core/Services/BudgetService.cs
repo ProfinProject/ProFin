@@ -113,7 +113,7 @@ namespace ProFin.Core.Services
                 return;
             }
 
-            if (!ExecuteValidation(new UpdateBudgetValidation(_userService.GetId().GetValueOrDefault()),
+            if (!ExecuteValidation(new UpdateBudgetValidation(_userService.GetId().GetValueOrDefault(), _userService.IsAdmin()),
                budget)) return;
 
             await _budgetRepository.Delete(budget);

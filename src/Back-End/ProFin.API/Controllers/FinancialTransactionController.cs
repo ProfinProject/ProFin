@@ -8,15 +8,15 @@ using ProFin.Core.Models;
 namespace ProFin.API.Controllers
 {
     public class FinancialTransactionController(
-        IFinancialTransactionRepository transactionRepository,
-        ICategoryTransactionRepository categoryTransactionRepository,
-        IMapper mapper,
-        INotifier notifier,
-        IFinancialTransactionService financialTransactionService
-        ) : MainController(notifier)
+            IFinancialTransactionRepository transactionRepository,
+            ICategoryTransactionRepository categoryTransactionRepository,
+            IMapper mapper,
+            INotifier notifier,
+            IFinancialTransactionService financialTransactionService
+            ) : MainController(notifier)
     {
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TransactionViewModel>>> GetAll([FromQuery]Dictionary<string, string> filters = null)
+        public async Task<ActionResult<IEnumerable<TransactionViewModel>>> GetAll([FromQuery] Dictionary<string, string> filters = null)
         {
             var result = mapper.Map<IEnumerable<TransactionViewModel>>(await financialTransactionService.GetAll(filters));
             return CustomResponse(result.ToList());
@@ -36,6 +36,8 @@ namespace ProFin.API.Controllers
         public async Task<ActionResult<TransactionViewModel>> Insert(TransactionViewModel transactionViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            transactionViewModel.UserId = Guid.NewGuid().ToString();
 
             var transaction = mapper.Map<FinancialTransaction>(transactionViewModel);
 

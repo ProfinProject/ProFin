@@ -13,8 +13,7 @@ public class CategoryTransactionController(
         ICategoryTransactionRepository categoryCategoryRepository,
         IMapper mapper,
         INotifier notifier,
-        ICategoryService categoryService,
-        IUserRepository userRepository
+        ICategoryService categoryService
         ) : MainController(notifier)
 {
     [HttpGet]
@@ -38,6 +37,8 @@ public class CategoryTransactionController(
     public async Task<ActionResult<CategoryTransactionViewModel>> Insert(CategoryTransactionViewModel categoryTransactionViewModel)
     {
         if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+        categoryTransactionViewModel.UserId = new Guid().ToString();
 
         var categoryTransaction = mapper.Map<CategoryFinancialTransaction>(categoryTransactionViewModel);
         await categoryService.Insert(categoryTransaction);

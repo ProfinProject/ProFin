@@ -126,19 +126,19 @@ namespace ProFin.Core.Services
 
         public async Task<IEnumerable<FinancialTransaction>> GetAll(Dictionary<string, string> filters = null)
         {
-            Expression<Func<FinancialTransaction, bool>> expression = null;
+            Expression<Func<FinancialTransaction, bool>> filter = x => true;
             if (filters is not null)
-                expression = GetExpresionFilter(filters);
+                filter = GetExpresionFilter(filters);
 
             if (!_userService.IsAuthenticated())
                 return Enumerable.Empty<FinancialTransaction>();
 
             if (_userService.IsAdmin())
-                return await _transactionRepository.GetAll(includes: "CategoryFinancialTransaction", expression);
+                return await _transactionRepository.GetAll(includes: "CategoryFinancialTransaction");
+            var teste = _userService.GetId();
+            filter = filter.And(x => x.UserId == _userService.GetId().Value);
 
-            expression.And(x => x.UserId >= _userService.GetId().Value);
-
-            return await _transactionRepository.GetAll(includes: "CategoryFinancialTransaction", expression);
+            return await _transactionRepository.GetAll(includes: "CategoryFinancialTransaction", expression: filter);
         }
     }
 }

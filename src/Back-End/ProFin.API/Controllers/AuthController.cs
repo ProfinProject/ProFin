@@ -110,7 +110,7 @@ namespace ProFin.API.Controllers
                 SigningCredentials = signingConf,
                 Subject = identityClaims,
                 NotBefore = DateTime.Now,
-                Expires = DateTime.Now.AddMinutes(_jwtSettings.ExpirationHours)
+                Expires = DateTime.Now.AddHours(_jwtSettings.ExpirationHours)
             });
 
             var encodedJwt = handler.WriteToken(securityToken);

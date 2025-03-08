@@ -42,7 +42,8 @@ export class FinancialTransactionFormComponent extends FormBaseComponent impleme
     this.financialTransactionForm = this.fb.group({
       description: ['', Validators.required],
       categoryFinancialTransactionId: ['', Validators.required],
-      value: [0]
+      value: [0],
+      userId: ['']
     });
 
   }
@@ -90,7 +91,8 @@ export class FinancialTransactionFormComponent extends FormBaseComponent impleme
           categoryFinancialTransactionId: financialTransaction.categoryFinancialTransactionId,
           categoryFinancialTransaction: financialTransaction.categoryFinancialTransaction,
           value: financialTransaction.value,
-          description: financialTransaction.description
+          description: financialTransaction.description,
+          userId: financialTransaction.userId
         });
       },
       error: (error) => {
@@ -103,7 +105,8 @@ export class FinancialTransactionFormComponent extends FormBaseComponent impleme
     if (this.financialTransactionForm.valid) {
       const financialTransactionData = {
         ...this.financialTransactionForm.value,
-        categoryTransactionId: this.financialTransactionForm.get('categoryTransactionId')?.value
+        categoryTransactionId: this.financialTransactionForm.get('categoryTransactionId')?.value,
+        userId: this.financialTransactionForm.get('userId')?.value
       };
 
       if (this.isEditing && this.financialTransactionId) {
@@ -111,7 +114,7 @@ export class FinancialTransactionFormComponent extends FormBaseComponent impleme
         this.financialTransactionService.updateFinancialTransaction(this.financialTransactionId, financialTransactionData).subscribe({
           next: () => {
             console.log('Transação financeira atualizado com sucesso');
-            this.router.navigate(['/financial-transaction']);
+            this.router.navigate(['/financial-transaction'], { state: { showSuccessMessage: true } });
           },
           error: (error) => {
             console.error('Erro ao atualizar transação financeira:', error);

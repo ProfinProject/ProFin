@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FinancialTransactionService } from '../../services/financial-transaction.service';
 import { FinancialTransaction } from '../../models/financial-transaction.model';
@@ -9,13 +9,15 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { CategoryService } from '../../../category/services/categories.service';
 import { CategoryTransaction } from '../../models/category-transaction.model';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CurrencyFormatPipe } from '../../../currency-format.pipe'; // Importe o pipe
 @Component({
   selector: 'app-financial-transaction-list',
   templateUrl: './financial-transaction-list.component.html',
   styleUrls: ['./financial-transaction-list.component.scss'],
   standalone: true,
   imports: [CommonModule,
-    ReactiveFormsModule]
+    ReactiveFormsModule,
+    CurrencyFormatPipe]
 })
 export class FinancialTransactionListComponent implements OnInit {
   filterForm: FormGroup;
@@ -23,12 +25,14 @@ export class FinancialTransactionListComponent implements OnInit {
   alerts: Alert[] = [];
   errorMessage: string = '';
   categories: CategoryTransaction[] = [];
-
+  successMessage: string = '';
+  showSuccessMessage: boolean = false;
   constructor(
     private fb: FormBuilder,
     private financialTransactionService: FinancialTransactionService,
     private router: Router,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private route: ActivatedRoute
   ) {
     this.filterForm = this.fb.group({
       filterByCategoryFinancialTransactionId: '',
@@ -42,6 +46,28 @@ export class FinancialTransactionListComponent implements OnInit {
     this.loadFinancialTransactions();
     this.loadAlerts();
     this.loadCategories();
+    const state = window.history.state;
+
+    if (state && state.showSuccessMessage !== undefined)
+      this.successMessage = "Operação realizada com sucesso."
+    else
+      this.successMessage = "";
+    this.clearHistoryState();
+
+    const valor = 77777.77;
+
+
+
+    console.log(this.formatador.format(valor));  // R$ 77.777,77
+  }
+
+  formatador = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL'
+  });
+
+  clearHistoryState(): void {
+    window.history.replaceState({}, document.title, window.location.href);
   }
 
   private loadCategories(): void {
@@ -65,6 +91,8 @@ export class FinancialTransactionListComponent implements OnInit {
         if (response.success) {
           this.financialTransactions = response.data;
           console.log(response.data)
+
+
         } else {
           console.error("Erro na resposta da API:", response);
         }
@@ -93,10 +121,10 @@ export class FinancialTransactionListComponent implements OnInit {
     if (confirm('Tem certeza que deseja excluir esta transação financeira?')) {
       this.financialTransactionService.deleteFinancialTransaction(id).subscribe({
         next: () => {
-          this.loadFinancialTransactions(); // Recarrega a lista após excluir
+          this.loadFinancialTransactions();
+          this.successMessage = "Operação realizada com sucesso."
         },
         error: (error) => {
-          console.error('Erro ao excluir transação financeira:', error);
           this.errorMessage = 'Erro ao excluir transação financeira. Por favor, tente novamente.';
         }
       });
@@ -122,8 +150,6 @@ export class FinancialTransactionListComponent implements OnInit {
       ...this.filterForm.value,
     };
 
-    console.log("PARAMNS", filterFormParams);
-
     this.financialTransactionService.searchFinancialTransaction(filterFormParams).subscribe({
       next: (response: ApiResponse<FinancialTransaction[]>) => {
         if (response.success) {
@@ -141,6 +167,10 @@ export class FinancialTransactionListComponent implements OnInit {
         }
       }
     });
+  }
+
+  closeMessage() {
+    this.successMessage = '';
   }
 
 }

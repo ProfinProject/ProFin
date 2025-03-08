@@ -5,6 +5,11 @@
     {{ errorMessage }}
   </div>
 
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+    <button (click)="closeMessage()" class="close-btn">&times;</button>
+  </div>
+
 
   <form [formGroup]="filterForm">
     <div class="row mb-3">
@@ -69,7 +74,7 @@
       <tr *ngFor="let financialTransaction of financialTransactions">
         <td>{{ financialTransaction.description }}</td>
         <td>{{ financialTransaction.categoryFinancialTransaction.name }}</td>
-        <td>{{ financialTransaction.value | currency:'BRL':'symbol':'1.2-2' }}</td>
+        <td>{{ financialTransaction.value | currencyFormat:'BRL':true:'1.2-2' }}</td>
         <td>{{ financialTransaction.transactionType === 'E' ? 'Entrada' : 'Saída' }}</td>
         <td>{{ financialTransaction.createdDate }}</td>
         <td>
